@@ -1,0 +1,10 @@
+# Pack manifest — declares the config schema and profiles the agile pack understands.
+# Read by scripts/packs.sh config for resolution/validation; humans read the README.
+name: agile
+default_profile: scrum
+profiles: [scrum, kanban]
+config:
+  profile:     { default: scrum, one_of: [scrum|kanban] }
+  tracker:     { default: local, one_of: [jira|local|none] }
+  space:       { note: "backlog space name — resolves <space> in the skills" }
+  mirror-repo: { note: "<owner>/<repo> holding the backlog mirror; required when tracker=jira" }

@@ -1,0 +1,9 @@
+# Copy this block under packs.agile in your instance's .packs.yaml, then edit.
+# scripts/packs.sh config agile  prints the resolved values (profile defaults filled in).
+packs:
+  agile:
+    config:
+      profile: scrum          # scrum (full harness) | kanban (lightweight, pull-based)
+      tracker: jira           # jira | local | none
+      space: acme             # resolves <space> in the skills
+      mirror-repo: you/scrum  # <owner>/<repo> for the backlog mirror (jira only)

@@ -29,18 +29,37 @@ First-party: authored in [mova77/meta-os](https://github.com/mova77/meta-os) (se
 `PROVENANCE.md` history) and moved here unchanged when the framework core was slimmed
 to generic-only skills. MIT.
 
-## Parameters
+## Configure it
 
-Set these in your instance's `.packs.yaml` under `packs.agile.config:` (contract:
-the framework's `systems/packs.md`, "Parameterisation"). Skills resolve them
-config-first; placeholders like `<SPACE>` in the skill docs name these keys.
+The method lives in the pack; your choices live in your instance. Copy the block from
+[`config.example.yaml`](config.example.yaml) under `packs.agile` in your `.packs.yaml`
+and edit. `scripts/packs.sh config agile` prints the resolved values (profile defaults
+filled in); the skills resolve config-first, so the `<space>` / `<owner>/<scrum-repo>`
+placeholders in the docs come from here.
 
 | Key | Meaning | Default |
 |-----|---------|---------|
-| `space` | Your backlog space name (`<SPACE>`) | — (required for ceremonies) |
+| `profile` | `scrum` (full harness) \| `kanban` (lightweight, pull-based) | `scrum` |
 | `tracker` | `jira` \| `local` \| `none` | `local` |
-| `mirror-repo` | `<owner>/<scrum-repo>` holding the backlog mirror | — (required for `jira`) |
+| `space` | backlog space name (resolves `<space>`) | — |
+| `mirror-repo` | `<owner>/<repo>` holding the mirror | required when `tracker: jira` |
 
-Methodology **profiles** (e.g. a lightweight Kanban alternative to the full Scrum
-harness) are planned; the method itself stays in the pack, your choices stay in your
-instance — changing them is an edit to instance data, never a fork of this repo.
+### Profiles
+
+A **profile** selects the whole methodology — `profiles/<profile>.md` sets the authority
+order, flow, discipline gates, and cadence. Two ship today:
+
+- **`scrum`** — timeboxed sprints, ceremonies, tracker-backed backlog (the full harness;
+  what the skills document in detail).
+- **`kanban`** — continuous pull-based flow, no sprints or ceremonies, keeps the
+  branch/verify/review gates. For solo work, research instances, or low-overhead estates.
+
+Choosing a methodology is one line (`profile: kanban`); changing it is an edit to
+instance data, never a fork of this repo.
+
+### Overrides
+
+To change a single convention without switching profiles, add a `conventions-override.md`
+in your instance (path documented in `systems/packs.md`); the skills read the active
+profile first, then apply your overrides on top (instance wins, additive). `pack.yaml`
+declares the config schema `packs.sh config` validates against.

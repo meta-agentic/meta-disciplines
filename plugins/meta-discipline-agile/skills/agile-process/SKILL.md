@@ -5,14 +5,33 @@ description: "Operative reference for our Scrum process: backlog.json↔Jira rec
 
 # Agile Process
 
-The **operative playbook** for running this Agile/SCRUM project. CLAUDE.md is the
+The **operative playbook** for running this Agile project. CLAUDE.md is the
 always-on contract (source-of-truth pointers, hard-rule one-liners, engineering
 conventions); this skill is the on-demand *how* — load it whenever you do process
 work and follow the relevant reference, so the ceremony isn't re-derived each time.
 
-**Authority order:** Jira (project <space>) → `scrum/<space>/backlog.json` (Jira-derived mirror,
-in the private **`<owner>/<scrum-repo>`** repo) → this skill → CLAUDE.md invariants. On any state
-conflict, **Jira wins**. platform code PRs do **not** edit `scrum/**`.
+## Configuration & profile (read first)
+
+This pack is **parameterised** — it carries the method, your instance carries the
+choices. Before acting, resolve the config from the instance's `.packs.yaml`
+(`scripts/packs.sh config agile` prints the resolved values):
+
+- **`profile`** (`scrum` default | `kanban`) — selects the methodology. Load the active
+  profile's conventions from this pack's `profiles/<profile>.md`; it sets the authority
+  order, flow, gates, and cadence. **The procedures below are the `scrum` profile.** For
+  `kanban`, follow `profiles/kanban.md` and use only the transition/hygiene procedures
+  here, skipping the sprint/ceremony ones.
+- **`tracker`** (`jira` | `local` | `none`), **`space`**, **`mirror-repo`** — resolve the
+  `<space>` / `<owner>/<scrum-repo>` placeholders used throughout. With `tracker: local`
+  the `backlog.json` mirror *is* the top authority (no external tracker); with
+  `tracker: none` there is no backlog file.
+
+An instance may override any convention — see "Overrides" in the pack README.
+
+**Authority order (scrum profile):** `<tracker>` (project `<space>`) →
+`<owner>/<scrum-repo>`'s `backlog.json` mirror → this skill → CLAUDE.md invariants. On
+any state conflict the **tracker wins** (for `tracker: local`, the `backlog.json` is that
+top authority). Platform code PRs do **not** edit the mirror.
 
 ## When to use
 - Adding/refining/reconciling backlog items, or running `sync.py`.
