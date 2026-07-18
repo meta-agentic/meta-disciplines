@@ -1,0 +1,29 @@
+# advanced-math pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config
+# advanced-math` resolves instance .packs.yaml `config:` over these and validates enums.
+version: 1
+name: advanced-math
+description: "Advanced-mathematics discipline: proof rigor, quantitative sanity-checking, and hypercomplex/geometric-algebra modeling."
+provenance: first-party
+license: MIT
+
+config:
+  profile:
+    default: applied
+    one_of: pure | applied
+    doc: "Rigor bundle: pure = proof-first; applied = computation + sanity-checking emphasis."
+  notation:
+    default: latex
+    one_of: latex | unicode | ascii
+    doc: "How math is rendered in outputs."
+  cas:
+    default: sympy
+    one_of: sympy | sage | none
+    doc: "Computer-algebra system used to verify symbolic results; none = hand-derivation only."
+  sig_figs:
+    default: 3
+    doc: "Default significant figures for numeric answers (integer)."
+
+profiles:
+  pure: profiles/pure.md
+  applied: profiles/applied.md

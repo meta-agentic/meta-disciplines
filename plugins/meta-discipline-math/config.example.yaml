@@ -1,0 +1,8 @@
+# Copy this block into your instance's .packs.yaml under packs: advanced-math: config:
+packs:
+  advanced-math:
+    config:
+      profile: applied      # pure | applied
+      notation: latex       # latex | unicode | ascii
+      cas: sympy            # sympy | sage | none
+      sig_figs: 3
