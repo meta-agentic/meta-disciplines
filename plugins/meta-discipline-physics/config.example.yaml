@@ -1,0 +1,11 @@
+# Copy this block into your instance's .packs.yaml under packs: physics: config:
+# Also add the `advanced-math` pack — physics reuses its dimensional-analysis skill.
+packs:
+  advanced-math: {}
+  physics:
+    config:
+      profile: applied      # pure | applied
+      units: SI             # SI | gaussian | natural
+      notation: latex       # latex | unicode | ascii
+      cas: sympy            # sympy | sage | none
+      sig_figs: 3
