@@ -3,7 +3,7 @@
 # physics` resolves instance .packs.yaml `config:` over these and validates enums.
 version: 1
 name: physics
-description: "Physics discipline (11 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error) plus branch disciplines across classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, and relativity — each emitting a checkable ledger. Coverage anchored on the MIT OCW Course 8 curriculum."
+description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle) — each emitting a checkable ledger. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
 provenance: first-party
 license: MIT
 

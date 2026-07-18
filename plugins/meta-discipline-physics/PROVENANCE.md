@@ -13,6 +13,11 @@
 | `quantum-mechanics` | first-party (mova77), authored for this pack | MIT |
 | `statistical-mechanics-and-thermodynamics` | first-party (mova77), authored for this pack | MIT |
 | `special-and-general-relativity` | first-party (mova77), authored for this pack | MIT |
+| `quantum-field-theory` | first-party (mova77), authored for this pack | MIT |
+| `particle-physics-and-the-standard-model` | first-party (mova77), authored for this pack | MIT |
+| `relativistic-kinematics-and-collisions` | first-party (mova77), authored for this pack | MIT |
+| `accelerator-physics` | first-party (mova77), authored for this pack | MIT |
+| `cosmology-and-astroparticle-physics` | first-party (mova77), authored for this pack | MIT |
 
 All content is original and **public-safe by construction** — no instance data (repo
 names, trackers, paths, promoted knowledge). The discipline draws on standard physics
@@ -20,15 +25,28 @@ practice; no third-party code or text is vendored.
 
 ## Selection of coverage
 
-The *breadth* of branches covered was chosen by anchoring on the **MIT OpenCourseWare
-Course 8 (Physics)** curriculum (classical mechanics, electromagnetism, waves & vibrations,
-quantum mechanics, statistical mechanics & thermodynamics, relativity, and their graduate
-extensions) — used purely as a **map of which areas of physics to cover**. No OCW course
-text, lecture notes, figures, problem sets, or any MIT- or third-party-specific material is
-copied, quoted, or vendored. Every skill is original prose over standard, textbook physics,
-and is deliberately unit-system- and CAS-agnostic (`config.units`, `config.cas`). The
-method-spine skills encode cross-cutting physical reasoning (symmetry, limits, estimation,
-modeling, error analysis) that the standard training canon treats as core method.
+The *breadth* of branches covered was chosen by anchoring on two authoritative reference
+taxonomies, each used purely as a **map of which areas of physics to cover**:
+
+- The **method spine + branch skills** (11) are anchored on the **MIT OpenCourseWare
+  Course 8 (Physics)** curriculum (classical mechanics, electromagnetism, waves & vibrations,
+  quantum mechanics, statistical mechanics & thermodynamics, relativity, and their graduate
+  extensions).
+- The **advanced / high-energy tier** (5: quantum field theory, particle physics & the
+  Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology &
+  astroparticle physics) is anchored on the **PDG *Review of Particle Physics*** (its review
+  structure as the field taxonomy) and the **CERN Yellow Reports / CERN Accelerator School**.
+  These are named in the relevant skills as authoritative *references* (e.g. checking a
+  branching ratio against the current PDG world-average) — legitimate citation of a reference
+  work, not vendored content.
+
+No OCW/PDG/CERN course text, lecture notes, figures, data tables, problem sets, or any
+third-party-specific material is copied, quoted, or vendored; no specific measured data
+values are hardcoded as if quoting a table. Every skill is original prose over standard,
+textbook physics, and is deliberately unit-system- and CAS-agnostic (`config.units`,
+`config.cas`). The method-spine skills encode cross-cutting physical reasoning (symmetry,
+limits, estimation, modeling, error analysis) that the standard training canon treats as
+core method.
 
 ## Dependency
 

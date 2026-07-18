@@ -16,7 +16,10 @@ physics.
 
 ## Skills
 
-Five **method-spine** skills (cross-cutting physical reasoning) + six **branch** skills.
+Five **method-spine** skills (cross-cutting physical reasoning) + six **branch** skills
+(coverage anchored on MIT OCW Course 8) + five **advanced / high-energy** skills (coverage
+anchored on the PDG *Review of Particle Physics* and the CERN Yellow Reports / Accelerator
+School).
 
 | Skill | Discipline it codifies | Checkable output |
 |-------|------------------------|------------------|
@@ -31,6 +34,16 @@ Five **method-spine** skills (cross-cutting physical reasoning) + six **branch**
 | [`quantum-mechanics`](skills/quantum-mechanics/SKILL.md) | State/operator formalism, observables & eigenvalues, symmetry, correspondence principle. | A normalization/Hermiticity/classical-limit ledger. |
 | [`statistical-mechanics-and-thermodynamics`](skills/statistical-mechanics-and-thermodynamics/SKILL.md) | Ensembles, partition functions, the thermodynamic laws, micro↔macro. | A micro↔macro consistency ledger with limit and extensivity checks. |
 | [`special-and-general-relativity`](skills/special-and-general-relativity/SKILL.md) | Invariance, four-vectors, Lorentz transforms, intervals, the equivalence principle, tensors. | An invariant + Newtonian/c→∞-limit ledger. |
+
+**Advanced / high-energy tier** (anchored on the PDG *Review of Particle Physics* and CERN Yellow Reports):
+
+| Skill | Discipline it codifies | Checkable output |
+|-------|------------------------|------------------|
+| [`quantum-field-theory`](skills/quantum-field-theory/SKILL.md) | Lagrangian densities, path integral, Feynman diagrams, renormalization & running couplings, gauge/Ward identities. | An amplitude & renormalization ledger (dimensions, symmetry factors, Ward/gauge, divergence). |
+| [`particle-physics-and-the-standard-model`](skills/particle-physics-and-the-standard-model/SKILL.md) | SM gauge group & quantum numbers, conservation/selection rules, decay rates & branching ratios. | A process ledger (quantum-number balance, allowed?/force, rate, PDG cross-check). |
+| [`relativistic-kinematics-and-collisions`](skills/relativistic-kinematics-and-collisions/SKILL.md) | Four-momentum conservation, invariant mass, Mandelstam s/t/u, thresholds, phase space. | A kinematics ledger (invariants, s+t+u=Σm², threshold, units). |
+| [`accelerator-physics`](skills/accelerator-physics/SKILL.md) | Beam optics, Twiss/emittance & Liouville, tune, RF/synchrotron, luminosity, synchrotron radiation. | A beam-parameter ledger (emittance invariance, γβ−α²=1, tune, units). |
+| [`cosmology-and-astroparticle-physics`](skills/cosmology-and-astroparticle-physics/SKILL.md) | FLRW & Friedmann equations, density parameters, thermal history, BBN, CMB, dark matter/energy. | A cosmology ledger (Friedmann/scaling, ΣΩ=1, era limits, data check). |
 
 ## The three-part test (why this is a pack)
 
@@ -83,7 +96,7 @@ no third-party content vendored.
   physics:
     repo: https://github.com/meta-aos/meta-os-physics-pack
     ref: main
-    description: "Physics discipline (11 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error) plus branch disciplines — classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity. First-party; reuses advanced-math/dimensional-analysis. Coverage anchored on MIT OCW Course 8."
+    description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle). First-party; reuses advanced-math/dimensional-analysis. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
     provenance: first-party
     license: MIT
     depends: [advanced-math]
