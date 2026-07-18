@@ -1,9 +1,9 @@
-# meta-os-physics-pack
+# meta-discipline-physics
 
 A first-party [meta-os](https://github.com/meta-aos/meta-os) **skill pack** codifying the
 **physics discipline** — not a pile of physics facts, but a *method + a standard of rigor*
 that turns an agent into a competent physical reasoner (per `meta-os/systems/pack-strategy.md`,
-the *Quantitative rigor* wedge). Companion to the [`advanced-math`](https://github.com/meta-aos/meta-os-math-pack)
+the *Quantitative rigor* wedge). Companion to the [`advanced-math`](https://github.com/meta-aos/meta-discipline-math)
 pack, whose `dimensional-analysis` it reuses.
 
 > A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
@@ -79,8 +79,8 @@ vs **applied** (computation + sanity-checking emphasis).
 
 ```bash
 # in a meta-os instance (e.g. mova-os)
-scripts/packs.sh add advanced-math https://github.com/meta-aos/meta-os-math-pack
-scripts/packs.sh add physics       https://github.com/meta-aos/meta-os-physics-pack
+scripts/packs.sh add advanced-math https://github.com/meta-aos/meta-discipline-math
+scripts/packs.sh add physics       https://github.com/meta-aos/meta-discipline-physics
 scripts/packs.sh config physics    # resolve/validate config
 ```
 
@@ -94,7 +94,7 @@ no third-party content vendored.
 
 ```yaml
   physics:
-    repo: https://github.com/meta-aos/meta-os-physics-pack
+    repo: https://github.com/meta-aos/meta-discipline-physics
     ref: main
     description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle). First-party; reuses advanced-math/dimensional-analysis. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
     provenance: first-party
