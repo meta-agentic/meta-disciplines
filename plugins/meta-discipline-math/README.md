@@ -1,6 +1,6 @@
 # meta-discipline-math
 
-A first-party [meta-os](https://github.com/meta-aos/meta-os) **skill pack** codifying the
+A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the
 **advanced-mathematics discipline** — not a pile of math facts, but a *method + a standard
 of rigor* per branch that turns an agent into a competent mathematical practitioner (per
 `meta-os/systems/pack-strategy.md`, the *Quantitative rigor* wedge).
@@ -56,7 +56,7 @@ Profiles (`profiles/*.md`) are named rigor bundles: **pure** (proof-first) vs **
 
 ```bash
 # in a meta-os instance (e.g. mova-os)
-scripts/packs.sh add advanced-math https://github.com/meta-aos/meta-discipline-math
+scripts/packs.sh add advanced-math https://github.com/meta-agentic/meta-discipline-math
 scripts/packs.sh config advanced-math      # resolve/validate config
 ```
 
@@ -73,7 +73,7 @@ commit `6c0411c`. Add under `packs:` (the local `meta-os` checkout must be synce
 
 ```yaml
   advanced-math:
-    repo: https://github.com/meta-aos/meta-discipline-math
+    repo: https://github.com/meta-agentic/meta-discipline-math
     ref: main
     description: "Advanced-mathematics discipline (12 skills): the rigor spine (mathematical-rigor, dimensional-analysis, hypercomplex-and-geometric-algebra) plus per-branch disciplines — calculus-and-analysis, linear-algebra, probability-and-statistics, number-theory, discrete-mathematics, differential-equations, abstract-algebra, complex-analysis, geometry-and-trigonometry. First-party — the quantitative-rigor wedge from pack-strategy."
     provenance: first-party
