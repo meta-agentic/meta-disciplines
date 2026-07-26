@@ -8,6 +8,7 @@ process opinion stays optional.
 |-------|----------------|
 | `skills/agile-process/` | The Scrum harness: `backlog.json` ↔ Jira reconciliation, ceremonies (planning, standup/retro, sprint open/close), story transitions, draft-PR and one-story-one-branch rules |
 | `skills/agile-swarm/` | Multi-lane sprint execution: dependency-free vertical-slice lanes, worktree-isolated leads, engineering-discipline gates, PO-owned merges |
+| `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), and an auditable estimate ledger |
 
 Both skills are parameterized (`<SPACE>`, `<owner>/<scrum-repo>` …) — they carry the
 method, not anyone's estate.
@@ -43,6 +44,7 @@ placeholders in the docs come from here.
 | `tracker` | `jira` \| `local` \| `none` | `local` |
 | `space` | backlog space name (resolves `<space>`) | — |
 | `mirror-repo` | `<owner>/<repo>` holding the mirror | required when `tracker: jira` |
+| `estimation-scale` | `fibonacci` (1·2·3·5·8) \| `t-shirt` \| `linear` | `fibonacci` |
 
 ### Profiles
 

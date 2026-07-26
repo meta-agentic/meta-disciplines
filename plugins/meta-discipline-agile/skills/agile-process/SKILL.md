@@ -51,6 +51,11 @@ For a full **parallel multi-lane sprint run**, use the companion `agile-swarm` s
 | `references/scripts-and-hooks.md` | Catalog of every script (`sync.py`, `prune_ghost_sprints.py`, `miro_sync.py`, `sprint-reconcile.js`) and hook (with what each enforces + bypass), plus known drift to clean up. |
 | `references/agentic-operating-model.md` | Claude Code in the loop: which agents/skills for refinement, architecture, implementation, DoD, review stewardship, long-running & local-bounded sessions, staying current with `main`. |
 
+**Sizing lives in its own skill:** `[[skills/story-estimation/SKILL|story-estimation]]` —
+the extension/intension (complicated vs complex) quadrant, one prescription per quadrant,
+and an auditable estimate ledger. Load it whenever DoR asks for an estimate, or when an
+item is stuck `In Progress` across sprints.
+
 ## Hard rules (mirrored always-on in CLAUDE.md — never break)
 1. **Pre-push gate** — `mvn verify` green before every `git push`; a red root build
    never reaches the remote (`pre-push-verify.sh`).

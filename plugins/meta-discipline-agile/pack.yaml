@@ -8,3 +8,4 @@ config:
   tracker:     { default: local, one_of: [jira|local|none] }
   space:       { note: "backlog space name — resolves <space> in the skills" }
   mirror-repo: { note: "<owner>/<repo> holding the backlog mirror; required when tracker=jira" }
+  estimation-scale: { default: fibonacci, one_of: [fibonacci|t-shirt|linear] }
