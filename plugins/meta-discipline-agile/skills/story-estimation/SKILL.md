@@ -48,12 +48,20 @@ semantics to decide, irreversible choices, feedback loops with other in-flight w
 
 ### The quadrant
 
-Bands below are the `fibonacci` default; see **Configure**.
+Both axes run **−1 → +1** (low → high), origin at the centre, so a placement is a point,
+not a bucket: *"moderately complicated, very complex"* is expressible and
+`(+0.9, +0.2)` is visibly not `(+0.2, +0.9)`. Bands below are the `fibonacci` default;
+see **Configure**.
 
-| | **Low extension** | **High extension** |
+| | **Low extension** (x < 0) | **High extension** (x > 0) |
 |---|---|---|
-| **Low intension** | **Simple** — known change, one place → **1–2** | **Complicated** — known change, many places → **3–5** |
-| **High intension** | **Complex** — one place, answer unknown → **5** | **Complex + broad** → **8** |
+| **High intension** (y > 0) | **Complex** — one place, answer unknown → **5** | **Complex + broad** → **8** |
+| **Low intension** (y < 0) | **Simple** — known change, one place → **1–2** | **Complicated** — known change, many places → **3–5** |
+
+Within a cell, position sets the band: intension carries roughly **twice** the weight of
+extension, because that is what delivery history shows (see *Calibrate*). The derived
+number is **advisory** — the team sets the points. The plot's job is to make the reasoning
+auditable, not to compute an answer.
 
 ### The prescription (why a quadrant beats a number)
 
@@ -98,6 +106,38 @@ and extension is the axis that matters *least* once intension is high. A 100-lin
 that invents a protocol routinely outweighs an 800-line item that applies a known pattern
 in many places. Churn is a weak sanity check; it is never an input.
 
+## Team estimation — planning & refinement
+
+Planning poker with a two-axis ballot instead of a card deck. Same ceremony, strictly more
+information: a card tells you *that* people disagree, a placement tells you **on which
+axis**.
+
+1. **Place blind, reveal together.** Each participant places one point; placements stay
+   hidden until everyone is in. Anti-anchoring is the whole reason poker uses face-down
+   cards — don't lose it.
+2. **Consensus is the median *per axis*, then derive the number from the median point.**
+   **Never take the median of the story points.** The same SP arises from different
+   quadrants — one person's "complex, narrow", another's "complicated, broad" — so an SP
+   median manufactures agreement out of two people who disagree about the nature of the
+   work. Median (not mean) per axis, so one outlier can't drag the estimate.
+3. **Different quadrants → mandatory repoint**, however close the numbers. The quadrants
+   prescribe *different actions* — do it, split, spike, don't commit — and there is no
+   useful average of "split it" and "spike it". Quadrant disagreement is a disagreement
+   about what the work *is*, and it must be talked out before a number means anything.
+4. **Same quadrant, wide spread on one axis → repoint that axis**, and say which:
+   *"we agree it's broad, we disagree on how much is undefined."* That is an actionable
+   prompt; *"you said 3, they said 8"* is not. Default trigger: range > **1.0** on either
+   axis (half the full span) — see `estimation-repoint-threshold`.
+5. **The two most distant placements on the disputed axis speak first**, then everyone
+   re-places. Classic poker's high-and-low-explain rule, aimed at the axis that actually
+   diverged.
+6. **Record every round** — who placed where, per round, with the final agreed point. That
+   *is* the estimate ledger below, multi-user: an estimate whose axis placements aren't
+   recorded is not auditable, whoever produced it.
+
+Converging on the point, not the number, is the reason to run it this way: the artefact of
+the session is a shared *model of the work*, and the story points fall out of it.
+
 ## Checkable output
 
 An estimation pass ships an **estimate ledger** a reviewer can audit:
@@ -125,6 +165,8 @@ fallbacks:
 | Key | Meaning | Default |
 |-----|---------|---------|
 | `estimation-scale` | `fibonacci` (1·2·3·5·8) \| `t-shirt` (S·M·L·XL ≈ the four cells) \| `linear` (1–5) | `fibonacci` |
+| `estimation-consensus` | `median` (per axis) \| `strict` (unanimous quadrant required) | `median` |
+| `estimation-repoint-threshold` | per-axis range above which a repoint is called (axis span is 2.0) | `1.0` |
 
 Under `profile: kanban` the bands still apply, but the *prescriptions* carry the weight —
 there is no sprint to protect, so "do not commit unsplit" becomes "do not pull unsplit".

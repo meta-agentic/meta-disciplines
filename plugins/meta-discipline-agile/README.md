@@ -8,7 +8,7 @@ process opinion stays optional.
 |-------|----------------|
 | `skills/agile-process/` | The Scrum harness: `backlog.json` ↔ Jira reconciliation, ceremonies (planning, standup/retro, sprint open/close), story transitions, draft-PR and one-story-one-branch rules |
 | `skills/agile-swarm/` | Multi-lane sprint execution: dependency-free vertical-slice lanes, worktree-isolated leads, engineering-discipline gates, PO-owned merges |
-| `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), and an auditable estimate ledger |
+| `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), two-axis team estimation for planning/refinement, and an auditable estimate ledger |
 
 Both skills are parameterized (`<SPACE>`, `<owner>/<scrum-repo>` …) — they carry the
 method, not anyone's estate.
@@ -45,6 +45,8 @@ placeholders in the docs come from here.
 | `space` | backlog space name (resolves `<space>`) | — |
 | `mirror-repo` | `<owner>/<repo>` holding the mirror | required when `tracker: jira` |
 | `estimation-scale` | `fibonacci` (1·2·3·5·8) \| `t-shirt` \| `linear` | `fibonacci` |
+| `estimation-consensus` | `median` (per axis) \| `strict` (unanimous quadrant) | `median` |
+| `estimation-repoint-threshold` | per-axis range that triggers a repoint (span is 2.0) | `1.0` |
 
 ### Profiles
 

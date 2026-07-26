@@ -9,3 +9,5 @@ config:
   space:       { note: "backlog space name — resolves <space> in the skills" }
   mirror-repo: { note: "<owner>/<repo> holding the backlog mirror; required when tracker=jira" }
   estimation-scale: { default: fibonacci, one_of: [fibonacci|t-shirt|linear] }
+  estimation-consensus: { default: median, one_of: [median|strict], note: "team estimation: median per axis, or require a unanimous quadrant" }
+  estimation-repoint-threshold: { default: 1.0, note: "per-axis range above which a repoint is called; axis span is 2.0" }
