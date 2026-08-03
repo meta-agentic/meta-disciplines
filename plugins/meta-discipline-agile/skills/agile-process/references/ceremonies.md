@@ -16,9 +16,16 @@ summarised always-on in `.claude/CLAUDE.md`; the full procedure is here.
   green; docs updated; no known defects; **backlog updated** (Jira + `backlog.json`).
 
 ## New story
-Add to `backlog.json` (`epic`, `sprint`, `storyPoints`, `dependencies`, `status`) →
-`createJiraIssue` (clean summary, acceptance criteria, `customfield_10016`) → record
-the returned `jiraId` → for each dependency `createIssueLink` type **"Blocks"**.
+The `id` comes from the space's `idPolicy` (see `backlog-and-reconciliation.md`),
+and *when* you know it differs by tracker:
+
+- **`tracker: local`** — mint first: `backlog.py id alloc <space>` returns the id,
+  then write the item under it. Nothing remote is involved.
+- **`tracker: jira`** — the id does not exist until the issue does. Add the fields
+  (`epic`, `sprint`, `storyPoints`, `dependencies`, `status`) → `createJiraIssue`
+  (clean summary, acceptance criteria, `customfield_10016`) → record the returned
+  key **as the item's `id`** → for each dependency `createIssueLink` type
+  **"Blocks"**. Never pre-assign a key you expect Jira to hand out.
 
 ## Implement a story
 Pick one with **no open `dependencies`**, status `PLANNED`/`REFINED`, in the

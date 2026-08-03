@@ -37,13 +37,35 @@ roster in the `<owner>/<scrum-repo>` repo. Roster is reproducible via
 
 ## `backlog.json` shape
 `{ project, sprints[], epics[], stories[] }`
-- **`jiraId`** (e.g. `<SPACE>-184`) is the **sole identifier**. No legacy `id` field.
-  No `jiraUrl` — derive it as `…/browse/{jiraId}`.
-- `epics[]`: `project, jiraId, title, status, labels` (+ `description`, `color`).
-- `stories[]` (also Feature/Spike/Requirement/etc.): `project, jiraId, title,
+- **`id`** (e.g. `<SPACE>-184`) is the **sole identifier**, and it is
+  tracker-agnostic (ADR-MOS-07). A backlog with no tracker behind it still has
+  ids; where a space *is* tracker-backed, `id` simply carries that tracker's key.
+  No parallel `jiraId` field, and no `jiraUrl` — a Jira-backed space derives it
+  as `…/browse/{id}`.
+- **The shape of an id belongs to the space**, declared in
+  `<space>/_backlog-meta.yaml`:
+
+  ```yaml
+  idPolicy:
+    tracker: local | jira    # who mints the id
+    prefix:  <SPACE>
+    pattern: '^<SPACE>-\d+$'
+    next:    76              # local only, optional — a floor for the allocator
+  ```
+
+  - `local` — the vault mints ids and the space picks its own `pattern`. Peek
+    with `backlog.py id next <space>`, mint with `backlog.py id alloc <space>`.
+    Omit `next` and the allocator just takes the highest id in use plus one, so
+    there is no counter to drift; declare one only to reserve a range.
+  - `jira` — the remote mints `{PROJECT}-{counter}` **at creation**, so the id
+    does not exist until the work item does. Such a space declares no `next`,
+    and local allocation refuses rather than inventing a key.
+  - Declare nothing and the space falls back to `local` with `^<SPACE>-\d+$`.
+- `epics[]`: `project, id, title, status, labels` (+ `description`, `color`).
+- `stories[]` (also Feature/Spike/Requirement/etc.): `project, id, title,
   status, epic, labels` (+ `type` when not a plain Story, `storyPoints`, `sprint`,
   `usecase`, `acceptanceCriteria`, `dependencies`, `actors`, …).
-- `epic` and `dependencies` reference other issues **by `jiraId`**.
+- `epic` and `dependencies` reference other items **by `id`**.
 - **Story points** → Jira field `customfield_10016`.
 - **Sprint** → Jira field `customfield_10020` (multi-valued — see the
   sprint-on-transition rule in `ceremonies.md`).
