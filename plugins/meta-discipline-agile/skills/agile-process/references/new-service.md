@@ -2,7 +2,7 @@
 
 The design swarm (for a new service or major capability) and the 5-epic skeleton
 that every platform microservice is seeded with. Default to **design-only**; seed the
-skeleton into Jira + `backlog.json` only when explicitly authorised.
+skeleton into the backlog mirror only when explicitly authorised.
 
 ## Architect a new service or major capability (design swarm)
 Before seeding a skeleton, run a multi-agent design swarm to produce the
@@ -21,18 +21,22 @@ architecture, exploiting Claude Code sub-agents.
    RATIFY/OBJECT and converge. R3: the orchestrator adjudicates the residuals. (If
    `SendMessage` is unavailable, re-spawn each agent with the others' positions
    injected — the cross-pollination, not session continuity, is what matters.)
-3. **Record** three artifacts: `docs/adr/ADR-{SCOPE}-NN-…` (house style, decisions
-   `D1..Dn`, Open Decisions → Jira); a buildable design
+3. **Record** three artifacts: `<mirror-repo>/{space}/wiki/adr/ADR-{SCOPE}-NN-…` (house
+   style, decisions `D1..Dn`, unresolved items as an **Open Decision** section inside
+   the ADR itself — resolved later by a PO-ruling addendum appended to the same file;
+   there's no separate issue type to file them under); a buildable design
    `docs/spikes/{SCOPE}-SPIKE-S0-…` (modules, sealed domain model, pipeline, ports,
    Kafka event/topic map, the `{SCOPE}` 5-epic skeleton, SLOs, risks); and the
-   consensus trace `docs/swarm/{SCOPE}-design-swarm-consensus.md`. Index the ADR in
-   `docs/adr/README.md`.
+   consensus trace `docs/swarm/{SCOPE}-design-swarm-consensus.md`. The ADR is
+   discoverable via its space's `<mirror-repo>/{space}/wiki/adr/_index.md`, not a
+   separate README.
 4. **Default to design-only**; seed the skeleton only when explicitly authorised —
    then follow **New microservice** below.
 
 ## New microservice — the 5-epic skeleton
-Prepopulate the project backlog (Jira + `backlog.json`) so every service aligns and
-never drifts. For prefix `{PRJ}` (e.g. `PLD`):
+Prepopulate the backlog mirror (`<mirror-repo>/{prj}/raw/`, one file per epic —
+`<tooling> id alloc {prj}` for each) so every service aligns and never drifts. For
+prefix `{PRJ}` (e.g. `PLD`):
 
 - `{PRJ}-E1` **Platform Foundation** — scaffold the **four-module in-service hexagon**
   (`{prj}-domain`, `-api`, `-persistence`, `-rest`) plus the centralized

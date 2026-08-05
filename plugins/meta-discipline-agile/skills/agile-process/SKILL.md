@@ -1,6 +1,6 @@
 ---
 name: "Agile Process"
-description: "Operative reference for our Scrum process: backlog.json↔Jira reconciliation (sync.py), ceremonies (new/implement story, sprint open/close, daily retro/standup, status transitions, draft-PR & one-story-one-branch rules), the new-service design swarm + 5-epic skeleton, the script & hook catalog, and the agentic operating model. Load it for ANY backlog, sprint, ceremony, reconciliation, story-transition, retrospective, or 'how do we do X in our process' task. The always-on invariants (engineering conventions, hard gates) stay in CLAUDE.md; this skill holds the procedural detail."
+description: "Operative reference for our Scrum process: the backlog model (a monolith mirror or a per-item store, driven by a declared `<tooling>` CLI), ceremonies (new/implement story, sprint open/close, daily retro/standup, status transitions, draft-PR & one-story-one-branch rules), the new-service design swarm + 5-epic skeleton, the script & hook catalog, and the agentic operating model. Load it for ANY backlog, sprint, ceremony, story-transition, retrospective, or 'how do we do X in our process' task. The always-on invariants (engineering conventions, hard gates) stay in CLAUDE.md; this skill holds the procedural detail."
 ---
 
 # Agile Process
@@ -22,19 +22,30 @@ choices. Before acting, resolve the config from the instance's `.packs.yaml`
   `kanban`, follow `profiles/kanban.md` and use only the transition/hygiene procedures
   here, skipping the sprint/ceremony ones.
 - **`tracker`** (`jira` | `local` | `none`), **`space`**, **`mirror-repo`** — resolve the
-  `<space>` / `<owner>/<scrum-repo>` placeholders used throughout. With `tracker: local`
-  the `backlog.json` mirror *is* the top authority (no external tracker); with
-  `tracker: none` there is no backlog file.
+  `<space>` / mirror-repo placeholders used throughout. With `tracker: local` the
+  mirror *is* the top authority (no external tracker); with `tracker: none` there is
+  no backlog file. `tracker: local` splits further on **`backlog-layout`**: `monolith`
+  (a single `backlog.json`-style file, tracker-derived) or `per-item` (one file per
+  work item, e.g. `<mirror-repo>/<space>/{raw,wiki,output}/<KEY>.md`). **The
+  procedures in `ceremonies.md` and `backlog-and-reconciliation.md` describe the
+  `per-item` layout**; a `monolith` instance follows the same ceremony *names* but
+  different mechanics — adapt the tool calls to whatever `tooling` your `.packs.yaml`
+  points at.
+- **`sprint-files`**, **`tooling`**, **`ceremony-home`**, **`spaces`** — `per-item`-only
+  keys: the sprint-record path template, the CLI that mutates the backlog, where
+  retro/standup/planning records live (a `scrum/` tree for `monolith`, an instance
+  memory path for `per-item`), and the list of space keys.
 
 An instance may override any convention — see "Overrides" in the pack README.
 
-**Authority order (scrum profile):** `<tracker>` (project `<space>`) →
-`<owner>/<scrum-repo>`'s `backlog.json` mirror → this skill → CLAUDE.md invariants. On
-any state conflict the **tracker wins** (for `tracker: local`, the `backlog.json` is that
-top authority). Platform code PRs do **not** edit the mirror.
+**Authority order (scrum profile):** `<tracker>` (project `<space>`) → the backlog
+mirror (`mirror-repo`, in whichever `backlog-layout` this instance uses) → this skill
+→ CLAUDE.md invariants. On any state conflict the **tracker wins** (for `tracker:
+local`, the mirror is that top authority). Platform code PRs do **not** edit the
+mirror directly except through the declared `tooling`.
 
 ## When to use
-- Adding/refining/reconciling backlog items, or running `sync.py`.
+- Adding/refining backlog items, or checking them with `<tooling> validate`.
 - Implementing a story (branch/transition/Sprint-field/PR discipline).
 - Opening or closing a sprint; writing a daily retro/standup.
 - Architecting/seeding a new service (design swarm + 5-epic skeleton).
@@ -45,10 +56,10 @@ For a full **parallel multi-lane sprint run**, use the companion `agile-swarm` s
 ## References — load the one you need
 | File | Covers |
 |------|--------|
-| `references/backlog-and-reconciliation.md` | Source of truth, system entry points, `backlog.json` shape, status vocabulary (incl. `NO GO`), labels policy, full `sync.py` reconciliation procedure, scrum-doc roles. |
+| `references/backlog-and-reconciliation.md` | Source of truth, system entry points, the per-item shape + tiers, status vocabulary (incl. `NO GO`), labels policy, `<tooling>` reference. |
 | `references/ceremonies.md` | DoR/DoD, new story, implement a story, **sprint-on-transition**, **one-story-one-branch**, **draft-PR**, status transitions, open/close sprint, **daily retro/standup rolling cadence**, commit rule. |
 | `references/new-service.md` | Design swarm (perspectives → consensus → ADR+spike+trace) and the 5-epic microservice skeleton + mandatory tenancy-adoption story. |
-| `references/scripts-and-hooks.md` | Catalog of every script (`sync.py`, `prune_ghost_sprints.py`, `miro_sync.py`, `sprint-reconcile.js`) and hook (with what each enforces + bypass), plus known drift to clean up. |
+| `references/scripts-and-hooks.md` | Catalog of `<tooling>` + the per-item schema gate, remaining Bash/PreToolUse hooks (with what each enforces + bypass), and what a monolith→per-item migration retires. |
 | `references/agentic-operating-model.md` | Claude Code in the loop: which agents/skills for refinement, architecture, implementation, DoD, review stewardship, long-running & local-bounded sessions, staying current with `main`. |
 
 **Sizing lives in its own skill:** `[[skills/story-estimation/SKILL|story-estimation]]` —
@@ -63,10 +74,13 @@ item is stuck `In Progress` across sprints.
 3. **Draft only while a review agent is reviewing** — draft a PR when a background
    review agent is in the loop (so it isn't merged mid-review); if the PO is the sole
    reviewer with no agent running, open it ready. Merge is the PO's call.
-4. **Sprint-on-transition** — set/add `customfield_10020` on every status move.
-5. **Jira is the only backlog write from a code PR** — code PRs touch **Jira only**, never
-   `scrum/**`. The per-space mirror is Jira-derived and lives in the private **`<owner>/<scrum-repo>`**
-   repo (reconciled by `sync.py --apply backlog`). *(Supersedes "sync both sides in the code PR".)*
+4. **Sprint-on-transition** — every status move stamps the current sprint (the
+   `sprint` field, `customfield_10020` under `tracker: jira`) via the declared
+   `tooling` (`<tooling> transition` for `per-item`).
+5. **The declared `tooling` is the only backlog write from a code PR** — a code PR
+   touches the backlog **only** through that tool (`<tooling> transition`/`sprint`
+   for `per-item`), never by hand-editing a mirror file. *(Supersedes "sync both sides
+   in the code PR" — there's no second side to sync once the mirror IS the file.)*
 6. **PO-only sprint close**; **multi-tenancy fail-closed** on every service.
 
 Each rule's full rationale + procedure is in the reference files above; enforcement

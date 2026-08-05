@@ -6,7 +6,7 @@ process opinion stays optional.
 
 | Skill | What it drives |
 |-------|----------------|
-| `skills/agile-process/` | The Scrum harness: `backlog.json` ↔ Jira reconciliation, ceremonies (planning, standup/retro, sprint open/close), story transitions, draft-PR and one-story-one-branch rules |
+| `skills/agile-process/` | The Scrum harness: backlog-of-record ceremonies (planning, standup/retro, sprint open/close), story transitions, draft-PR and one-story-one-branch rules — over a Jira mirror, a `backlog.json` monolith, or a per-item store, per `backlog-layout` |
 | `skills/agile-swarm/` | Multi-lane sprint execution: dependency-free vertical-slice lanes, worktree-isolated leads, engineering-discipline gates, PO-owned merges |
 | `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), two-axis team estimation for planning/refinement, and an auditable estimate ledger |
 
@@ -43,7 +43,9 @@ placeholders in the docs come from here.
 | `profile` | `scrum` (full harness) \| `kanban` (lightweight, pull-based) | `scrum` |
 | `tracker` | `jira` \| `local` \| `none` | `local` |
 | `space` | backlog space name (resolves `<space>`) | — |
-| `mirror-repo` | `<owner>/<repo>` holding the mirror | required when `tracker: jira` |
+| `mirror-repo` | `<owner>/<repo>` holding the mirror | required when `tracker: jira` or `tracker: local` |
+| `backlog-layout` | `monolith` (single `backlog.json`) \| `per-item` (one file per work item) — `tracker: local` only | `monolith` |
+| `sprint-files`, `tooling`, `ceremony-home`, `spaces` | `per-item`-only: sprint-file path template, the CLI that mutates the backlog, where ceremony records live, this instance's space keys | — |
 | `estimation-scale` | `fibonacci` (1·2·3·5·8) \| `t-shirt` \| `linear` | `fibonacci` |
 | `estimation-consensus` | `median` (per axis) \| `strict` (unanimous quadrant) | `median` |
 | `estimation-repoint-threshold` | per-axis range that triggers a repoint (span is 2.0) | `1.0` |

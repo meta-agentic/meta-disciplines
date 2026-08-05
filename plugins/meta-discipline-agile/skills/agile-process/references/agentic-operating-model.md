@@ -13,7 +13,9 @@ full parallel sprint run, use the **`agile-swarm`** skill (multi-lane worktree l
 - **Architecture** — the **design swarm** (see `new-service.md`): perspective
   sub-agents → consensus → ADR + spike + swarm trace.
 - **Sprint planning** — `AskUserQuestion` for scope/sequencing; pick stories with no
-  open `dependencies`; record in `sprint-history.md` + Jira. **Pre-plan for
+  open `dependencies` (`<tooling> query --space <space> --status PLANNED`); record
+  with `<tooling> sprint open` + a note in the sprint-history register at
+  `<ceremony-home>`. **Pre-plan for
   parallelism**: prefer a *diverse basket* of **independent** stories across distinct
   projects / vertical slices (one infra · one backend service · one frontend/SPA)
   over a dependent chain inside one epic — independent slices let N swarms run in N
@@ -30,8 +32,8 @@ full parallel sprint run, use the **`agile-swarm`** skill (multi-lane worktree l
   Then open the PR vs `main` (draft if a review is pending) and transition the story
   to **IN REVIEW**.
 - **Review stewardship (IN REVIEW)** — after opening a PR, `subscribe_pr_activity` to
-  watch CI + review comments and autofix/respond; drive Jira to **DONE** on merge and
-  mirror into `backlog.json`.
+  watch CI + review comments and autofix/respond; `<tooling> transition <key> DONE`
+  on merge.
 - **Long-running work** — run builds/CI/load tests as background `Bash` tasks or a
   `Monitor`; never block on `sleep`. `/loop` for recurring polling. **Bound every long
   task** (the `agent-long-task-timeout` hook enforces it): wrap long-runners in

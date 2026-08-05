@@ -7,3 +7,19 @@ packs:
       tracker: jira           # jira | local | none
       space: acme             # resolves <space> in the skills
       mirror-repo: you/scrum  # <owner>/<repo> for the backlog mirror (jira only)
+
+# tracker: local, per-item layout instead (one file per work item, no external
+# tracker) — one small file per work item beats a monolith mirror once nothing
+# external needs reconciling against it:
+#
+# packs:
+#   agile:
+#     config:
+#       profile: scrum
+#       tracker: local
+#       backlog-layout: per-item
+#       mirror-repo: you/backlog
+#       sprint-files: backlog/<space>/sprints/<SPRINT-ID>.md
+#       tooling: automations/backlog/backlog.py
+#       ceremony-home: memory/wiki
+#       spaces: [acme]

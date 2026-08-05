@@ -1,175 +1,136 @@
-# Backlog model & reconciliation
+# Backlog model — `tracker: local`, `backlog-layout: per-item`
 
-> **Moved:** the per-space backlog mirrors now live in the dedicated **private repo
-> `<owner>/<scrum-repo>`** (Jira-derived). Reconcile there with `python3 scripts/sync.py
-> --space <key> --apply backlog`. Code PRs in **the platform repos no longer edit `scrum/**`** —
-> they record state in Jira only. Paths below are relative to the SCRUM repo.
-
-Source of truth and data shapes for the project backlog, plus the full `sync.py`
-reconciliation procedure. The one-line invariants live always-on in
-`.claude/CLAUDE.md`; this is the detail.
+This reference describes the **per-item** layout: one small file per work item instead
+of a single `backlog.json` mirror. It's what `backlog-layout: per-item` means in
+`pack.yaml`, and it's the shape a `tracker: local` instance moves to once it drops an
+external tracker entirely — **the mirror repo IS the tracker**, no reconciliation loop
+needed because there's no second copy to drift. The one-line invariants live always-on
+in `.claude/CLAUDE.md`; this is the detail. (`tracker: jira` / `backlog-layout: monolith`
+instances: this file doesn't apply to you — see the monolith shape in your own
+instance's config notes instead.)
 
 ## Source of truth
-- **Jira** project **<SPACE>** is authoritative. Site `<site>.atlassian.net`,
-  cloudId `9cc74dd5-1b4f-4ad3-acf2-a809863597db`, projectId `10299`.
-- `scrum/<space>/backlog.json` is a **1:1 local mirror** of every <SPACE> issue. Keep both in
-  sync; on any conflict, **Jira wins**.
-- Jira connector tools: `mcp__*Atlassian_Rovo__*` (the MCP server id varies per
-  session — match on the suffix, e.g. `…getJiraIssue`, `…transitionJiraIssue`).
-- Issue types: Epic · Story · Enabler · Spike · Feature · Bug · Requirement ·
-  Documentation · Open Decision.
+- **Per-item files in `<mirror-repo>`** — one Markdown file per work item at
+  `<mirror-repo>/<space>/{raw,wiki,output}/<KEY>.md`, plus sprints at
+  `<mirror-repo>/<space>/sprints/<SPRINT-ID>.md`. The mirror repo is the **sole
+  authority** for every space it carries. Higher source wins over any tool/skill/
+  ceremony that might disagree.
+- If this instance is migrating off an external tracker, that tracker typically ends
+  up **frozen** — a read-only historical archive that nothing in this process writes
+  to anymore. Record your own instance's freeze decision as your own ADR; this pack
+  doesn't assume which tracker you came from or whether you're headed toward another
+  one later.
+- Backlog tooling: **`<tooling>`** (the path declared in your `.packs.yaml`) —
+  conventionally a small CLI exposing `query · transition · sprint · id · validate ·
+  export` (or your own equivalents). This is the only writer; there is nothing to
+  hand-edit and no bulk-rewrite footgun (see *Editing an item* below).
+- Dashboard/report readers should consume a **derived** export, regenerable on demand,
+  never authoritative. If a dashboard number looks stale, regenerate the export; don't
+  chase the dashboard's own cache.
+- Whatever the old monolith mirror and its reconcile script were, they're **dead** once
+  you're on `per-item` — do not keep reading or writing them out of habit, and archive
+  (don't delete) the old working copy for traceability.
+- **Ceremony records** (retros, standups, planning, sprint history) belong at
+  `<ceremony-home>` (an instance-side memory path) — **not** inside `<mirror-repo>`.
+  Keeping them out of the backlog mirror keeps that repo's diff history pure
+  backlog-state, not process narrative.
 
 ## System entry points (umbrella epics)
 When researching/planning a system, **start from its umbrella epic** (the
-program-level rollup linking that system's child epics via "Relates to"). Ask
-**graphify** for the entry point first; fall back to the `system-entry-points.md`
-roster in the `<owner>/<scrum-repo>` repo. Roster is reproducible via
-`jql = project = <SPACE> AND issuetype = Epic AND labels = umbrella`. A new service's
+program-level rollup linking that system's child epics via a "Relates to"-style
+reference in the epic's body). Ask **graphify** for the entry point first — it can
+index a per-item mirror directly. As a fallback, `<tooling> query --space <space>
+--kind epic` and filter to items whose `labels` carry `umbrella`. A new service's
 5-epic skeleton gets an `umbrella`-labelled epic.
 
-| Sys | Umbrella | Sys | Umbrella | Sys | Umbrella |
-|--|--|--|--|--|--|
-| MPS | <SPACE>-434 | SLR | <SPACE>-439 | AGE | <SPACE>-441 |
-| SMS | <SPACE>-432 | XTR | <SPACE>-440 | ALR | <SPACE>-524 |
-| SFD | <SPACE>-433 | INF | <SPACE>-436 | SMC | <SPACE>-536 |
-| MSOT | <SPACE>-435 | SPA | <SPACE>-437 | TEN | <SPACE>-548 |
-| CLK | <SPACE>-438 | TTC | <SPACE>-602 | | |
+## Tiers — the lifecycle IS the folder
+An item's folder (`raw/`, `wiki/`, `output/`) is not a category, it's a **lifecycle
+state** — this pack's recommended convention is to enforce it with a schema gate so
+`status` and tier can't drift apart:
 
-## `backlog.json` shape
-`{ project, sprints[], epics[], stories[] }`
-- **`id`** (e.g. `<SPACE>-184`) is the **sole identifier**, and it is
-  tracker-agnostic (ADR-MOS-07). A backlog with no tracker behind it still has
-  ids; where a space *is* tracker-backed, `id` simply carries that tracker's key.
-  No parallel `jiraId` field, and no `jiraUrl` — a Jira-backed space derives it
-  as `…/browse/{id}`.
-- **The shape of an id belongs to the space**, declared in
-  `<space>/_backlog-meta.yaml`:
+| Tier | Statuses | Meaning |
+|---|---|---|
+| `raw/` | `TO DO`, `PLANNED`, `REFINED`, `NO GO` | captured, not yet (or no longer) in flight |
+| `wiki/` | `IN PROGRESS`, `IN REVIEW` | refinement/delivery underway — DoR met to get here |
+| `output/` | `DONE` | delivered artifact |
 
-  ```yaml
-  idPolicy:
-    tracker: local | jira    # who mints the id
-    prefix:  <SPACE>
-    pattern: '^<SPACE>-\d+$'
-    next:    76              # local only, optional — a floor for the allocator
-  ```
+`<tooling> transition <key> <status>` should move the file to the right tier **and**
+stamp the sprint in one step — never hand-move a file between tiers. `NO GO` is a
+deliberate terminal status (killed on purpose, lesson recorded) — not drift, never
+"fixed" to a canonical status, kept in `raw/` for traceability.
 
-  - `local` — the vault mints ids and the space picks its own `pattern`. Peek
-    with `backlog.py id next <space>`, mint with `backlog.py id alloc <space>`.
-    Omit `next` and the allocator just takes the highest id in use plus one, so
-    there is no counter to drift; declare one only to reserve a range.
-  - `jira` — the remote mints `{PROJECT}-{counter}` **at creation**, so the id
-    does not exist until the work item does. Such a space declares no `next`,
-    and local allocation refuses rather than inventing a key.
-  - Declare nothing and the space falls back to `local` with `^<SPACE>-\d+$`.
-- `epics[]`: `project, id, title, status, labels` (+ `description`, `color`).
-- `stories[]` (also Feature/Spike/Requirement/etc.): `project, id, title,
-  status, epic, labels` (+ `type` when not a plain Story, `storyPoints`, `sprint`,
-  `usecase`, `acceptanceCriteria`, `dependencies`, `actors`, …).
-- `epic` and `dependencies` reference other items **by `id`**.
-- **Story points** → Jira field `customfield_10016`.
-- **Sprint** → Jira field `customfield_10020` (multi-valued — see the
-  sprint-on-transition rule in `ceremonies.md`).
-- `dependencies` map to Jira **"Blocks"** links: blocker = `inwardIssue`, blocked =
-  `outwardIssue`.
+## Item shape (front-matter)
+An item is discoverable by declaring `kind:` in its front-matter — not by filename
+shape, so a space can name its files however it likes. This pack's recommended
+required set: `id`, `kind`, `status`, `title`. `kind` is one of `story · enabler ·
+spike · bug · epic · action · documentation · task` (extend as your instance needs).
 
-### Editing `backlog.json` — surgical only (never round-trip)
-The file is **not** stored in plain `json.dumps(indent=2, ensure_ascii=False)` form,
-so loading it and re-dumping (or `jq '…' > file`) silently rewrites *every* entry to
-a different-but-equivalent serialization. A one-field change then shows up as a
-~1000-line diff that conflicts with every concurrent branch (this actually happened —
-a single <SPACE>-666 status flip produced a 1020-line diff).
-- **Small change (status, story points, a field):** edit the **exact line** — the
-  Edit tool, or `sed -i '<line>s/"IN REVIEW"/"DONE"/' scrum/<space>/backlog.json`. Then
-  **`git diff --stat scrum/<space>/backlog.json`** to confirm only the intended lines moved
-  (a status flip ≈ 2 lines).
-- **Programmatic / bulk change:** use **`scripts/sync.py`** — it is the only
-  writer that emits the file's canonical format (`_write_backlog`: 2-space indent,
-  `ensure_ascii=False`, trailing newline).
-- **Never** hand-roll a `json.load`/`json.dump` script over the whole file for a
-  small edit. If you genuinely need a large intentional rewrite, prefix the commit
-  with `CLAUDE_BACKLOG_BULK=1`.
-- Enforced at commit time by `backlog-json-guard.sh` (see `scripts-and-hooks.md`):
-  it blocks an oversized or invalid-JSON staged `backlog.json` diff.
+Common fields seen on stories/enablers/spikes (illustrative, not your real data):
 
-### Labels (free-form, advisory)
-Labels mirror Jira's cleaned label set. The project key is present (conventionally
-`labels[0]`); otherwise labels track Jira minus noise — drop sprint tags
-(`sprint-6`), leaked workflow statuses (`refined`), and legacy per-issue/epic/
-decision codes (`SMS-033`, `E-05`, `MSOT-E1`, `ADR-INF-01-OD1`, i.e. ALL-CAPS codes
-containing a digit, allowlisting topical ones like `M2M`/`3D`). Role/topical tags
-(`frontend-engineer`, `observability`, …) are kept. **Label differences vs Jira are
-advisory only — never counted as drift.**
+```yaml
+---
+kind: story
+space: acme
+id: ACME-184
+title: 'Short, clear summary of the change'
+status: TO DO
+project: ACME
+epic: ACME-4                # parent, by id
+storyPoints: 5.0
+estimation:                 # both axes recorded — see story-estimation skill; a bare
+  extension: 0.5            # storyPoints with no estimation: block fails DoR
+  intension: -0.25
+  quadrant: complicated
+priority: P2
+labels: [ACME]
+dependencies: [ACME-21, ACME-26]  # blocking ids, this space's id scheme
+usecase: As a ..., I want ..., so that ...
+actors: [Some Role]
+sprint: ACME-S2              # stamped by `transition`; multi-valued if it spans sprints
+---
 
-### Status vocabulary (canonical)
-`TO DO`, `PLANNED`, `REFINED`, `IN PROGRESS`, `IN REVIEW`, `DONE`. Map Jira
-`To Do/Planned/…/Done` to these.
+## Description
+## Acceptance criteria
+- ...
+```
 
-Plus one **deliberate terminal status `NO GO`** (a real Jira workflow transition the
-PO created): work/decision **killed** — abandoned on purpose with the lesson
-recorded and accepted. It is *not* drift and must **not** be "fixed" to a canonical
-status; treat it like `DONE` for exclusion from active scope but keep it for
-traceability (e.g. <SPACE>-164). `sync.py` / `validate-backlog.sh` accept `NO GO` as
-valid, not flagged.
+- **`id`** is a tracker-agnostic identifier — a space can declare its own shape (e.g.
+  in a `<space>/_backlog-meta.yaml`: `idPolicy: {tracker: local|jira, prefix, pattern,
+  next, filenames}`); a space with no policy falls back to `local` /
+  `^<SPACE>-\d+$`. Mint a new one with `<tooling> id alloc <space>`, never by hand — a
+  local allocator handing out an id already in use is a collision.
+- **`epic`** and **`dependencies`** reference other items **by `id`**, resolved with
+  `<tooling> query --epic …` / reading the target file directly — there is no separate
+  link-graph store to keep in sync.
+- **Status vocabulary (canonical)**: `TO DO`, `PLANNED`, `REFINED`, `IN PROGRESS`,
+  `IN REVIEW`, `DONE`, plus the terminal `NO GO`.
 
-## Reconciliation — `scripts/sync.py`
-Diffs backlog↔Jira (missing either side, status/point/label drift, **and dependency
-"Blocks"-link drift**). **Read-only by default** — reports and exits ≠0 on drift;
-run it before/after backlog edits. Treat only **missing-either-side, status, and
-story-point** drift as real (labels are advisory).
+### Editing an item — surgical, via the tool
+Unlike a monolith `backlog.json`, each item is its own small file, so there's no
+whole-file-reserialize footgun to guard against. Still:
+- **Status / tier / sprint** → `<tooling> transition <key> <status>` (a `--sprint`
+  override and a `--no-sprint` skip are worth supporting). This is the only path that
+  should move the file between tiers correctly — never edit `status:` in place and
+  leave the file sitting in the wrong folder; the schema gate should flag the mismatch.
+- **Everything else** (AC, description, estimate, dependencies) → edit the item's
+  Markdown file directly (front-matter + body).
+- **New item** → allocate an id, write the file into `raw/` with the required fields,
+  done — no separate "register" step.
 
-`scripts/sync_check.py` is a thin alias forwarding to `sync.py` (no args = the
-read-only check).
+## Reconciliation
+Once you're on `per-item`, there's nothing to reconcile the mirror *against* — it's
+the only copy. Two checks matter instead:
 
-### Dependency-link reconciliation (<SPACE>-685)
-`sync.py` diffs the dependency graph: backlog `A.dependencies=[B]` ⇔ Jira "Blocks"
-link `B blocks A` (inwardIssue=B, outwardIssue=A). It reports edges present on one
-side only (real drift), flagging *dangling* edges whose endpoint doesn't exist
-(legacy `IN-*`/`INF-*` codes in `dependencies[]`). Checked only when the Jira side
-carried `issuelinks` (always true live; a lean offline export skips it). The MPS
-sprint-planner reads backlog `dependencies[]`, so keep this graph reconciled or the
-schedule is unreliable.
+- **A schema-gate check** (`<tooling> validate [--space <space>]` or equivalent) —
+  required fields present, `status` valid and matching its tier, `id` matches the
+  space's id policy and filename convention, no duplicate ids, no allocator-counter
+  collision. Worth wiring as the mirror repo's own pre-commit hook too, so a bad item
+  never lands even from outside this tool.
+- **A derived-export step** (`<tooling> export [--space <space>]` or equivalent) —
+  regenerates whatever dashboards read. Run it after a batch of mutations; treat the
+  export as disposable, re-run rather than hand-patch it.
 
-### Apply modes (writes are dry-run previews unless `--yes`)
-- `--set-status KEY=STATUS …` / `--set-desc KEY=@file|text …` with
-  `--to {jira,backlog,both}` — targeted, repeatable.
-- `--apply backlog` mirrors Jira→backlog (status/SP + adds missing issues).
-- `--apply jira` pushes backlog status→Jira for status-drifted issues; for deps,
-  creates missing Jira "Blocks" links from backlog (verifying direction on the first
-  create). `--apply backlog` mirrors Jira-only links into `dependencies[]`.
-- **Jira-wins still governs**: prefer `--apply backlog`.
-
-### Procedure
-1. Export <SPACE> issues — either set `JIRA_EMAIL`+`JIRA_API_TOKEN` (live mode), or
-   build an offline export via the connector (no creds needed):
-   - Call `searchJiraIssuesUsingJql` with `cloudId`,
-     `jql = "project = <SPACE> ORDER BY key ASC"`,
-     `fields = ["status","issuetype","labels","parent","summary","customfield_10016"]`,
-     `maxResults = 100`, `responseContentFormat = "markdown"`. ~5 pages (<SPACE> ≈ 484
-     issues); paginate by passing `.issues.pageInfo.endCursor` as `nextPageToken`
-     until `hasNextPage=false`.
-   - Each page exceeds the tool token cap and is **auto-saved to a file** (path in
-     the error). Don't read it into context — reshape each saved page with `jq`
-     straight to disk:
-     ```
-     jq -c '[.issues.nodes[] | {key, fields: {status:.fields.status.name,
-       issuetype:.fields.issuetype.name, labels:.fields.labels,
-       parent:.fields.parent.key, summary:.fields.summary,
-       customfield_10016:.fields.customfield_10016}}]' "$PAGE" > /tmp/jira_pN.json
-     ```
-     (read `endCursor`/`hasNextPage` from the same file with `jq`).
-   - Merge pages: `jq -s 'add' /tmp/jira_p*.json > /tmp/jira_export.json`. The count
-     must equal the backlog item count.
-2. `python3 scripts/sync.py --jira /tmp/jira_export.json` (or no `--jira` for
-   live). Exit ≠0 means drift; reconcile by editing whichever side is wrong (Jira
-   wins for state, backlog mirrors new issues), then re-run until clean. To
-   auto-apply the backlog side: `sync.py --apply backlog` (preview) then `--yes`.
-
-## Scrum document roles
-| File | Role | Cadence |
-|------|------|---------|
-| `scrum/<space>/backlog.json` | 1:1 Jira mirror — source of truth | Every story change |
-| `scrum/sprint-history.md` | Living sprint record — planning seed → close-out | Sprint open + close |
-| `scrum/retros/` | Per-service retrospectives — highlights absorbed into sprint-history.md | Service milestones |
-| `scrum/daily/` | Ephemeral refinement/planning/retro notes — absorbed at sprint close | As needed; never deleted |
-| `scrum/archive/` | Superseded docs — traceability only | Never edited |
-| `scripts/sync.py` | Jira↔backlog reconcile — read-only by default | Edit deliberately |
+## Labels (free-form, advisory)
+Labels are informal tags on an item (`labels: […]`) — the project/space key is
+conventionally present, plus topical/role tags. With no external label source to diff
+against, treat labels as documentation, not a field a schema gate or any tool enforces.

@@ -7,7 +7,12 @@ config:
   profile:     { default: scrum, one_of: [scrum|kanban] }
   tracker:     { default: local, one_of: [jira|local|none] }
   space:       { note: "backlog space name — resolves <space> in the skills" }
-  mirror-repo: { note: "<owner>/<repo> holding the backlog mirror; required when tracker=jira" }
+  mirror-repo: { note: "<owner>/<repo> holding the backlog; required when tracker=jira or tracker=local" }
+  backlog-layout: { default: monolith, one_of: [monolith|per-item], note: "monolith = single backlog.json mirror; per-item = one file per work item (e.g. <mirror-repo>/<space>/{raw,wiki,output}/<KEY>.md), only meaningful when tracker=local" }
+  sprint-files: { note: "per-item layout only — path template for sprint records, e.g. <mirror-repo>/<space>/sprints/<SPRINT-ID>.md" }
+  tooling: { note: "path to the CLI that mutates the backlog when tracker=local (query/transition/sprint/id/validate/export semantics expected — see agile-process's ceremonies.md)" }
+  ceremony-home: { default: "scrum/", note: "where retro/standup/planning/sprint-history records live — a scrum/ tree for the monolith layout, or an instance memory path for per-item" }
+  spaces: { note: "list of backlog space keys this instance carries" }
   estimation-scale: { default: fibonacci, one_of: [fibonacci|t-shirt|linear] }
   estimation-consensus: { default: median, one_of: [median|strict], note: "team estimation: median per axis, or require a unanimous quadrant" }
   estimation-repoint-threshold: { default: 1.0, note: "per-axis range above which a repoint is called; axis span is 2.0" }
