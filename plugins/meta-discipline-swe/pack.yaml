@@ -1,0 +1,25 @@
+# Pack manifest — declares the config schema this pack understands.
+# Read by scripts/packs.sh config for resolution/validation; humans read the README.
+#
+# NOTE: every skill in this pack is OPT-IN. Mounting the pack does not enable any
+# method; each skill's switch defaults to `off` and stays inert until the adopter
+# sets it in the instance's .packs.yaml.
+name: software-engineering
+# No profiles: this pack has no alternative methodologies to select between — the
+# opt-in switches below are the only choice an adopter makes.
+config:
+  dsl-generation:
+    default: "off"
+    one_of: [off|advisory|on]
+    note: "MASTER SWITCH for the constrained-generation skill. off = the skill declines and does nothing (default); advisory = it may evaluate and recommend, never author a DSL; on = full method. An explicit user instruction in-conversation outranks advisory for that one task."
+  dsl-style:
+    default: internal
+    one_of: [internal|external]
+    note: "preferred form when the gate passes — internal (host type system enforces the grammar) or external (own syntax + parser). Only consulted when dsl-generation is not off."
+  host-language:
+    note: "language whose compiler/type system is available to enforce an internal DSL, e.g. typescript, java, rust, python. Absent = treat internal DSLs as unavailable and prefer external."
+  validator-command:
+    note: "the estate's real deterministic validator, run by the generate-validate-repair loop, e.g. 'npm run typecheck' or 'mvn -q compile'. Absent = the loop cannot close; the skill must say so rather than simulate a check."
+  max-repair-iterations:
+    default: 3
+    note: "bound on the repair loop; on exhaustion fail loudly with the last validator output — never fall back to unconstrained generation"
