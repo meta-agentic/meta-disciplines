@@ -1,127 +1,128 @@
 ---
 name: constrained-generation
-description: "OPT-IN — off unless the instance sets packs.software-engineering.config.dsl-generation; when unset this skill declines in one line and hands back to ordinary design. Use when deciding whether to make LLM code generation reliable by constraining WHAT the model may emit — a DSL, a schema, a typed builder API — rather than by improving the prompt: 'should we build a DSL for this', 'the model keeps getting this shape wrong', 'how do we make generation verifiable instead of reviewable', or when the same kind of artifact (scenarios, pipelines, configs, protocol logic, presentations) is generated over and over. Applies a four-condition gate whose default answer is NO, picks internal vs external form, and wires a deterministic validator into a bounded generate→validate→repair loop."
+description: "OPT-IN — declines unless the instance sets `dsl_generation` in packs.software-engineering.config. Use when deciding whether to make LLM code generation reliable by constraining WHAT may be emitted — a DSL, a schema, a typed builder API — rather than by enlarging the prompt: 'should we build a DSL for this', 'the model keeps getting this shape wrong', 'how do we make generation verifiable instead of reviewable', or when the same kind of artifact (scenarios, pipelines, configs, protocol logic) is generated over and over. Applies a four-condition gate whose default answer is no, picks internal vs external form, and wires a deterministic validator into a bounded generate→validate→repair loop."
 ---
 
-# constrained-generation — reliability by restricting the target language
+# Constrained Generation
 
-Most attempts to make an LLM emit correct code work on the **prompt**. This skill works
-on the **language**: shrink the space of things the model is allowed to say, then let a
+Most attempts to make a model emit correct code work on the **prompt**. This skill works
+on the **language**: shrink the set of things the model is allowed to say, then let a
 parser, type checker, or compiler — not a human reviewer — decide whether the output is
-valid.
+valid. It is the *reliability* sibling of ordinary domain modeling: that work names the
+concepts, this one decides whether to make the naming machine-enforceable, and at what
+cost.
 
-## 0 · Activation gate — this skill is opt-in
+## Activation gate — this skill ships off
 
-**This skill does nothing until the adopter turns it on.** Building a DSL is a real,
-compounding cost, and an agent that reaches for one unprompted is a liability. Resolve
-the switch before anything else:
-
-```bash
-scripts/packs.sh config software-engineering dsl-generation   # from the instance root
-```
-
-or read `packs.software-engineering.config.dsl-generation` in the instance `.packs.yaml`.
+**Do nothing until the adopter has turned it on.** Resolve the switch before reading
+further, via `scripts/packs.sh config software-engineering dsl_generation` or
+`packs.software-engineering.config.dsl_generation` in the instance `.packs.yaml`.
 
 | Value | What you may do |
 |-------|-----------------|
-| *unset* / `off` **(default)** | **Nothing.** Say in one line that DSL-constrained generation is available but not enabled, name the config key, and continue with ordinary design work. Do not run the gate, do not sketch a grammar, do not "just show what it would look like". |
-| `advisory` | **Evaluate and recommend only.** Run Step 1, report the verdict and what a DSL would buy or cost. **Never author** a grammar, parser, builder API, or validator — that needs `on`, or an explicit in-conversation instruction from the user for this one task. |
-| `on` | Full method — Steps 1 → 5. |
+| *unset* / `off` **(default)** | **Nothing.** State in one line that constrained generation is available but not enabled, name the config key, and continue with ordinary design work. Do not run the Method, do not sketch a grammar, do not "just show what it would look like" — a demonstration is the method, leaked. |
+| `advisory` | **Steps 1–2 only.** Run the gate, report the verdict and what a DSL would buy or cost, emit the ledger's GATE block. **Never author** a grammar, parser, builder API, or validator. |
+| `on` | Full method, Steps 1–5. |
 
-An explicit user instruction in the conversation ("build me a DSL for this") outranks
-`advisory`, and is the only thing that does. `off` means the skill stays silent.
+An explicit in-conversation instruction from the user outranks `advisory` for that one
+task, and is the only thing that does. Nothing outranks `off`.
 
-## The one rule
+## Method
 
-> **Reliability comes from shrinking the set of valid outputs, not from enlarging the
-> prompt.** A constraint only counts if a machine can check it. If no deterministic
-> validator exists, you have a style guide, not a DSL.
+1. **Run the gate — all four, or stop.** (a) *Bounded domain*: the valid expressions form
+   a small, enumerable set. (b) *Few examples suffice*: two or three in-context examples
+   convey complete usage; if it needs a manual, the grammar is too big to be reliable.
+   (c) *A deterministic validator exists or is cheap to build* — a checker that rejects
+   malformed input before it runs, not "we have tests". (d) *Recurring use*: generated
+   repeatedly, by more than one author or across more than one sprint. A miss on any
+   condition ends the method here.
+2. **Try the cheap path first and expect it to be enough.** Named types, a clean library
+   API, a well-shaped schema, honest domain vocabulary — these give the model most of the
+   grounding a DSL would, with none of the language-maintenance burden. New syntax is
+   justified only *after* the cheap path has been tried and observed to fail, with the
+   observed failure recorded. This step is where most candidates die, correctly.
+3. **Choose the form** per `config.dsl_style`. **Internal** — the host type system is the
+   grammar: staged/progressive interfaces so each call returns only the operations legal
+   next, phantom or branded types, sealed hierarchies for closed case sets, newtypes so
+   `Millis` and `Bytes` cannot be swapped. Illegal constructions stop compiling, and the
+   error names the domain concept. **External** — surface syntax, a parser, and a semantic
+   model, kept as three separable things. Default to internal whenever
+   `config.host_language` names a compiler; it is validation for free.
+4. **Wire the loop.** `generate → validate → feed the error back verbatim → regenerate`,
+   running `config.validator_command`, bounded by `config.max_repair_iterations`. Feed the
+   validator's real message, never a paraphrase — the file, line, and type detail is what
+   makes repair converge. On exhaustion **fail loudly** with the last validator output.
+   With no `validator_command` configured, say the loop cannot close rather than
+   simulating a check.
+5. **Commit the program, not the prompt.** The generated DSL program is the artifact that
+   gets reviewed, diffed, and maintained; the prompt was scaffolding and is not a source
+   of truth. Keep syntax separable from execution semantics so the program stays readable
+   when the runtime changes beneath it. Then log the run in the ledger and, if repairs are
+   persistently near the bound, return to Step 1 — that is the grammar telling you it is
+   too big.
 
-## Step 1 · The gate — does this justify a DSL? (default answer: no)
+## The rigor standard
 
-All four must hold. Any miss → stop and take the cheap path below.
+- **A constraint counts only if a machine can check it.** No validator → not a DSL, and
+  not this method. Say so and stop.
+- **The gate's default answer is no.** Four conditions, all of them, evidenced — not
+  asserted. Three-of-four is a rejection.
+- **The cheap path is tried before syntax is invented**, and its *observed* failure is
+  recorded. "It would be cleaner" is not an observation.
+- **Every generation run is logged with its repair count.** Reliability claims without
+  counts are impressions.
+- **Exhaustion fails loudly and never degrades to freeform.** A silent fallback to
+  unconstrained generation defeats the entire method and hides the defeat.
+- **Grammar stability precedes volume.** Generate at scale only against a grammar that
+  survived two or three real artifacts unchanged.
+- **This skill does not restate domain modelling or TDD** — cite the packs that own them.
 
-1. **Bounded domain.** The valid expressions form a genuinely small, well-understood
-   set. If you can't enumerate the concepts, the domain isn't ready — the DSL will
-   ossify a wrong model.
-2. **Few examples suffice.** Two or three in-context examples convey complete usage. If
-   you need a manual, the grammar is too big to be reliable.
-3. **A deterministic validator exists or is cheap to build.** Parser, type checker,
-   compiler, schema validator. Not "tests exist" — a checker that rejects *malformed*
-   input before it runs.
-4. **Recurring use.** The artifact gets generated repeatedly, by more than one person or
-   over more than one sprint. A one-off never repays the grammar.
+## Checkable output
 
-**The cheap path — try this first, and expect it to be enough.** Named types, a clean
-library API, a well-shaped schema, and honest domain vocabulary already give the model
-most of the grounding a DSL would, with none of the language-maintenance burden. Reach
-for new syntax only when the cheap path has been tried and demonstrably failed. Record
-*why* it failed — that's the justification the pack expects when the choice is reviewed.
-
-## Step 2 · Choose the form
-
-| | **Internal** (host language) | **External** (own syntax) |
-|---|---|---|
-| Grammar enforced by | the host type system — progressive/staged interfaces, builders that make illegal order unrepresentable | a parser you own, over YAML/JSON/text |
-| Errors | compiler errors in domain vocabulary, at the exact call | parse/schema errors, need good messages written by you |
-| Cost | low — no toolchain | parser + validator + editor story |
-| Prefer when | a compiler is in the loop (`host-language` is set) | the artifact is data-shaped, or read by non-programmers |
-
-**Default to internal** when a compiler is available: validation is free and the error
-message lands in the domain's own words. See `references/patterns.md` for the concrete
-techniques and worked examples.
-
-## Step 3 · Wire the loop
+A **generation-constraint ledger**: the candidate with its four gate verdicts and the
+evidence for each, the cheap path's observed failure, the chosen form and validator, and
+one row per generation run with its repair count and outcome. Under `advisory` only the
+GATE block is emitted; under `on` the whole ledger is mandatory.
 
 ```
-generate  →  validate (deterministic)  →  feed the error back verbatim  →  regenerate
+GATE   candidate: scenario tests for the replication layer          verdict: PASS (4/4)
+  bounded domain   ✓  12 verbs, closed set (topology · fault · delay · assert)
+  few examples     ✓  3 examples covered every verb in trial generation
+  validator exists ✓  tsc --noEmit; staged interfaces enforce step order
+  recurring use    ✓  41 scenarios, 3 sprints, 2 authors
+  cheap path       ✗  named types + builder API: 6/20 generations declared a step
+                      before topology and still compiled → observed failure
+
+FORM   internal (typescript)    validator: npm run typecheck    max_repair: 3
+
+RUN                      REPAIRS  OUTCOME
+scenario/quorum-loss        1      valid — step-before-topology, fixed from tsc error
+scenario/partition-heal     0      valid
+scenario/clock-skew         3      FAILED LOUDLY — no verb for clock drift; grammar gap
 ```
 
-- **Bound it.** `max-repair-iterations` (default 3). On exhaustion **fail loudly** with
-  the last validator output. Never fall back to unconstrained generation — a silent
-  degradation to freeform is the failure mode this whole method exists to prevent.
-- **Feed the validator's real message**, not your paraphrase. Domain-level errors are
-  what make the loop self-correcting.
-- **Validator command comes from config** (`validator-command`), so the loop is the
-  estate's real toolchain, not a guess.
+Ship only when every gate row carries evidence, the cheap path's failure is *observed*
+rather than predicted, and each run's repair count is recorded. A ledger whose runs sit
+at the repair bound is a rejection notice for the grammar, not a passing result.
 
-## Step 4 · The artifact is the program, not the prompt
+## Anti-patterns
 
-The generated DSL program is what gets committed, reviewed, diffed, and maintained. The
-prompt was scaffolding — do not treat it as a source of truth, and do not store it as
-one. Corollary: keep **syntax separable from execution semantics**, so the program stays
-readable when the runtime changes underneath it.
+- Building a DSL for a one-off artifact, or because the domain "feels" structured — the
+  cost is paid forever and the repeat count never arrives.
+- Calling something a DSL when nothing can reject a malformed instance; a style guide
+  with opinions about syntax is not a constraint.
+- Skipping the cheap path because a DSL is more interesting, then discovering that named
+  types and a clean API would have carried the whole load.
+- Inventing a second grammar for a domain that already has one — SQL, a schema language,
+  an existing config format — and maintaining both.
+- Freezing the grammar while it is still moving (generating volume against an unstable
+  language), or never freezing it and churning the syntax forever.
+- Paraphrasing validator errors into the repair loop, or raising
+  `max_repair_iterations` when runs keep hitting the bound instead of fixing the grammar.
+- Falling back to unconstrained generation when the loop exhausts, and reporting the
+  result as if it had been validated.
+- Sketching a grammar "just to show the idea" while `dsl_generation` is `off`.
 
-## Step 5 · Two phases — don't mix them
-
-- **Designing the abstraction** (grammar still moving): the model is a *critic and
-  brainstorming partner* — alternatives, edge cases, attacks on your model. Do not
-  generate volume against a grammar that isn't stable yet.
-- **After it stabilises**: the model is a *translator* — English in, DSL out, validator
-  closing the loop. Freezing too early is the more common mistake; freezing never is the
-  other one.
-
-## Rejection criteria — say no and mean it
-
-- **No validator** → not a DSL. Stop.
-- **One-off artifact** → use the cheap path.
-- **The domain is still being discovered** → design in code first; a DSL built on a
-  half-understood model hardens the misunderstanding and is expensive to unwind.
-- **A DSL already exists** (SQL, a schema language, an existing config format) → use it.
-  A second grammar for the same domain is worse than either alone.
-- **"It would be elegant"** → not a reason. The gate is about failure rates and repeat
-  count, not aesthetics.
-
-## Scope boundaries
-
-Owns the **generation-reliability** question only: whether and how to constrain what a
-model emits. It does **not** restate domain modelling, TDD, or debugging discipline —
-if the `mattpocock` pack (`domain-modeling`, `codebase-design`) or `superpowers` (TDD)
-is mounted, defer to them for those and cross-reference. Step 1's cheap path overlaps
-domain modelling deliberately: that's the hand-off point, not a duplication.
-
-## References
-
-- `references/patterns.md` — internal/external techniques, the repair loop in practice,
-  worked examples (including in-house ones).
-- `references/bibliography.md` — sources and correct attribution.
+Concrete techniques — staged-interface code, the parser/semantic-model seam, repair-loop
+mechanics, worked examples — are in [`references/patterns.md`](references/patterns.md).
+Sourcing and attribution are in the pack's `PROVENANCE.md`.

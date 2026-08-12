@@ -1,63 +1,102 @@
-# meta-os software-engineering pack
+# meta-discipline-swe
 
-Software-engineering discipline for a [meta-os](https://github.com/meta-agentic/meta-os)
-Agentic OS instance. Judgment, not process: what "done right" looks like and how to
-check it — the half a pile of coding prompts leaves out.
+A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying
+**software engineering as judgment** — not a pile of coding prompts, but a *method + a
+standard of rigor* that turns an agent into a competent practitioner of the questions the
+coding-born skill collections leave unanswered.
 
-**Everything in this pack is opt-in.** Mounting it enables no method. Each skill ships a
-switch that defaults to `off` and stays inert until the adopter sets it in the instance's
-`.packs.yaml`. That is deliberate: the practices here carry real, compounding costs, and
-an agent that adopts them unprompted is a liability rather than a help.
+> A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
+> **portability** across estates.
 
-| Skill | What it drives | Switch | Default |
-|-------|----------------|--------|---------|
-| `skills/constrained-generation/` | Making LLM code generation reliable by constraining **what may be emitted** — a DSL, a schema, a typed builder API — instead of by enlarging the prompt. Applies a four-condition gate whose default answer is *no*, chooses internal vs external form, and wires a deterministic validator into a bounded generate→validate→repair loop. | `dsl-generation` | `off` |
+## Opt-in, unlike the sibling discipline packs
 
-## Mount it
+The math and physics packs activate on mount. **This one does not.** Every skill here
+ships a master switch that defaults to `off`; the skill declines, in one line, until an
+instance sets it in `.packs.yaml`. The practices codified here carry real, compounding
+cost, so silence — not enthusiasm — is the correct default, and an `advisory` tier exists
+so a candidate can be judged without any language being authored.
 
-From your instance root (see the framework's `systems/packs.md`):
+## Skills
+
+| Skill | Discipline it codifies | Switch (default) | Checkable output |
+|-------|------------------------|------------------|------------------|
+| [`constrained-generation`](skills/constrained-generation/SKILL.md) | Generation reliability — constrain *what may be emitted* (a DSL, a schema, a typed builder API) instead of enlarging the prompt; a four-condition gate whose default answer is no; internal vs external form; a deterministic validator closing a bounded generate→validate→repair loop. | `dsl_generation` (`off`) | A generation-constraint ledger: four gate verdicts with evidence, the cheap path's *observed* failure, chosen form and validator, and one row per run with its repair count. |
+
+Design principles applied in review context (SOLID/GRASP, composition), ADR discipline,
+and design reviews follow as further skills.
+
+## The three-part test (why this is a pack)
+
+1. **Recognizable** — a practitioner would call it "how we actually work": try the clean
+   API first, constrain the language when generation keeps failing, let the compiler
+   decide, commit the artifact rather than the prompt.
+2. **Portable** — parameterized by `pack.yaml` config (host language, validator command,
+   form, repair bound); welded to no single estate or toolchain.
+3. **Checkable** — unusually so. The discipline's rigor standard *is* a deterministic
+   validator: the output either parses, type-checks, and compiles, or it does not.
+
+## Configure
+
+Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
+`config.example.yaml`). Skills read config-first and fall back to documented defaults.
+
+```yaml
+packs:
+  software-engineering:
+    config:
+      dsl_generation: "off"            # off | advisory | on   ← nothing runs until this moves
+      dsl_style: internal              # internal | external
+      host_language: typescript        # whose compiler enforces an internal DSL
+      validator_command: npm run typecheck
+      max_repair_iterations: 3
+```
+
+**Recommended path:** leave it `off`; move to `advisory` when you have a recurring
+generation problem you want the gate applied to; move to `on` only once a candidate has
+passed that gate and you can name a real validator command. Without
+`validator_command` the repair loop cannot close, and the skill says so rather than
+simulating a check.
+
+No profiles: this discipline has no alternative methodologies to bundle (the `pure` /
+`applied` split the math and physics packs ship has no analogue here). The opt-in tier is
+the only methodology choice an adopter makes.
+
+## Install
 
 ```bash
-scripts/packs.sh add software-engineering
+# in a meta-os instance
+scripts/packs.sh add software-engineering https://github.com/meta-agentic/meta-discipline-swe
+scripts/packs.sh config software-engineering      # resolve/validate config
 ```
 
 Skills land in the instance's union `skills/` and project-local `.claude/skills/`. This
-pack ships no hooks and no agents.
-
-## Enable it (nothing happens until you do)
-
-Copy the block from [`config.example.yaml`](config.example.yaml) into your `.packs.yaml`
-and set the switch. `scripts/packs.sh config software-engineering` prints the resolved
-values; the skills read config-first.
-
-| Key | Meaning | Default |
-|-----|---------|---------|
-| `dsl-generation` | `off` — the skill declines and does nothing · `advisory` — it may evaluate and recommend, never author · `on` — full method | `off` |
-| `dsl-style` | `internal` (host type system enforces the grammar) \| `external` (own syntax + parser) | `internal` |
-| `host-language` | language whose compiler is available to enforce an internal DSL; absent → prefer external | — |
-| `validator-command` | the estate's real deterministic validator, run by the repair loop (e.g. `npm run typecheck`) | — |
-| `max-repair-iterations` | bound on the repair loop; on exhaustion, fail loudly — never fall back to unconstrained generation | `3` |
-
-**Recommended path:** leave it `off`; move to `advisory` when you have a recurring
-generation problem and want the gate applied to it; move to `on` only after a candidate
-has passed that gate and you can name a real validator command.
+pack ships no hooks and no agents. Mounting it enables no method.
 
 ## Scope
 
-This pack owns the **generation-reliability** question only. It does not restate domain
-modelling, TDD, or debugging discipline — where the `mattpocock` or `superpowers` packs
-are mounted, defer to them and cross-reference. The overlap at the gate's "cheap path"
-(named types and a clean API before any new syntax) is a hand-off, not a duplication.
+This pack owns the **generation-reliability** question only. Domain modelling, TDD, and
+debugging discipline belong to the `mattpocock` and `superpowers` packs where those are
+mounted — the skill cites them rather than restating them. The overlap at the gate's cheap
+path (named types and a clean API before any new syntax) is a hand-off, not a duplication.
 
-## Provenance
+## Provenance & license
 
-First-party, MIT. The `constrained-generation` method is grounded in published work, not
-invented here — principally Unmesh Joshi's *"DSLs Enable Reliable Use of LLMs"*
-(martinfowler.com, July 2026; a guest article on Fowler's site — Joshi is the author),
-read alongside Fowler & Parsons' *Domain-Specific Languages*, Evans' ubiquitous language,
-and the grammar-constrained decoding literature. Full attribution in
-[`skills/constrained-generation/references/bibliography.md`](skills/constrained-generation/references/bibliography.md).
+First-party (mova77). MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by
+construction: no instance data. The method is grounded in published work — principally
+Unmesh Joshi's *"DSLs Enable Reliable Use of LLMs"* (martinfowler.com, July 2026; a guest
+article on Fowler's site — Joshi is the author), read alongside Fowler & Parsons'
+*Domain-Specific Languages*, Evans' ubiquitous language, and the grammar-constrained
+decoding literature — and is deliberately **stricter than its sources**: the article
+motivates DSLs, the gate is written to reject them.
 
-The skill is deliberately **stricter than its sources**: the article motivates DSLs, the
-skill's gate is written to reject them, because an agent enthusiastic about building
-languages produces exactly the ceremony the article itself warns against.
+## Registry entry (`meta-os/systems/packs.yaml`)
+
+```yaml
+  software-engineering:
+    repo: https://github.com/meta-agentic/meta-discipline-swe
+    ref: main
+    description: "Software-engineering discipline as judgment, not process. Ships constrained-generation (make LLM generation reliable by restricting what may be emitted — DSL/schema/typed API — behind a four-condition gate whose default answer is no, plus a validator-closed repair loop); design principles applied in review context, ADR discipline and design reviews follow. First-party."
+    provenance: first-party
+    license: MIT
+    status: available # every skill is opt-in — mounting enables nothing
+```

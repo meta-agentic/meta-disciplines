@@ -55,8 +55,8 @@ time, leaving only semantic errors to repair.
 
 ```
 program  = generate(spec, examples)          # 2–3 examples, not a manual
-for i in 1..max_repair_iterations:           # config: max-repair-iterations, default 3
-    result = run(validator_command, program) # config: validator-command
+for i in 1..max_repair_iterations:           # config: max_repair_iterations, default 3
+    result = run(validator_command, program) # config: validator_command
     if result.ok: return program
     program = regenerate(spec, examples, error = result.stderr)   # verbatim error
 fail_loudly(result.stderr)                   # never fall back to freeform
@@ -84,7 +84,7 @@ Rules that make the difference:
 
 ## Worked examples in the wild
 
-- **Joshi's three** (see `bibliography.md`): a YAML-over-PlantUML DSL for step-by-step
+- **Joshi's three** (see the pack’s `PROVENANCE.md`): a YAML-over-PlantUML DSL for step-by-step
   diagram-rich presentations; the Tickloom semantic model (single-threaded tick loops,
   a `Replica` base class, fixed `Process`/`Network`/`Storage`/`Clock` abstractions) so a
   prompt yields protocol logic rather than infrastructure boilerplate; and a scenario

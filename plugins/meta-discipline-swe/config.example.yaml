@@ -1,35 +1,30 @@
-# Copy this block under packs.software-engineering in your instance's .packs.yaml,
-# then edit. `scripts/packs.sh config software-engineering` prints the resolved values.
+# Copy this block into your instance's .packs.yaml under packs: software-engineering: config:
 #
-# Mounting this pack enables NOTHING on its own. Every skill here is opt-in: with no
-# config block at all, constrained-generation declines and hands back to ordinary
-# design work. That is the intended default — leave it that way until you have a
-# concrete, recurring generation problem that a validator can check.
+# Mounting this pack enables NOTHING. With no config block at all, constrained-generation
+# declines and hands back to ordinary design work. That is the intended default — leave it
+# there until you have a recurring generation problem a validator can check.
 packs:
   software-engineering:
     config:
-      dsl-generation: "off"     # off (default, skill inert) | advisory | on
+      dsl_generation: "off"   # off | advisory | on   ← nothing runs until this moves
 
-# --- Turning it on -----------------------------------------------------------
-#
-# Step 1 — try `advisory` first. The skill will evaluate candidates against its
-# four-condition gate and tell you whether a DSL is justified, but will not author
-# one. Most estates should stop here.
+# Step 1 — `advisory` first. The skill runs its four-condition gate on a candidate and
+# reports the verdict, but authors no grammar, parser, or validator. Most estates stop here.
 #
 # packs:
 #   software-engineering:
 #     config:
-#       dsl-generation: advisory
+#       dsl_generation: advisory
 #
-# Step 2 — `on` only once you have a case that passed the gate and a real validator
-# command. Without validator-command the repair loop cannot close, and the skill
-# will say so rather than pretend to check its own output.
+# Step 2 — `on` once a candidate has passed the gate AND you can name a real validator.
+# Without validator_command the repair loop cannot close, and the skill will say so rather
+# than pretend to check its own output.
 #
 # packs:
 #   software-engineering:
 #     config:
-#       dsl-generation: on
-#       dsl-style: internal              # internal | external
-#       host-language: typescript        # whose compiler enforces an internal DSL
-#       validator-command: npm run typecheck
-#       max-repair-iterations: 3
+#       dsl_generation: on
+#       dsl_style: internal              # internal | external
+#       host_language: typescript        # whose compiler enforces an internal DSL
+#       validator_command: npm run typecheck
+#       max_repair_iterations: 3
