@@ -18,7 +18,8 @@ GUARDRAILS:
 - One story = one branch (`<prefix>/<KEY>-<slug>`) + one PR vs main. Do NOT bundle a second story or an incidental fix — file it and branch it separately.
 - Before each push run the gate `<mvn clean verify / npm build+lint+typecheck>` in the **FOREGROUND with a bounded timeout** (set the Bash timeout field). Never end a turn parked on a background build.
 - Run `/code-review` (and `/security-review` if it touches auth/crypto/external input) on the diff before opening the PR.
-- Pre-set the tracker/backlog state in the code PR; transition the issue → In-Review on PR open.
+- Pre-set the tracker/backlog state in the code PR.
+- TRACKER WRITES: `<either: the exact command/tool to use, e.g. "run `<tool> transition <KEY> IN REVIEW`" — or: "do NOT touch the tracker; the orchestrator owns all status writes and will transition on PR open/merge">`. Never hand-edit a tracker item to change its state, and never infer the write method from the file's shape. If the tracker is shared across projects or sessions, concurrent lane writes are a hazard — default to the orchestrator owning them.
 
 COMMS: `SendMessage` progress + PR links to "lead" after each PR; coordinate with peers by name only if genuinely needed. **NO-PROGRESS RULE: if you make no verifiable progress for 10 minutes, STOP and report to lead — never retry silently.**
 

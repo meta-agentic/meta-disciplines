@@ -26,6 +26,7 @@ Turn a sprint backlog into **N independent parallel lanes**, each a lead agent i
 ### 1 · Pre-flight (before transitioning or spawning anything)
 - **Pull a fresh main** and `git fetch`; branch every lane off the *latest* main.
 - **Reconcile tracker ↔ backlog** (read-only check; the source of truth wins). Treat only missing-either-side / status / estimate drift as real — label drift is noise.
+- **Establish the tracker's write contract** before any status change — which tracker, and what tool writes to it (file edit · Jira/Linear connector · a vault CLI · in-house). Reading an item shows its shape, not its rules; inferring the write method from the data is how shared trackers get corrupted. See `docs/GUARDRAILS.md`.
 - **Refresh the code graph / recon** so leads query current structure (note any stale areas and point leads at the live source there).
 - **Ready the coordination layer** (swarm topology / shared memory), if used.
 

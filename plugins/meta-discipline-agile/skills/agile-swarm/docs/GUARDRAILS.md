@@ -23,6 +23,23 @@ Hard-won from a real multi-agent run. Each rule traces to a concrete failure it 
 - **Reconcile is read-only by default**; the designated source of truth wins. Only missing-either-side / status / estimate drift is real — label drift is informational noise.
 - **PO owns sprint-close and product-affecting calls.** The orchestrator proposes and briefs; it does not decide scope, merges, or closure.
 
+### Find the tracker's write contract BEFORE the first status change
+Reading an item tells you its **shape**, not its **contract**. Never infer how to change state from how the data looks: a hand-edit that produces a perfectly plausible-looking item can still violate an invariant enforced somewhere else — a folder-is-the-state rule, a required sprint stamp, a central id allocator, a transition graph. You find out in someone else's session, hours later.
+
+Ask the PO, or find the tool, before writing. One question up front is cheaper than a corrupted shared tracker.
+
+| Tracker | Where state lives | How to write it |
+|---|---|---|
+| **Local text backlog** | `backlog.json` / markdown in the repo | Edit the file — but the repo's own convention (schema, required fields) is the contract. |
+| **Jira** | The Jira project | Connector/API transitions. Fetch the available transitions for a sample issue first — **transition ids are per-project**, not global. |
+| **Local vault** (markdown, folder-as-state) | `vault/<space>/{raw,wiki,output}/` | The vault's **own CLI**, atomically moving file + status + sprint stamp. The folder **is** the lifecycle state, so a hand-edited `status:` desynchronises it and a schema gate rejects the commit. Never hand-edit `status:`. |
+| **Linear** | Linear workspace | API/connector. |
+| **In-house tracker** | Project-specific | Treat the contract as **unknown** until documented. Ask. |
+
+**Bulk edits are where this breaks.** Read-before-write guards usually live in the file-editing tool — and a shell one-liner across N items bypasses them entirely. The pull toward scripting is strongest exactly when you're touching many items at once, which is exactly when a wrong write method does the most damage. **If a change feels tedious enough to script, that is the signal to stop and confirm you're using the tracker's own tool.**
+
+Corollary for shared trackers: if the backlog serves several projects or sessions, assume concurrency. Hand-picking an id "that looks free" races with everyone else — use the allocator.
+
 ## Review
 - **Every PR gets an INDEPENDENT review before the PO merges.** The lane lead self-reviews before opening, but a separate reviewer agent (not the author) catches what the author missed. Wire it into the monitor: when a new lane PR appears with no review yet, spawn a one-shot `reviewer-<N>` that runs `gh pr diff N`, reviews for correctness + security (auth/crypto/input) + project conventions, and posts `gh pr review N` (--approve / --request-changes / --comment). The reviewer **never merges** — the PO owns the merge; the review is a signal.
 - Don't double-review: skip a PR that already has a review from `reviewer-<N>`.
