@@ -108,6 +108,42 @@ instance doesn't yet have a mechanical gate for this (a `PreToolUse` hook matchi
 your sprint-close command), treat it as convention enforced by discipline, and add
 the gate when it's worth the effort.
 
+### Tag the close — the release-changelog anchor
+
+After the sprint is closed and the backlog is consistent, create an **annotated** git
+tag `<space>-sprint-<n>` on the **code repo**, at the commit that is the sprint
+boundary, and push it:
+
+```bash
+git tag -a <space>-sprint-<n> -m "<SPACE> Sprint <n> close (<dates>) — <headline>"
+git push origin <space>-sprint-<n>
+```
+
+One annotated tag per space per sprint. **Why it matters:** once releases begin, the
+curated change list is generated *from these anchors* — the code diff between adjacent
+sprint tags (`<space>-sprint-{n}..<space>-sprint-{n+1}`) plus the stories delivered in
+that sprint. Without the tag there is no anchor and the changelog cannot be
+reconstructed later.
+
+**Never delete or move a pushed sprint tag once a release references it.** A moved
+anchor silently rewrites history for every changelog derived from it.
+
+*(Instances that generate changelogs should run their generator at close and commit the
+output alongside the tag; the generator is instance tooling, not part of this pack.)*
+
+### Retro Actions carry forward until closed or codified
+
+Every retrospective produces **Action** items — *an action to improve the process and
+capitalize the lesson learnt*. Each Action is **scheduled into the next sprint** and
+**carried sprint-to-sprint until it is either done or codified into the process pack**,
+so a lesson learnt is capitalized rather than quietly dropped. Do not close a retro
+without its Actions committed to sprint N+1.
+
+**Carrying is not a resting state.** An Action untouched across two consecutive sprints
+is a signal, not a backlog item: in the third, close it as *overtaken by events* or
+codify it into the process — deliberately, with the reason recorded. An Action that
+rolls indefinitely is a decision nobody is making.
+
 ## Daily retro / standup (rolling cadence)
 The daily notes live at `<ceremony-home>/YYYY-MM-DD-{retro,standup}.md` — ceremony
 records are instance-side, kept out of the backlog mirror so the mirror's diff
