@@ -1,17 +1,33 @@
 # meta-os agile pack
 
-The agile skill set for a [meta-os](https://github.com/mova77/meta-os) Agentic OS
-instance — extracted from the framework core so the core stays generic and this
-process opinion stays optional.
+The **agile delivery discipline** for a [meta-os](https://github.com/meta-agentic/meta-os)
+Agentic OS instance — extracted from the framework core so the core stays generic and this
+process opinion stays optional. A pack is a codified discipline: a method, a standard of
+rigor, and portability across estates (see the framework's `systems/pack-strategy.md`).
 
-| Skill | What it drives |
-|-------|----------------|
-| `skills/agile-process/` | The Scrum harness: backlog-of-record ceremonies (planning, standup/retro, sprint open/close), story transitions, draft-PR and one-story-one-branch rules — over a Jira mirror, a `backlog.json` monolith, or a per-item store, per `backlog-layout` |
-| `skills/agile-swarm/` | Multi-lane sprint execution: dependency-free vertical-slice lanes, worktree-isolated leads, engineering-discipline gates, PO-owned merges |
-| `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), two-axis team estimation for planning/refinement, and an auditable estimate ledger |
+| Skill | What it drives | Checkable output |
+|-------|----------------|------------------|
+| `skills/agile-process/` | The harness: backlog-of-record ceremonies (planning, standup/retro, sprint open/close), story transitions, sprint stamping, draft-PR and one-story-one-branch rules — over a Jira mirror, a `backlog.json` monolith, or a per-item store, per `backlog-layout` | **transition ledger** |
+| `skills/agile-swarm/` | Multi-lane sprint execution: dependency-free vertical-slice lanes, verified worktree isolation, engineering-discipline gates, independent review, PO-owned merges | **lane ledger** |
+| `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), two-axis team estimation for planning/refinement | **estimate ledger** |
 
-Both skills are parameterized (`<SPACE>`, `<owner>/<scrum-repo>` …) — they carry the
-method, not anyone's estate.
+All three skills are parameterized (`<space>`, `<owner>/<repo>`, `<tooling>` …) — they
+carry the method, not anyone's estate — and each emits a named ledger that can read
+*reject*, so a reviewer can audit the run against the discipline's own standard rather
+than taking it on trust.
+
+## Why this is a discipline, not a prompt pile
+
+The three-part test every pack must pass (`systems/pack-strategy.md`):
+
+- **Recognizable** — a scrum master, a delivery lead, or an engineer who has run a sprint
+  reads the ceremonies, gates and estimation quadrant as "how we actually work".
+- **Portable** — the methodology itself is one config line (`profile: scrum | kanban`), and
+  every tracker, space, path and tool name resolves from instance config. Adopting the pack
+  never means adopting one shop's setup.
+- **Checkable** — every skill emits a ledger with a failing reading defined: a transition
+  written outside the sanctioned tool, a lane on a shared checkout, an estimate with no
+  axis placement.
 
 ## Mount it
 
@@ -26,9 +42,11 @@ This pack ships no hooks and no agents.
 
 ## Provenance
 
-First-party: authored in [mova77/meta-os](https://github.com/mova77/meta-os) (see its
-`PROVENANCE.md` history) and moved here unchanged when the framework core was slimmed
-to generic-only skills. MIT.
+First-party: authored in [meta-agentic/meta-os](https://github.com/meta-agentic/meta-os)
+(see its `PROVENANCE.md` history) and moved here when the framework core was slimmed to
+generic-only skills. MIT. Per-skill origins, the public-safe statement, and why *this*
+coverage was chosen are in [`PROVENANCE.md`](PROVENANCE.md). No dependencies on other
+packs; `pack.yaml` declares all three skills as this pack's `provides:` surface.
 
 ## Configure it
 

@@ -1,18 +1,59 @@
-# Pack manifest — declares the config schema and profiles the agile pack understands.
-# Read by scripts/packs.sh config for resolution/validation; humans read the README.
+# agile pack — manifest + config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config agile`
+# resolves the instance's .packs.yaml `config:` over these and validates enums.
+# Contract: meta-os/systems/pack.schema.json — validate before publishing.
+version: 1
 name: agile
-default_profile: scrum
-profiles: [scrum, kanban]
+description: "Agile delivery discipline (3 skills): agile-process (the backlog-of-record harness — ceremonies, story transitions, branch/PR gates), agile-swarm (multi-lane parallel sprint execution with hazard-free lanes and PO-owned merges), and story-estimation (two-axis extension/intension sizing) — each emitting a checkable ledger. First-party, extracted from the meta-os framework core."
+provenance: first-party
+license: MIT
+
+# The skill names other packs may depend on. A collision on a provided name is an
+# error, not a warning — see meta-os/systems/packs.md, "Dependencies between packs".
+provides: [agile-process, agile-swarm, story-estimation]
+
 config:
-  profile:     { default: scrum, one_of: [scrum|kanban] }
-  tracker:     { default: local, one_of: [jira|local|none] }
-  space:       { note: "backlog space name — resolves <space> in the skills" }
-  mirror-repo: { note: "<owner>/<repo> holding the backlog; required when tracker=jira or tracker=local" }
-  backlog-layout: { default: monolith, one_of: [monolith|per-item], note: "monolith = single backlog.json mirror; per-item = one file per work item (e.g. <mirror-repo>/<space>/{raw,wiki,output}/<KEY>.md), only meaningful when tracker=local" }
-  sprint-files: { note: "per-item layout only — path template for sprint records, e.g. <mirror-repo>/<space>/sprints/<SPRINT-ID>.md" }
-  tooling: { note: "path to the CLI that mutates the backlog when tracker=local (query/transition/sprint/id/validate/export semantics expected — see agile-process's ceremonies.md)" }
-  ceremony-home: { default: "scrum/", note: "where retro/standup/planning/sprint-history records live — a scrum/ tree for the monolith layout, or an instance memory path for per-item" }
-  spaces: { note: "list of backlog space keys this instance carries" }
-  estimation-scale: { default: fibonacci, one_of: [fibonacci|t-shirt|linear] }
-  estimation-consensus: { default: median, one_of: [median|strict], note: "team estimation: median per axis, or require a unanimous quadrant" }
-  estimation-repoint-threshold: { default: 1.0, note: "per-axis range above which a repoint is called; axis span is 2.0" }
+  profile:
+    default: scrum
+    one_of: scrum | kanban
+    doc: "Selects the whole methodology, not a preference: `scrum` = timeboxed sprints, ceremonies and a tracker-backed backlog (the full harness the skills document in detail); `kanban` = continuous pull-based flow with no sprints or ceremonies, keeping the branch/verify/review gates. The active profile's conventions load from profiles/<profile>.md."
+  tracker:
+    default: local
+    one_of: jira | local | none
+    doc: "Where the backlog of record lives. `jira` = an external tracker with a mirror in this estate (the tracker wins every conflict); `local` = the mirror itself is the top authority, no external tracker; `none` = no backlog file at all, transition procedures do not apply."
+  space:
+    doc: "Backlog space name — resolves the <space> placeholder throughout the skills. One estate may carry several; see `spaces`."
+  mirror-repo:
+    doc: "<owner>/<repo> holding the backlog mirror; resolves the mirror-repo placeholder. Required when tracker=jira or tracker=local."
+  backlog-layout:
+    default: monolith
+    one_of: monolith | per-item
+    doc: "Shape of the mirror when tracker=local (ignored otherwise). `monolith` = one tracker-derived backlog.json-style file; `per-item` = one file per work item, e.g. <mirror-repo>/<space>/{raw,wiki,output}/<KEY>.md. The reference files describe per-item mechanics; a monolith instance keeps the ceremony names and adapts the tool calls to its own `tooling`."
+  sprint-files:
+    doc: "per-item layout only — path template for sprint records, e.g. <mirror-repo>/<space>/sprints/<SPRINT-ID>.md."
+  tooling:
+    doc: "per-item layout only — path to the CLI that mutates the backlog when tracker=local (query/transition/sprint/id/validate/export semantics expected; see agile-process's references/ceremonies.md). It is the ONLY backlog write path from a code PR."
+  ceremony-home:
+    default: "scrum/"
+    doc: "Where retro/standup/planning/sprint-history records live — a scrum/ tree for the monolith layout, or an instance memory path (e.g. memory/wiki) for per-item."
+  spaces:
+    doc: "List of backlog space keys this instance carries, when more than one space is in play."
+  estimation-scale:
+    default: fibonacci
+    one_of: fibonacci | t-shirt | linear
+    doc: "The band vocabulary story-estimation reads off the quadrant: `fibonacci` = 1·2·3·5·8, `t-shirt` = S·M·L·XL (roughly the four cells), `linear` = 1–5. The axes are unaffected — only the number the bands emit."
+  estimation-consensus:
+    default: median
+    one_of: median | strict
+    doc: "Team estimation: `median` takes the median placement per axis (one outlier cannot drag the estimate); `strict` requires a unanimous quadrant before a number is agreed."
+  estimation-repoint-threshold:
+    default: 1.0
+    doc: "Per-axis range above which a repoint is called. The axis span is 2.0, so the default of 1.0 is half the span."
+
+profiles:
+  scrum: profiles/scrum.md
+  kanban: profiles/kanban.md
+
+# Retained for resolvers that still read it; `config.profile.default` above is the
+# contract (meta-os/systems/pack.schema.json marks this key legacy). Keep both in sync.
+default_profile: scrum

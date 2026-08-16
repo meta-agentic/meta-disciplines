@@ -82,7 +82,7 @@ sits `In Progress` across sprint boundaries with real commits landing and no com
 its extension keeps moving while its intension is still being decided. **An item stuck
 across two sprints is a re-estimation trigger, not a nagging trigger.**
 
-## Procedure
+### The pass — one item, in order
 
 1. **Place it on both axes before naming a number**, and write the placement into the
    item: *"high extension (4 repos), low intension (known pattern)"*. An estimate whose
@@ -95,7 +95,7 @@ across two sprints is a re-estimation trigger, not a nagging trigger.**
 5. **Point enablers, spikes and bugs too.** Unpointed work is invisible to velocity, and
    a handful of unpointed deliveries is enough to fake a downward velocity trend.
 
-## Calibrate
+### Calibrate
 
 The quadrant gives bands; **local anchors** give precision. Keep a short table of already-
 delivered items with agreed points, placed on both axes, and estimate against it. Re-derive
@@ -106,7 +106,7 @@ and extension is the axis that matters *least* once intension is high. A 100-lin
 that invents a protocol routinely outweighs an 800-line item that applies a known pattern
 in many places. Churn is a weak sanity check; it is never an input.
 
-## Team estimation — planning & refinement
+### Team estimation — planning & refinement
 
 Planning poker with a two-axis ballot instead of a card deck. Same ceremony, strictly more
 information: a card tells you *that* people disagree, a placement tells you **on which
@@ -138,6 +138,28 @@ axis**.
 Converging on the point, not the number, is the reason to run it this way: the artefact of
 the session is a shared *model of the work*, and the story points fall out of it.
 
+## The rigor standard
+
+- **Points are not time**, and time is never an input. An estimate expressed in days is a
+  schedule guess wearing an estimate's clothes.
+- **An estimate without a recorded axis placement does not exist.** The number is only the
+  visible end of the reasoning; unrecorded, it cannot be re-derived or challenged.
+- **The quadrant prescribes an action, and the action is binding**: complicated → split by
+  extension; complex → time-box a spike; complex + broad → do not commit unsplit. An
+  estimate that names a number but skips the prescription is half done.
+- **Never proxy size by lines changed or file count** — both track extension only, which is
+  the axis that matters least once intension is high. Churn is a weak sanity check, never
+  an input.
+- **Team consensus is per axis, never on the points.** An SP median manufactures agreement
+  between people who disagree about the nature of the work; different quadrants force a
+  repoint however close the numbers.
+- **Everything sized, including enablers, spikes and bugs.** Unpointed deliveries fake a
+  downward velocity trend.
+- **Out of scope:** when an estimate is demanded, how it is recorded in the backlog of
+  record, and what a stuck item triggers procedurally — that is
+  [[skills/agile-process/SKILL|agile-process]]'s harness; this skill only produces the
+  number and its audit trail.
+
 ## Checkable output
 
 An estimation pass ships an **estimate ledger** a reviewer can audit:
@@ -150,12 +172,31 @@ A-51    med (3 config levels)     high (contract undefined)    complex+broad   8
 A-77    low (1 doc)               high (discovery is the goal) complex         5  time-box: 2 days
 ```
 
-The standard — an estimate is **not done** while any row:
+Under team estimation the ledger gains a round-by-round section — who placed where, per
+round, with the final agreed point — so a multi-person estimate is auditable by whoever
+wasn't in the room.
+
+An estimate is **not done**, and the row is a **rejection**, while it:
 
 - carries an **SP with a missing axis placement** (unauditable — the number is an opinion);
 - sits in **complex+broad with a bare number** and no split/spike prescription;
 - sits in **complicated with an 8** (should have been split);
 - is an **enabler, spike or bug left unpointed**.
+
+## Anti-patterns
+
+- **Naming the number first and back-filling the axes** to justify it. The placement stops
+  being evidence and becomes decoration.
+- **Estimating up instead of splitting** a purely extensional item — an 8 in the
+  complicated cell is a planning failure, not a big story.
+- **Committing a complex+broad item because the sprint has room.** Its extension will move
+  all sprint while its intension is still being decided, and it will not finish.
+- **Averaging story points to reach agreement** — it hides a disagreement about what the
+  work *is*.
+- **Revealing placements as people go**, losing the anti-anchoring that face-down cards
+  exist to provide.
+- **Nagging a stuck item instead of re-estimating it.** Two sprints `In Progress` is the
+  signal the original placement was wrong.
 
 ## Configure
 
