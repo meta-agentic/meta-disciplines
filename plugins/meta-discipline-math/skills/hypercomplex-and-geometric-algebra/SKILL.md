@@ -9,9 +9,9 @@ Choosing the algebra is a design decision with hard mathematical constraints. Th
 codifies the choice and the verification, so the answer is *justified and checked*, not
 defaulted to matrices out of habit.
 
-## The selection procedure
+## Method
 
-Ask, in order:
+### Selection — ask in order
 
 1. **What operation dominates?** 2D rotation/scaling → **$\mathbb{C}$**. 3D rotation /
    orientation → **unit quaternions $\mathbb{H}$**. Rigid motion (rotation *and*
@@ -31,7 +31,7 @@ Ask, in order:
    no gimbal lock), and geometric algebra beats $4\times4$ homogeneous matrices for
    singular-free handling of points at infinity. Justify the choice; don't default.
 
-## Core recipes
+### Core recipes
 
 - **Quaternion rotation.** Unit $q$, $|q|=1$, rotates $\mathbf{p}$ by
   $\mathbf{p}' = q\,\mathbf{p}\,q^{-1}$ (with $\mathbf{p}$ a pure quaternion). Compose
@@ -57,14 +57,43 @@ Ask, in order:
 
 ## Checkable output
 
+An **algebra-choice ledger**: the problem, the structure chosen, the theorem that forced
+it, the alternatives rejected with the property each one lacks, and the numerical checks
+actually run.
+
 ```
 PROBLEM        3D rigid-body orientation tracking from IMU
 CHOICE         unit quaternions ℍ   (dim 4; division ✓ via Frobenius; SLERP + no gimbal lock)
 REJECTED       Euler angles (gimbal lock);  3-triplet (no normed division algebra — Hurwitz)
 VERIFY         |q|=1 ✓   |q p q⁻¹| = |p| ✓   compose q₂q₁ vs. R₂R₁ agree to 1e-12 ✓
+VERDICT        ok
+
+PROBLEM        blending feature vectors with a cross-product-like product in 7D
+CHOICE         octonions 𝕆         ("dimension 8 works")
+REJECTED       — none considered
+VERIFY         norm ✓   associativity of (ab)c vs a(bc) — NOT CHECKED
+VERDICT        REJECT — the construction composes three factors and 𝕆 is non-associative;
+                        a dimension that happens to fit is not the theorem that forces it
 ```
 
-Ship only when the algebra choice names the property that forced it (a theorem, not a
-preference) and the construction is numerically verified. Ties into the estate's knowledge
-graph: see the `knowledge-base` vault's `memory/wiki/mathematics/` notes on hypercomplex
-numbers for the underlying theory.
+Ship only when the choice names the property that forced it — a theorem, not a preference —
+and the construction is numerically verified. A row is a **rejection** when the justifying
+theorem is missing, when a property the construction relies on (division, associativity,
+commutativity) was assumed rather than confirmed for that algebra, or when the VERIFY
+column carries an assertion instead of a computed check.
+
+## Anti-patterns
+
+- **Defaulting to matrices out of habit**, or to quaternions out of fashion — either may be
+  right, but an unjustified choice is not checkable.
+- **Reaching for a 3-component "vector algebra" with division.** Hurwitz says it does not
+  exist; the answer is $\mathbb{H}$ at dimension 4.
+- **Climbing the tower for headroom.** Each step costs a property — ordering, then
+  commutativity, then associativity, then division itself; unused structure is a liability,
+  not a reserve.
+- **Forgetting the half-angle** in axis–angle conversion, or assuming $q_1q_2 = q_2q_1$ —
+  the two classic quaternion bugs, both of which survive review by looking plausible.
+- **Asserting the rotation is right** because the formula was copied correctly. Norm
+  preservation and a round-trip against the matrix form are cheap; run them.
+- **Letting unit quaternions drift** without periodic re-normalization, so a slowly
+  denormalizing $q$ quietly stops being a rotation.

@@ -55,7 +55,7 @@ Profiles (`profiles/*.md`) are named rigor bundles: **pure** (proof-first) vs **
 ## Install
 
 ```bash
-# in a meta-os instance (e.g. mova-os)
+# from your meta-os instance root
 scripts/packs.sh add advanced-math https://github.com/meta-agentic/meta-discipline-math
 scripts/packs.sh config advanced-math      # resolve/validate config
 ```
