@@ -8,32 +8,33 @@ coding-born skill collections leave unanswered.
 > A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
 > **portability** across estates.
 
-## Opt-in, unlike the sibling discipline packs
-
-The math and physics packs activate on mount. **This one does not.** Every skill here
-ships a master switch that defaults to `off`; the skill declines, in one line, until an
-instance sets it in `.packs.yaml`. The practices codified here carry real, compounding
-cost, so silence — not enthusiasm — is the correct default, and an `advisory` tier exists
-so a candidate can be judged without any language being authored.
-
 ## Skills
 
 | Skill | Discipline it codifies | Switch (default) | Checkable output |
 |-------|------------------------|------------------|------------------|
-| [`constrained-generation`](skills/constrained-generation/SKILL.md) | Generation reliability — constrain *what may be emitted* (a DSL, a schema, a typed builder API) instead of enlarging the prompt; a four-condition gate whose default answer is no; internal vs external form; a deterministic validator closing a bounded generate→validate→repair loop. | `dsl_generation` (`off`) | A generation-constraint ledger: four gate verdicts with evidence, the cheap path's *observed* failure, chosen form and validator, and one row per run with its repair count. |
+| [`design-review`](skills/design-review/SKILL.md) | Judging a **design**, not a diff: establish the change pattern the system actually has, map seams and dependency direction, apply coupling/cohesion, SOLID and GRASP as *diagnostics*, price every indirection, always state the simpler alternative. | — (active) | A design-review ledger: the change pattern, then per finding — diagnostic, endangered change, verdict, simpler alternative. |
+| [`decision-records`](skills/decision-records/SKILL.md) | ADR discipline: deciding what is even worth recording, forces in tension, ≥2 rejected alternatives with reasons, consequences including accepted costs, immutable history via supersession, and a reopening trigger. | — (active) | A decision ledger plus an INTEGRITY line whose non-zero counts are defects, not statistics. |
+| [`constrained-generation`](skills/constrained-generation/SKILL.md) | Generation reliability: constrain *what may be emitted* (a DSL, a schema, a typed builder API) instead of enlarging the prompt; a four-condition gate whose default answer is no; a deterministic validator closing a bounded repair loop. | `dsl_generation` (`off`) | A generation-constraint ledger: gate verdicts with evidence, the cheap path's observed failure, chosen form, per-run repair counts. |
 
-Design principles applied in review context (SOLID/GRASP, composition), ADR discipline,
-and design reviews follow as further skills.
+## Opt-in is per skill, not pack-wide
+
+Skills activate on mount, as in the sibling math and physics packs — **except
+`constrained-generation`**, which declines until an instance sets `dsl_generation`.
+Building a language carries a real, compounding cost, so silence is the correct default
+there; `design-review` and `decision-records` carry no such cost and are active. New
+skills are judged the same way, one at a time: gate a skill only when adopting it
+unprompted would be a liability.
 
 ## The three-part test (why this is a pack)
 
-1. **Recognizable** — a practitioner would call it "how we actually work": try the clean
-   API first, constrain the language when generation keeps failing, let the compiler
-   decide, commit the artifact rather than the prompt.
-2. **Portable** — parameterized by `pack.yaml` config (host language, validator command,
-   form, repair bound); welded to no single estate or toolchain.
-3. **Checkable** — unusually so. The discipline's rigor standard *is* a deterministic
-   validator: the output either parses, type-checks, and compiles, or it does not.
+1. **Recognizable** — a practitioner would call it "how we actually work": review the
+   shape against what will change, write down the decisions that are expensive to
+   re-litigate, constrain the language when generation keeps failing.
+2. **Portable** — parameterized by `pack.yaml` config (ADR home and format, host language,
+   validator command); welded to no single estate or toolchain.
+3. **Checkable** — every skill emits a ledger with a *failing* reading: a review that
+   cannot name the change pattern, an ADR log with a non-zero integrity count, a repair
+   count sitting at the bound.
 
 ## Configure
 
@@ -44,22 +45,14 @@ Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
 packs:
   software-engineering:
     config:
-      dsl_generation: "off"            # off | advisory | on   ← nothing runs until this moves
-      dsl_style: internal              # internal | external
-      host_language: typescript        # whose compiler enforces an internal DSL
-      validator_command: npm run typecheck
-      max_repair_iterations: 3
+      adr_home: docs/adr/              # where decision records live
+      adr_format: nygard               # nygard | madr | y-statement
+      dsl_generation: "off"            # off | advisory | on  ← constrained-generation only
 ```
 
-**Recommended path:** leave it `off`; move to `advisory` when you have a recurring
-generation problem you want the gate applied to; move to `on` only once a candidate has
-passed that gate and you can name a real validator command. Without
-`validator_command` the repair loop cannot close, and the skill says so rather than
-simulating a check.
-
-No profiles: this discipline has no alternative methodologies to bundle (the `pure` /
-`applied` split the math and physics packs ship has no analogue here). The opt-in tier is
-the only methodology choice an adopter makes.
+Without `validator_command`, `constrained-generation`'s repair loop cannot close and the
+skill says so rather than simulating a check. No profiles: this discipline has no
+alternative methodologies to bundle.
 
 ## Install
 
@@ -70,24 +63,23 @@ scripts/packs.sh config software-engineering      # resolve/validate config
 ```
 
 Skills land in the instance's union `skills/` and project-local `.claude/skills/`. This
-pack ships no hooks and no agents. Mounting it enables no method.
+pack ships no hooks and no agents.
 
 ## Scope
 
-This pack owns the **generation-reliability** question only. Domain modelling, TDD, and
-debugging discipline belong to the `mattpocock` and `superpowers` packs where those are
-mounted — the skill cites them rather than restating them. The overlap at the gate's cheap
-path (named types and a clean API before any new syntax) is a hand-off, not a duplication.
+The pack owns **design-altitude judgment** and **generation reliability**. Where the
+`mattpocock` or `superpowers` packs are mounted it defers rather than restates:
+`code-review` judges the code written while `design-review` judges the shape proposed;
+`tdd`, `diagnosing-bugs` and `domain-modeling` stay theirs. Sprint process, ceremonies and
+delivery cadence belong to the agile pack.
 
 ## Provenance & license
 
 First-party (mova77). MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by
-construction: no instance data. The method is grounded in published work — principally
-Unmesh Joshi's *"DSLs Enable Reliable Use of LLMs"* (martinfowler.com, July 2026; a guest
-article on Fowler's site — Joshi is the author), read alongside Fowler & Parsons'
-*Domain-Specific Languages*, Evans' ubiquitous language, and the grammar-constrained
-decoding literature — and is deliberately **stricter than its sources**: the article
-motivates DSLs, the gate is written to reject them.
+construction: no instance data. Breadth is anchored on the SWEBOK knowledge-area taxonomy
+used purely as a map, then filtered to the areas where judgment — not process — lives.
+Sources are cited, never vendored; every skill is original prose over standard practice,
+and is deliberately stricter than its sources where the common reading has gone slack.
 
 ## Registry entry (`meta-os/systems/packs.yaml`)
 
@@ -95,8 +87,9 @@ motivates DSLs, the gate is written to reject them.
   software-engineering:
     repo: https://github.com/meta-agentic/meta-discipline-swe
     ref: main
-    description: "Software-engineering discipline as judgment, not process. Ships constrained-generation (make LLM generation reliable by restricting what may be emitted — DSL/schema/typed API — behind a four-condition gate whose default answer is no, plus a validator-closed repair loop); design principles applied in review context, ADR discipline and design reviews follow. First-party."
+    description: "Software-engineering discipline as judgment, not process: design-review, decision-records, and the opt-in constrained-generation — each emitting a checkable ledger. First-party."
     provenance: first-party
     license: MIT
-    status: available # every skill is opt-in — mounting enables nothing
+    provides: [design-review, decision-records, constrained-generation]
+    status: available
 ```

@@ -1,30 +1,24 @@
 # Copy this block into your instance's .packs.yaml under packs: software-engineering: config:
-#
-# Mounting this pack enables NOTHING. With no config block at all, constrained-generation
-# declines and hands back to ordinary design work. That is the intended default — leave it
-# there until you have a recurring generation problem a validator can check.
 packs:
   software-engineering:
     config:
-      dsl_generation: "off"   # off | advisory | on   ← nothing runs until this moves
+      adr_home: docs/adr/       # where decision records live in your repos
+      adr_format: nygard        # nygard | madr | y-statement
+      dsl_generation: "off"     # off | advisory | on — constrained-generation only
 
-# Step 1 — `advisory` first. The skill runs its four-condition gate on a candidate and
-# reports the verdict, but authors no grammar, parser, or validator. Most estates stop here.
+# design-review and decision-records are active on mount and need no switch.
 #
-# packs:
-#   software-engineering:
-#     config:
-#       dsl_generation: advisory
-#
-# Step 2 — `on` once a candidate has passed the gate AND you can name a real validator.
-# Without validator_command the repair loop cannot close, and the skill will say so rather
-# than pretend to check its own output.
+# constrained-generation declines while dsl_generation is off. Move it to `advisory` when
+# you have a recurring generation problem you want its four-condition gate applied to; it
+# will judge candidates but author no grammar. Move to `on` only once a candidate has
+# passed that gate AND you can name a real validator — without validator_command the
+# repair loop cannot close, and the skill says so rather than pretending to check itself.
 #
 # packs:
 #   software-engineering:
 #     config:
 #       dsl_generation: on
 #       dsl_style: internal              # internal | external
-#       host_language: typescript        # whose compiler enforces an internal DSL
+#       host_language: typescript
 #       validator_command: npm run typecheck
 #       max_repair_iterations: 3
