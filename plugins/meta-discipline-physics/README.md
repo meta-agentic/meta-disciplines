@@ -78,7 +78,7 @@ vs **applied** (computation + sanity-checking emphasis).
 ## Install
 
 ```bash
-# in a meta-os instance (e.g. mova-os)
+# from your meta-os instance root
 scripts/packs.sh add advanced-math https://github.com/meta-agentic/meta-discipline-math
 scripts/packs.sh add physics       https://github.com/meta-agentic/meta-discipline-physics
 scripts/packs.sh config physics    # resolve/validate config
