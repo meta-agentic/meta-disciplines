@@ -79,8 +79,10 @@ delivery cadence belong to the agile pack.
 ## Provenance & license
 
 First-party (mova77). MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by
-construction: no instance data. Breadth is anchored on the SWEBOK knowledge-area taxonomy
-used purely as a map, then filtered to the areas where judgment — not process — lives.
+construction: no instance data. Breadth is anchored on the SWEBOK Guide v4.0 (IEEE
+Computer Society, 2024) and its 18 knowledge areas, used purely as a map, then filtered to
+the areas where judgment — not process — lives; `PROVENANCE.md` carries the full
+knowledge-area-to-skill mapping so the coverage claim can be checked against the source.
 Sources are cited, never vendored; every skill is original prose over standard practice,
 and is deliberately stricter than its sources where the common reading has gone slack.
 

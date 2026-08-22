@@ -22,10 +22,33 @@ meta-os registry; sprint process and delivery cadence belong to the agile pack. 
 cites all of them and owns what remains: **design-altitude judgment** and **generation
 reliability**.
 
-Breadth is anchored on the **SWEBOK Guide (IEEE Computer Society)** knowledge-area
-taxonomy, used purely as a **map of which areas exist**, then filtered by one question —
-*is there judgment here, or only process?* Areas that are pure process are out of scope by
-construction. The skills, and the practice each rests on:
+Breadth is anchored on the **SWEBOK Guide v4.0 (IEEE Computer Society, 2024)** and its 18
+knowledge areas, used purely as a **map of which areas exist**, then filtered by one
+question — *is there judgment here, or only process?* Areas that are pure process are out of
+scope by construction, and areas another mounted pack already owns are cited rather than
+restated. The mapping, so the pack's coverage claim can be checked against the source
+rather than taken on trust:
+
+| SWEBOK v4 knowledge area | Verdict | Where it lands |
+|---|---|---|
+| 02 Software Architecture (esp. §4 Architecture Evaluation) | judgment | `architecture-tradeoffs` |
+| 03 Software Design (§3 Design Qualities, §6 Quality Analysis and Evaluation) | judgment | `design-review` |
+| 05 Software Testing (§2 Test Levels, §4 Test-Related Measures) | judgment | `test-strategy` |
+| 04 Software Construction | judgment, but owned elsewhere | cited: `tdd`, `code-review` in sibling packs |
+| 07 Software Maintenance | judgment | candidate: legacy modernization |
+| 06 Software Engineering Operations | judgment | candidate: operations/observability |
+| 13 Software Security (new KA in v4) | judgment | candidate: security engineering |
+| 16–18 Computing / Mathematical / Engineering Foundations | judgment | the math and physics packs |
+| 08 Configuration Management · 09 Management · 10 Process · 15 Economics | process | the agile pack, not here |
+| 11 Models and Methods · 12 Software Quality · 14 Professional Practice | mixed | drawn on where a skill needs them; not skills in themselves |
+
+Two v4 changes shaped this pack directly. **Architecture became its own knowledge area,
+separate from Design** — which is exactly the altitude split between `architecture-tradeoffs`
+(choosing between architectures) and `design-review` (judging whether a structure absorbs
+the changes coming at it). And **Software Security became a standalone knowledge area**,
+which is why it is a named candidate rather than a subsection of something else.
+
+The skills, and the practice each rests on:
 
 - **`design-review`** — coupling and cohesion (Constantine & Yourdon; Parnas on
   information hiding and on the criteria for decomposing systems into modules), the SOLID
@@ -71,7 +94,9 @@ construction. The skills, and the practice each rests on:
   half of the repair loop entirely.
 
 No book text, article text, figures, tables, or code from any of these sources is copied,
-quoted, or vendored, and no source's proprietary material is reproduced. Every skill is
+quoted, or vendored, and no source's proprietary material is reproduced. The SWEBOK Guide
+itself is used only as a taxonomy of which areas exist — no SWEBOK text is reproduced, and
+the document is not redistributed with this pack. Every skill is
 original prose over standard practice, and is deliberately language- and toolchain-agnostic
 (`config.host_language`, `config.validator_command`, `config.adr_format`).
 
