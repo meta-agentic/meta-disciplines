@@ -3,6 +3,8 @@
 | Skill | Origin | License |
 |-------|--------|---------|
 | `design-review` | first-party (mova77), authored for this pack | MIT |
+| `architecture-tradeoffs` | first-party (mova77), authored for this pack | MIT |
+| `test-strategy` | first-party (mova77), authored for this pack | MIT |
 | `decision-records` | first-party (mova77), authored for this pack | MIT |
 | `constrained-generation` | first-party (mova77), authored for this pack | MIT |
 
@@ -33,6 +35,23 @@ construction. The skills, and the practice each rests on:
   pattern** rather than in principle compliance — follows Parnas's original criterion
   (decompose by what is likely to change) and the co-change evidence tradition in software
   evolution research.
+- **`architecture-tradeoffs`** — the scenario-based evaluation tradition from the SEI:
+  quality-attribute scenarios with an explicit response measure, and the ATAM vocabulary of
+  *sensitivity points*, *tradeoff points*, *risks and non-risks*, and *risk themes*
+  (Bass, Clements & Kazman, *Software Architecture in Practice*; Clements, Kazman & Klein,
+  *Evaluating Software Architectures*). Viewpoints-and-perspectives framing follows
+  Rozanski & Woods, *Software Systems Architecture*; the pattern vocabulary the options are
+  drawn from, Buschmann et al., *Pattern-Oriented Software Architecture* (vols 1–5).
+  Non-functional requirements are treated as scenarios rather than adjectives throughout.
+  The reversibility axis — scoring one-way doors separately from cost — is stated here more
+  strictly than in the ATAM literature, which treats it as a risk among others.
+- **`test-strategy`** — risk-based test design and the level-by-level evidence argument
+  (Tian, *Software Quality Engineering*), the test-level taxonomy used across the
+  microservice testing literature (unit · integration · contract · end-to-end, with
+  consumer-driven contract testing as the alternative to end-to-end coverage of partner
+  interfaces), and Adzic's *Specification by Example* for key examples serving as both
+  oracle and specification. The insistence that every level publish its blind spot, and that
+  every escaped defect be assigned to an owning level, is this pack's addition.
 - **`decision-records`** — the ADR format introduced by Michael Nygard, with the MADR and
   Y-statement variants offered as `config.adr_format`. The immutability-and-supersession
   discipline, and the requirement that a record carry a reopening trigger, are stated more
@@ -61,6 +80,12 @@ original prose over standard practice, and is deliberately language- and toolcha
 - **Principles are diagnostics, not goals.** The SOLID literature is routinely applied as
   a checklist; `design-review` rejects any finding that cannot name the concrete future
   change it protects, and rejects abstractions with one implementation and no test seam.
+- **A trade study whose winner sweeps every scenario is incomplete**, not decisive: it
+  means the scenarios do not bind or the alternative was a straw man. The literature treats
+  a clean sweep as a possible outcome; this pack treats it as a failing reading.
+- **Coverage percentage is not evidence.** `test-strategy` requires an oracle per test and a
+  published blind spot per level, and treats a flaky test as a defect to fix or delete
+  rather than to retry.
 - **An ADR without a rejected alternative is not an ADR**, and one without a reopening
   trigger is a belief with a date on it. Common templates treat both as optional.
 - **The DSL gate's default answer is no.** Joshi's article motivates DSLs; the skill is

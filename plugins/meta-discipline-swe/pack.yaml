@@ -4,7 +4,7 @@
 # Contract: meta-os/systems/pack.schema.json — validate before publishing.
 version: 1
 name: software-engineering
-description: "Software-engineering discipline (3 skills): judgment rather than process — design-review (structure judged against the change pattern the system actually has, principles as diagnostics not goals), decision-records (ADR discipline: rejected alternatives, accepted costs, reopening triggers), and the opt-in constrained-generation (make LLM generation reliable by restricting what may be emitted, behind a four-condition gate whose default answer is no) — each emitting a checkable ledger."
+description: "Software-engineering discipline (5 skills): judgment rather than process — design-review (structure judged against the change pattern the system actually has, principles as diagnostics not goals), architecture-tradeoffs (quality attributes as scenarios with response measures; sensitivity points, tradeoff points, one-way doors), test-strategy (risk-first: which failures are bought protection against, at the cheapest level that sees them, and what is knowingly uncovered), decision-records (ADR discipline: rejected alternatives, accepted costs, reopening triggers), and the opt-in constrained-generation (restrict what may be emitted, behind a four-condition gate whose default answer is no) — each emitting a checkable ledger."
 provenance: first-party
 license: MIT
 
@@ -16,7 +16,7 @@ license: MIT
 # No profiles: this discipline has no alternative methodologies to bundle (the `pure` /
 # `applied` split the math and physics packs ship has no analogue here).
 
-provides: [design-review, decision-records, constrained-generation]
+provides: [design-review, architecture-tradeoffs, test-strategy, decision-records, constrained-generation]
 
 config:
   # --- decision-records ---
