@@ -5,6 +5,7 @@
 | `design-review` | first-party (mova77), authored for this pack | MIT |
 | `architecture-tradeoffs` | first-party (mova77), authored for this pack | MIT |
 | `test-strategy` | first-party (mova77), authored for this pack | MIT |
+| `resilience-review` | first-party (mova77), authored for this pack | MIT |
 | `decision-records` | first-party (mova77), authored for this pack | MIT |
 | `constrained-generation` | first-party (mova77), authored for this pack | MIT |
 
@@ -36,7 +37,7 @@ rather than taken on trust:
 | 05 Software Testing (§2 Test Levels, §4 Test-Related Measures) | judgment | `test-strategy` |
 | 04 Software Construction | judgment, but owned elsewhere | cited: `tdd`, `code-review` in sibling packs |
 | 07 Software Maintenance | judgment | candidate: legacy modernization |
-| 06 Software Engineering Operations | judgment | candidate: operations/observability |
+| 06 Software Engineering Operations (§4 Operations Control, §5 Practical Considerations) | judgment | `resilience-review` |
 | 13 Software Security (new KA in v4) | judgment | candidate: security engineering |
 | 16–18 Computing / Mathematical / Engineering Foundations | judgment | the math and physics packs |
 | 08 Configuration Management · 09 Management · 10 Process · 15 Economics | process | the agile pack, not here |
@@ -75,6 +76,18 @@ The skills, and the practice each rests on:
   interfaces), and Adzic's *Specification by Example* for key examples serving as both
   oracle and specification. The insistence that every level publish its blind spot, and that
   every escaped defect be assigned to an owning level, is this pack's addition.
+- **`resilience-review`** — the stability-patterns tradition for distributed systems:
+  bulkheads, circuit breakers, bounded queues and fail-fast as *named* responses to named
+  failures, drawn from the pattern-language literature for distributed computing
+  (Buschmann, Henney & Schmidt, *Pattern-Oriented Software Architecture* vol. 4) and from
+  Kuhn, Hanafee & Allen, *Reactive Design Patterns* for supervision, back-pressure and
+  bounded resource use. The saga and compensating-transaction framing for
+  queue-and-settle-later behaviour follows the microservice patterns literature; the
+  queueing argument behind bounding every queue and pool is Kleinrock, *Queueing Systems*.
+  Three positions are this pack's own emphasis rather than the literature's: that an
+  **undeclared** degradation contract is a finding rather than a gap, that **timeout
+  budgets must visibly decrease down the call chain**, and that a contract which has never
+  been exercised by injected failure is a hypothesis and must be reported as one.
 - **`decision-records`** — the ADR format introduced by Michael Nygard, with the MADR and
   Y-statement variants offered as `config.adr_format`. The immutability-and-supersession
   discipline, and the requirement that a record carry a reopening trigger, are stated more
@@ -98,7 +111,8 @@ quoted, or vendored, and no source's proprietary material is reproduced. The SWE
 itself is used only as a taxonomy of which areas exist — no SWEBOK text is reproduced, and
 the document is not redistributed with this pack. Every skill is
 original prose over standard practice, and is deliberately language- and toolchain-agnostic
-(`config.host_language`, `config.validator_command`, `config.adr_format`).
+(`config.host_language`, `config.validator_command`, `config.fault_injection_command`,
+`config.adr_format`).
 
 ## Where this pack is deliberately stricter than its sources
 
@@ -111,6 +125,11 @@ original prose over standard practice, and is deliberately language- and toolcha
 - **Coverage percentage is not evidence.** `test-strategy` requires an oracle per test and a
   published blind spot per level, and treats a flaky test as a defect to fix or delete
   rather than to retry.
+- **An unexercised degradation contract is not resilience.** The stability-pattern
+  literature describes what to build; `resilience-review` refuses to report a contract as
+  satisfied until the failure has actually been injected and the degraded state observed —
+  and refuses any retry that cannot cite idempotency evidence, since retrying a
+  non-idempotent write turns an availability problem into a correctness one.
 - **An ADR without a rejected alternative is not an ADR**, and one without a reopening
   trigger is a belief with a date on it. Common templates treat both as optional.
 - **The DSL gate's default answer is no.** Joshi's article motivates DSLs; the skill is
