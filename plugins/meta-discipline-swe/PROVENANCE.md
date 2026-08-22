@@ -6,6 +6,7 @@
 | `architecture-tradeoffs` | first-party (mova77), authored for this pack | MIT |
 | `test-strategy` | first-party (mova77), authored for this pack | MIT |
 | `resilience-review` | first-party (mova77), authored for this pack | MIT |
+| `legacy-modernization` | first-party (mova77), authored for this pack | MIT |
 | `decision-records` | first-party (mova77), authored for this pack | MIT |
 | `constrained-generation` | first-party (mova77), authored for this pack | MIT |
 
@@ -36,7 +37,7 @@ rather than taken on trust:
 | 03 Software Design (§3 Design Qualities, §6 Quality Analysis and Evaluation) | judgment | `design-review` |
 | 05 Software Testing (§2 Test Levels, §4 Test-Related Measures) | judgment | `test-strategy` |
 | 04 Software Construction | judgment, but owned elsewhere | cited: `tdd`, `code-review` in sibling packs |
-| 07 Software Maintenance | judgment | candidate: legacy modernization |
+| 07 Software Maintenance | judgment | `legacy-modernization` |
 | 06 Software Engineering Operations (§4 Operations Control, §5 Practical Considerations) | judgment | `resilience-review` |
 | 13 Software Security (new KA in v4) | judgment | candidate: security engineering |
 | 16–18 Computing / Mathematical / Engineering Foundations | judgment | the math and physics packs |
@@ -88,6 +89,18 @@ The skills, and the practice each rests on:
   **undeclared** degradation contract is a finding rather than a gap, that **timeout
   budgets must visibly decrease down the call chain**, and that a contract which has never
   been exercised by injected failure is a hypothesis and must be reported as one.
+- **`legacy-modernization`** — the seams-and-characterization-tests discipline for
+  changing code that lacks a safety net (Feathers, *Working Effectively with Legacy
+  Code*), the strangler-fig pattern for incremental replacement behind a facade (Fowler),
+  and the re-engineering literature's treatment of the Big Rewrite as the option that
+  usually loses — including the churn-against-complexity heuristic for locating pain
+  rather than indicting unfamiliarity, and the domain-and-boundary framing that decides
+  where a strangler seam belongs. This pack's own emphasis: that a driver naming the
+  **blocked change and its cost** is a precondition rather than a nicety, that disposition
+  is decided **per component** and "leave alone" is a first-class outcome, that the rewrite
+  gate's default is **no** at three of four conditions, and that the **freeze-or-mirror
+  policy** — what happens to changes landing in the old system during migration — is the
+  single most reliable predictor of whether a migration finishes.
 - **`decision-records`** — the ADR format introduced by Michael Nygard, with the MADR and
   Y-statement variants offered as `config.adr_format`. The immutability-and-supersession
   discipline, and the requirement that a record carry a reopening trigger, are stated more
@@ -130,6 +143,10 @@ original prose over standard practice, and is deliberately language- and toolcha
   satisfied until the failure has actually been injected and the degraded state observed —
   and refuses any retry that cannot cite idempotency evidence, since retrying a
   non-idempotent write turns an availability problem into a correctness one.
+- **A modernization without a named blocked change is a rewrite that has not admitted it.**
+  The literature debates rewrite-versus-refactor; `legacy-modernization` refuses the
+  question until a driver with a cost exists, then answers it per component rather than
+  per system.
 - **An ADR without a rejected alternative is not an ADR**, and one without a reopening
   trigger is a belief with a date on it. Common templates treat both as optional.
 - **The DSL gate's default answer is no.** Joshi's article motivates DSLs; the skill is
