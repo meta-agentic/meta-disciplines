@@ -17,6 +17,7 @@ coding-born skill collections leave unanswered.
 | [`test-strategy`](skills/test-strategy/SKILL.md) | Which tests should exist at all: enumerate failures and what each costs, buy evidence at the cheapest level that can actually see it, name an oracle per test, state each level's blind spot, set the release signal. | — (active) | A test-strategy ledger plus an ESCAPES line assigning every production defect to the level that should have caught it. |
 | [`resilience-review`](skills/resilience-review/SKILL.md) | What happens when a dependency fails: enumerate every out-of-process dependency, **declare a degradation contract** for each, bound everything that waits or grows, permit retry only where idempotency is evidenced, map blast radius, and **exercise** each contract by injected failure. | — (active) | A failure-mode ledger with a timeout-budget line and an INTEGRITY line; an unexercised contract is a hypothesis, not resilience. |
 | [`legacy-modernization`](skills/legacy-modernization/SKILL.md) | What to do with a system that already exists: **name the change it blocks** (and its cost), measure churn against complexity, choose a disposition **per component** — leave · refactor · strangle · rewrite — apply a **rewrite gate whose default is no**, list which quirks are load-bearing, keep every increment shippable and reversible. | — (active) | A modernization ledger with a rewrite gate and an INTEGRITY line; a whole-system verdict, or a missing freeze-or-mirror policy, is a failing reading. |
+| [`performance-engineering`](skills/performance-engineering/SKILL.md) | Workload model + percentile target before any number means anything; the **saturated resource** found by measurement (USE/RED); **Little's law and Amdahl ceilings computed before profiling**, because they often end the investigation; utilization read through **queueing**, not linearly; every change predicted, then kept or reverted on the measurement. | — (active) | A performance ledger with the environment stated; an optimization kept with no measured delta, or a mean-latency target, is a failing reading. |
 | [`decision-records`](skills/decision-records/SKILL.md) | ADR discipline: deciding what is even worth recording, forces in tension, ≥2 rejected alternatives with reasons, consequences including accepted costs, immutable history via supersession, and a reopening trigger. | — (active) | A decision ledger plus an INTEGRITY line whose non-zero counts are defects, not statistics. |
 | [`constrained-generation`](skills/constrained-generation/SKILL.md) | Generation reliability: constrain *what may be emitted* (a DSL, a schema, a typed builder API) instead of enlarging the prompt; a four-condition gate whose default answer is no; a deterministic validator closing a bounded repair loop. | `dsl_generation` (`off`) | A generation-constraint ledger: gate verdicts with evidence, the cheap path's observed failure, chosen form, per-run repair counts. |
 
@@ -25,7 +26,7 @@ coding-born skill collections leave unanswered.
 Skills activate on mount, as in the sibling math and physics packs — **except
 `constrained-generation`**, which declines until an instance sets `dsl_generation`.
 Building a language carries a real, compounding cost, so silence is the correct default
-there; the other six carry no such cost and are active. New
+there; the other seven carry no such cost and are active. New
 skills are judged the same way, one at a time: gate a skill only when adopting it
 unprompted would be a liability.
 
@@ -51,6 +52,7 @@ packs:
   software-engineering:
     config:
       fault_injection_command: ./chaos/run.sh   # exercises declared degradation contracts
+      load_test_command: ./perf/run.sh          # measures a change against the stated workload
       adr_home: docs/adr/              # where decision records live
       adr_format: nygard               # nygard | madr | y-statement
       dsl_generation: "off"            # off | advisory | on  ← constrained-generation only
@@ -95,9 +97,9 @@ and is deliberately stricter than its sources where the common reading has gone 
   software-engineering:
     repo: https://github.com/meta-agentic/meta-discipline-swe
     ref: main
-    description: "Software-engineering discipline as judgment, not process: design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, decision-records, and the opt-in constrained-generation — each emitting a checkable ledger. First-party."
+    description: "Software-engineering discipline as judgment, not process: design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, and the opt-in constrained-generation — each emitting a checkable ledger. First-party."
     provenance: first-party
     license: MIT
-    provides: [design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, decision-records, constrained-generation]
+    provides: [design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, constrained-generation]
     status: available
 ```

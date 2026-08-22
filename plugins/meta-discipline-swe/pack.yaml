@@ -4,7 +4,7 @@
 # Contract: meta-os/systems/pack.schema.json — validate before publishing.
 version: 1
 name: software-engineering
-description: "Software-engineering discipline (7 skills): judgment rather than process — design-review (structure judged against the change pattern the system actually has, principles as diagnostics not goals), architecture-tradeoffs (quality attributes as scenarios with response measures; sensitivity points, tradeoff points, one-way doors), test-strategy (risk-first: which failures are bought protection against, at the cheapest level that sees them, and what is knowingly uncovered), resilience-review (a declared degradation contract per dependency, everything bounded, no retry without idempotency evidence, contracts exercised rather than assumed), legacy-modernization (name the blocked change, disposition per component rather than per system, a rewrite gate whose default is no, a freeze-or-mirror policy before the first line), decision-records (ADR discipline: rejected alternatives, accepted costs, reopening triggers), and the opt-in constrained-generation (restrict what may be emitted, behind a four-condition gate whose default answer is no) — each emitting a checkable ledger."
+description: "Software-engineering discipline (8 skills): judgment rather than process — design-review (structure judged against the change pattern the system actually has, principles as diagnostics not goals), architecture-tradeoffs (quality attributes as scenarios with response measures; sensitivity points, tradeoff points, one-way doors), test-strategy (risk-first: which failures are bought protection against, at the cheapest level that sees them, and what is knowingly uncovered), resilience-review (a declared degradation contract per dependency, everything bounded, no retry without idempotency evidence, contracts exercised rather than assumed), legacy-modernization (name the blocked change, disposition per component rather than per system, a rewrite gate whose default is no, a freeze-or-mirror policy before the first line), performance-engineering (workload model and percentile before any number, saturated resource by measurement, Little's-law and Amdahl ceilings before profiling, utilization read through queueing, unmoved optimizations reverted), decision-records (ADR discipline: rejected alternatives, accepted costs, reopening triggers), and the opt-in constrained-generation (restrict what may be emitted, behind a four-condition gate whose default answer is no) — each emitting a checkable ledger."
 provenance: first-party
 license: MIT
 
@@ -16,12 +16,16 @@ license: MIT
 # No profiles: this discipline has no alternative methodologies to bundle (the `pure` /
 # `applied` split the math and physics packs ship has no analogue here).
 
-provides: [design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, decision-records, constrained-generation]
+provides: [design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, constrained-generation]
 
 config:
   # --- resilience-review ---
   fault_injection_command:
     doc: "The estate's real fault-injection / chaos command, used to exercise a declared degradation contract (e.g. a chaos-mesh experiment, a toxiproxy script, a kill/partition harness). Absent = the skill must report contracts as unexercised hypotheses rather than as verified."
+
+  # --- performance-engineering ---
+  load_test_command:
+    doc: "The estate's real load-generation command, used to measure a change against the stated workload (e.g. a k6/Gatling/JMeter run against a prod-shaped environment). Absent = the skill must report numbers as unvalidated rather than presenting a local benchmark as a production result."
 
   # --- decision-records ---
   adr_home:
