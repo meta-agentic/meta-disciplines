@@ -7,6 +7,24 @@ description: "Advanced-mathematics discipline (12 skills): a rigor spine (proof 
 provenance: first-party
 license: MIT
 
+# The skill names other packs may depend on. A collision on a provided name is an
+# error, not a warning — see meta-os/systems/packs.md, "Dependencies between packs".
+provides:
+  # rigor spine
+  - mathematical-rigor
+  - dimensional-analysis
+  - hypercomplex-and-geometric-algebra
+  # branch disciplines
+  - calculus-and-analysis
+  - linear-algebra
+  - probability-and-statistics
+  - number-theory
+  - discrete-mathematics
+  - differential-equations
+  - abstract-algebra
+  - complex-analysis
+  - geometry-and-trigonometry
+
 config:
   profile:
     default: applied
