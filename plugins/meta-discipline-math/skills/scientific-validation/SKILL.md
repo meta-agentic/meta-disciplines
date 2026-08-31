@@ -158,6 +158,11 @@ EDGES  e1 -supports(✓)→ c1      c1 -tested-by(✓)→ m1     m1 -assumes(✓
        c1 -derived-from(✓)→ d1  c1 -generalizes-to(✓ scale-interaction only)→ dom1
 ```
 
+A full domain-level worked example — the claim graph of this skill's own source
+discipline, 48 typed nodes and 44 verdict-carrying edges — lives in
+`examples/methodology-claim-graph.yaml`; every edge endpoint resolves to a declared node
+and every edge carries its verdict, which is the checkable property of the graph itself.
+
 Mandatory under **both** profiles: a collapsed error stratum, pseudoreplication, or an
 undeclared design invalidates the result regardless of `config.profile`. Under `pure`,
 pair with the claims ledger of [[skills/mathematical-rigor/SKILL|mathematical-rigor]]
