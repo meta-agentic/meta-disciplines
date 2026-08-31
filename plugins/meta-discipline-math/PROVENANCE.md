@@ -14,6 +14,7 @@
 | `abstract-algebra` | first-party (mova77), authored for this pack | MIT |
 | `complex-analysis` | first-party (mova77), authored for this pack | MIT |
 | `geometry-and-trigonometry` | first-party (mova77), authored for this pack | MIT |
+| `scientific-validation` | first-party (mova77), authored for this pack; concepts generalized from standard experimental-design and biostatistics practice (Fisher's principles, mixed models, multi-environment inference) | MIT |
 
 All content is original and **public-safe by construction** — no instance data (repo
 names, trackers, paths, promoted knowledge). The discipline draws on standard mathematical
