@@ -24,6 +24,8 @@ provides:
   - abstract-algebra
   - complex-analysis
   - geometry-and-trigonometry
+  # validation discipline
+  - scientific-validation
 
 config:
   profile:
