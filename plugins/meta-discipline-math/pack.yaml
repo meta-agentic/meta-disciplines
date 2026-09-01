@@ -3,7 +3,7 @@
 # advanced-math` resolves instance .packs.yaml `config:` over these and validates enums.
 version: 1
 name: advanced-math
-description: "Advanced-mathematics discipline (13 skills): a rigor spine (proof rigor, quantitative sanity-checking, hypercomplex/geometric-algebra modeling) plus per-branch disciplines across calculus & analysis, linear algebra, probability & statistics, number theory, discrete math, differential equations, abstract algebra, complex analysis, and geometry & trigonometry, and a scientific-validation discipline (design-to-inference review of data-driven claims, distilled into a typed claim graph) — each emitting a checkable ledger."
+description: "Advanced-mathematics discipline (14 skills): a rigor spine (proof rigor, quantitative sanity-checking, hypercomplex/geometric-algebra modeling) plus per-branch disciplines across calculus & analysis, linear algebra, probability & statistics, number theory, discrete math, differential equations, abstract algebra, complex analysis, and geometry & trigonometry, a scientific-validation discipline (design-to-inference review of data-driven claims, distilled into a typed claim graph), and a graph-drawing discipline (layout-convention choice, drawing pipelines, bounds, and mental-map-preserving animation) — each emitting a checkable ledger."
 provenance: first-party
 license: MIT
 
@@ -26,6 +26,8 @@ provides:
   - geometry-and-trigonometry
   # validation discipline
   - scientific-validation
+  # visualization discipline
+  - graph-drawing
 
 config:
   profile:

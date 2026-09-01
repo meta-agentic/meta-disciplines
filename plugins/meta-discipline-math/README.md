@@ -25,6 +25,7 @@ of rigor* per branch that turns an agent into a competent mathematical practitio
 | [`complex-analysis`](skills/complex-analysis/SKILL.md) | Holomorphic functions — Cauchy–Riemann, contour integration, residues, argument principle, conformal maps. | A contour-evaluation ledger with explicit arc-vanishing (ML/Jordan) justification. |
 | [`geometry-and-trigonometry`](skills/geometry-and-trigonometry/SKILL.md) | Method & frame choice — synthetic/analytic/vector/transformational, trig toolkit, transformation invariants. | An invariant-check ledger (result confirmed by a coordinate-independent invariant + degenerate case). |
 | [`scientific-validation`](skills/scientific-validation/SKILL.md) | Design-to-inference validation of data-driven scientific claims — reconstruct the design (true replicates, error strata), require model ≡ design, check assumptions on residuals, bound the inference domain, verify reproducibility. | A validation ledger walking the whole chain + a typed claim graph (nodes/edges with verdicts, portable into any knowledge-graph store). |
+| [`graph-drawing`](skills/graph-drawing/SKILL.md) | Graph layout as a discipline — classify the graph (planarity, direction, degree, density), pick the convention from the data's semantics, declare the aesthetic priority order, run the matching pipeline (topology–shape–metrics, Sugiyama, multilevel force/stress), respect the known bounds, preserve the mental map when animating. | A layout ledger: classification, chosen trade, pipeline with heuristic/guaranteed labels, and drawing metrics measured on the actual output. |
 
 ## The three-part test (why this is a pack)
 
@@ -76,7 +77,7 @@ commit `6c0411c`. Add under `packs:` (the local `meta-os` checkout must be synce
   advanced-math:
     repo: https://github.com/meta-agentic/meta-discipline-math
     ref: main
-    description: "Advanced-mathematics discipline (13 skills): the rigor spine (mathematical-rigor, dimensional-analysis, hypercomplex-and-geometric-algebra) plus per-branch disciplines — calculus-and-analysis, linear-algebra, probability-and-statistics, number-theory, discrete-mathematics, differential-equations, abstract-algebra, complex-analysis, geometry-and-trigonometry — and scientific-validation (design-to-inference review emitting a validation ledger + typed claim graph). First-party — the quantitative-rigor wedge from pack-strategy."
+    description: "Advanced-mathematics discipline (14 skills): the rigor spine (mathematical-rigor, dimensional-analysis, hypercomplex-and-geometric-algebra) plus per-branch disciplines — calculus-and-analysis, linear-algebra, probability-and-statistics, number-theory, discrete-mathematics, differential-equations, abstract-algebra, complex-analysis, geometry-and-trigonometry — scientific-validation (design-to-inference review emitting a validation ledger + typed claim graph), and graph-drawing (layout-convention choice, drawing pipelines, bounds, mental-map-preserving animation). First-party — the quantitative-rigor wedge from pack-strategy."
     provenance: first-party
     license: MIT
     status: planned   # first-party; lands when the pack repo publishes

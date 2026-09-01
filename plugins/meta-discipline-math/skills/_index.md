@@ -23,5 +23,6 @@ the spine (define/prove/cite, then sanity-check) within a branch of mathematics.
 | [[skills/complex-analysis/SKILL\|complex-analysis]] | Holomorphic functions & residues | contour-evaluation ledger |
 | [[skills/geometry-and-trigonometry/SKILL\|geometry-and-trigonometry]] | Method/frame choice & invariants | invariant-check ledger |
 | [[skills/scientific-validation/SKILL\|scientific-validation]] | Design-to-inference validation of scientific claims | validation ledger + typed claim graph |
+| [[skills/graph-drawing/SKILL\|graph-drawing]] | Graph layout: convention choice, pipelines, bounds, animation | layout ledger with measured drawing metrics |
 
 Config knobs in `pack.yaml`; profiles in `profiles/` (pure / applied). See `README.md`.
