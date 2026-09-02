@@ -5,8 +5,11 @@ tags: [os, skills, pack, advanced-math]
 # advanced-math pack — skills
 
 Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
-artifact. The first three are the rigor spine; the rest are domain disciplines that invoke
-the spine (define/prove/cite, then sanity-check) within a branch of mathematics.
+artifact. The first three are the rigor spine; the next nine are domain disciplines that invoke
+the spine (define/prove/cite, then sanity-check) within a branch of mathematics. After them:
+the empirical-statistics wing (designing, analyzing, and decomposing real studies), the
+validation discipline for data-driven claims, and the graph-drawing discipline for layout —
+each closing on its own ledger.
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|
@@ -22,6 +25,9 @@ the spine (define/prove/cite, then sanity-check) within a branch of mathematics.
 | [[skills/abstract-algebra/SKILL\|abstract-algebra]] | Structure identification & axioms | structure & axiom ledger |
 | [[skills/complex-analysis/SKILL\|complex-analysis]] | Holomorphic functions & residues | contour-evaluation ledger |
 | [[skills/geometry-and-trigonometry/SKILL\|geometry-and-trigonometry]] | Method/frame choice & invariants | invariant-check ledger |
+| [[skills/experimental-design/SKILL\|experimental-design]] | Comparative studies designed before data | design ledger (unit, strata/df, randomization receipt, sizing) |
+| [[skills/statistical-inference/SKILL\|statistical-inference]] | Sample → defensible claim | inference ledger (stratum, assumptions, effect + CI, multiplicity) |
+| [[skills/multivariate-analysis/SKILL\|multivariate-analysis]] | Honest low-rank / correlated structure | decomposition ledger (centering, rank, scaling, boundary scan) |
 | [[skills/scientific-validation/SKILL\|scientific-validation]] | Design-to-inference validation of scientific claims | validation ledger + typed claim graph |
 | [[skills/graph-drawing/SKILL\|graph-drawing]] | Graph layout: convention choice, pipelines, bounds, animation | layout ledger with measured drawing metrics |
 

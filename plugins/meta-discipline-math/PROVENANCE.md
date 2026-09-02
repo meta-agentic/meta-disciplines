@@ -14,6 +14,9 @@
 | `abstract-algebra` | first-party (mova77), authored for this pack | MIT |
 | `complex-analysis` | first-party (mova77), authored for this pack | MIT |
 | `geometry-and-trigonometry` | first-party (mova77), authored for this pack | MIT |
+| `experimental-design` | first-party (mova77), authored for this pack | MIT |
+| `statistical-inference` | first-party (mova77), authored for this pack | MIT |
+| `multivariate-analysis` | first-party (mova77), authored for this pack | MIT |
 | `scientific-validation` | first-party (mova77), authored for this pack; concepts generalized from standard experimental-design and biostatistics practice (Fisher's principles, mixed models, multi-environment inference) | MIT |
 | `graph-drawing` | first-party (mova77), authored for this pack; original prose over the published results of the graph-drawing field (planarity, crossing minimization, Sugiyama, force-directed/stress, topology-shape-metrics, labeling, simultaneous embedding/morphing), with the Handbook of Graph Drawing and Visualization's chapter taxonomy used as a coverage map only — no text reproduced or vendored | MIT |
 
