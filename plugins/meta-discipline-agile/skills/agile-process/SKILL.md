@@ -1,6 +1,6 @@
 ---
 name: agile-process
-description: "Use for ANY backlog, sprint, ceremony, story-transition, retrospective, or 'how do we do X in our process' task — adding or refining items, implementing a story under the branch/PR gates, opening or closing a sprint, writing a daily retro, seeding a new service. Carries the backlog model (a monolith mirror or a per-item store, driven by a declared <tooling> CLI), the ceremony procedures, the script & hook catalog, and the agentic operating model, and emits a transition ledger. Sizing belongs to story-estimation; running several stories at once belongs to agile-swarm."
+description: "Use for ANY backlog, sprint, ceremony, story-transition, retrospective, or 'how do we do X in our process' task — adding or refining items, implementing a story under the branch/PR gates, opening or closing a sprint, writing a daily retro, seeding a new service, taking in an issue filed in a public repository's tracker. Carries the backlog model (a monolith mirror or a per-item store, driven by a declared <tooling> CLI), the ceremony procedures, the script & hook catalog, and the agentic operating model, and emits a transition ledger. Sizing belongs to story-estimation; running several stories at once belongs to agile-swarm."
 ---
 
 # Agile Process
@@ -52,13 +52,18 @@ An instance may override any single convention without switching profiles — se
 2. **Establish the write contract before any state change.** Which authority owns this
    item, and what tool writes to it. Reading an item shows its shape, not its rules;
    inferring the write method from the data is how a shared backlog gets corrupted.
-3. **Run the ceremony from its reference, not from memory** — new story, implement a
+3. **Work that originates outside the backlog enters only through intake.** An issue in
+   a public repository's tracker — filed by us or by a stranger — is triaged on the public
+   side, deduplicated against the backlog, and only then minted
+   (`references/issue-intake.md`). The public side never carries a key; the item carries
+   the issue's URL, so the join lives on one side by construction.
+4. **Run the ceremony from its reference, not from memory** — new story, implement a
    story, transition, open/close sprint, daily retro/standup (`references/ceremonies.md`).
    Under `kanban`, the sprint-bounded ones don't exist; the transition ones still do.
-4. **Move the story through the gates in order** — one branch for one story, the pre-push
+5. **Move the story through the gates in order** — one branch for one story, the pre-push
    gate green before the push, the PR drafted only while a review agent is in the loop,
    and every status move stamped with the current sprint through `config.tooling`.
-5. **Record the transition in the ledger below**, then reconcile: tracker and mirror agree,
+6. **Record the transition in the ledger below**, then reconcile: tracker and mirror agree,
    or the tracker wins. An item stuck `In Progress` across two sprints is a re-estimation
    trigger — hand it to [[skills/story-estimation/SKILL|story-estimation]], not a nag.
 
@@ -71,6 +76,7 @@ An instance may override any single convention without switching profiles — se
 | `references/new-service.md` | Design swarm (perspectives → consensus → ADR+spike+trace) and the 5-epic microservice skeleton + mandatory tenancy-adoption story. |
 | `references/scripts-and-hooks.md` | Catalog of `<tooling>` + the per-item schema gate, remaining Bash/PreToolUse hooks (what each enforces + bypass), and what a monolith→per-item migration retires. |
 | `references/agentic-operating-model.md` | Claude Code in the loop: which agents/skills for refinement, architecture, implementation, DoD, review stewardship, long-running & local-bounded sessions, staying current with `main`. |
+| `references/issue-intake.md` | Work that originates in a **public repository's tracker**: the asymmetric public/private boundary, the triage gate and where a decline lives, one-sided linkage (`external:` on the item, nothing on the issue), classifying third-party issues, closing the loop (`Closes #n` vs manual), the dedup rule, and the named exceptions to the ordinary ceremony (public branch names, key-free PRs, the DoD line). Adds the **intake row** to the ledger. |
 
 ## The rigor standard
 
@@ -87,6 +93,10 @@ advice:
   field, `customfield_10020` under `tracker: jira`). An unstamped move is not a transition.
 - **One story → one branch.** Never bundle a second story, or an incidental fix found
   mid-flight — file it and branch it separately.
+- **A public surface never carries a key.** Issue text, PR title and body, commits, branch
+  names, comments: an item key, sprint id or decision-record id in any of them is a
+  rejection, and history makes the leak permanent. The join lives in the item's `external:`
+  field (`references/issue-intake.md`).
 - **Pre-push gate green before every push** (`mvn verify` or the estate's equivalent); a
   red root build never reaches the remote.
 - **Draft only while a review agent is reviewing** — so it isn't merged mid-review; with

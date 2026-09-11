@@ -13,7 +13,7 @@ planning assumes one). No skill restates another: each cites its sibling by wiki
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|
-| [[skills/agile-process/SKILL\|agile-process]] | The backlog-of-record harness: ceremonies, story transitions, sprint stamping, branch/PR gates, the single backlog write path | **transition ledger** |
+| [[skills/agile-process/SKILL\|agile-process]] | The backlog-of-record harness: ceremonies, story transitions, sprint stamping, branch/PR gates, the single backlog write path, and intake of issues from a public tracker across the public/private boundary | **transition ledger** (+ intake rows) |
 | [[skills/agile-swarm/SKILL\|agile-swarm]] | Multi-lane parallel execution: hazard-free lane planning, verified worktree isolation, independent review, PO-owned merges | **lane ledger** |
 | [[skills/story-estimation/SKILL\|story-estimation]] | Sizing as judgment: the extension/intension (complicated vs complex) quadrant and one prescription per quadrant | **estimate ledger** |
 
