@@ -112,6 +112,29 @@ stating the outcome (*confirmed and tracked* · *needs X* · *not planned, becau
 later, a PR that references the issue; then the close. Never a key, never a sprint, never
 "it is scheduled for …". If milestones are used at all, they are named by release.
 
+### What intake needs from the public surface
+
+Issue templates, labels and a public roadmap board are **instance tooling**, not part of
+this reference — but they are the surface through which intake meets a reporter, and a
+template that collects the wrong things turns triage into chasing. Build them to this
+contract, so the classification step above can run from the issue as filed:
+
+| Surface | Must provide | So that |
+|---|---|---|
+| Every template | a banner redirecting vulnerabilities to the private advisory channel; blank issues disabled or routed to a *question* path | step 1 (safety) is decided by the form, not by the triager |
+| Bug template | what happened · minimal reproduction · expected vs actual (with the spec clause where one applies) · version or commit · environment and deployment topology · logs with secrets redacted | a bug can be confirmed or sent to `needs-info` on first read |
+| Feature template | problem or use case · proposed behaviour · alternatives considered · the component or area · the relevant specification | the product decision and the dedup search (§5) have their inputs |
+| Labels | the tracker's defaults **plus** the triage vocabulary of §1 (`accepted`, `needs-info`) | the triage queue is visible and a verdict is recordable |
+| Roadmap board, if any | curated by hand; horizons named generically (*now / next / later*) or by release — never by sprint; no automation writing to it from the backlog | the board is a public-safe view, not a mirror that leaks |
+
+**Sequencing.** This reference does not depend on that tooling existing — triage can be
+done on a bare issue — and the tooling does not depend on this reference to be built. They
+are independent deliverables with one soft ordering: land the discipline **before** a batch
+of curated issues is opened by the maintainers, so each of those issues is linked from its
+backlog item (§2) as it is created rather than back-filled. Neither absorbs the other: the
+tooling item owns the forms, labels and board; this reference owns what they must collect
+and what happens next.
+
 ## 4 · Closing the loop
 
 The cheap half, confirmed: a PR in the **same public repository** may reference the issue
@@ -138,7 +161,13 @@ column (`closes #n` or `manual close`).
 ## 5 · Duplication — one issue, at most one primary item
 
 Before minting, search the backlog for (a) the issue URL, (b) the subject — the component's
-umbrella epic, the title's nouns, (c) items in the same area not yet started. Then decide:
+umbrella epic, the title's nouns, (c) items in the same area not yet started — and search
+**every space the component spans**, not only the space you happen to be working in. The
+common failure is not a missed near-duplicate; it is a confident *"nothing covers this"*
+from a search of one space, made independently by two people, while a refined item in a
+neighbouring space already owns the question. So the intake row's DEDUP cell names **what
+was searched** (`none found in <spaces>`), never a bare "none" — a wrong verdict is then
+auditable instead of invisible. Then decide:
 
 | Situation | Call |
 |---|---|
@@ -187,15 +216,16 @@ One row per accepted issue, appended to the transition ledger:
 
 ```
 ISSUE                          → ITEM   CLASS      DEDUP                    PUBLIC ACT           VERDICT
-<owner>/<repo>#42              → A-31   bug        none found               accepted + comment   ok
+<owner>/<repo>#42              → A-31   bug        none found (a, b)        accepted + comment   ok
 <owner>/<repo>#43              → A-19   enhancement fold into A-19 (not started)  accepted + comment   ok
 <owner>/<repo>#44              → A-32   decision   new; A-20 depends on it  accepted + comment   ok
 <owner>/<repo>#45              → A-33   bug        —                        accepted             REJECT — no dedup line
-<owner>/<repo>#46              → A-34   bug        none found               (none)               REJECT — issue carries no triage label
+<owner>/<repo>#46              → A-34   bug        none found (a, b)        (none)               REJECT — issue carries no triage label
+<owner>/<repo>#47              → A-35   decision   none found               accepted + comment   REJECT — searched spaces not named
 ```
 
-A row is a **rejection** when the dedup cell is empty, when the issue carries no triage
-label, when two items claim the same URL as `primary`, when a public branch, PR, commit or
+A row is a **rejection** when the dedup cell is empty or does not name the spaces searched,
+when the issue carries no triage label, when two items claim the same URL as `primary`, when a public branch, PR, commit or
 comment carries a key, or when a `DONE` item's issue is still open and silent.
 
 ## Anti-patterns
