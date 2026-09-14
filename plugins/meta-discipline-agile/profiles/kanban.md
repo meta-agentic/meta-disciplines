@@ -14,15 +14,26 @@ ignores the sprint/ceremony ones.
 
 | Key | Meaning | Default |
 |-----|---------|---------|
-| `tracker` | `local` (a `backlog.json`) or `none` (issues live only in the tool's head / an external board) | `none` |
+| `tracker` | `local` (no external tracker — the mirror is the top authority, shaped by `backlog-layout`) or `none` (items live only in the tool's head / an external board) | `none` |
+| `backlog-layout` | `monolith` (one tracker-derived file) or `per-item` (one file per work item) — `tracker: local` only | `monolith` |
 | `space` | optional label for the flow | — |
+| `spaces` | the space keys this instance carries, when more than one is in play | — |
+| `mirror-repo` | `<owner>/<repo>` holding the mirror | required when `tracker: local` |
 
-`mirror-repo` is unused (no external tracker to mirror).
+`tracker: jira` belongs to the `scrum` profile — this one mirrors nothing external.
+Under `tracker: none` there is no mirror at all, so `mirror-repo` is unused.
 
 ## Conventions this profile asserts
 
-- **Authority order:** `backlog.json` (if `tracker: local`) → the skills → CLAUDE.md
-  invariants. With `tracker: none` there is no backlog file; work is tracked ad hoc.
+- **Authority order — resolved per space, not globally:** `tracker` → the `mirror-repo`
+  mirror → the pack's skills → CLAUDE.md invariants. On any state conflict the tracker
+  wins. Under `tracker: local` there is no external tracker, so the mirror is itself the
+  top authority; under `backlog-layout: per-item` the mirror repo is the **sole
+  authority** for every space it carries and `<tooling>` is its only writer. Every key in
+  `spaces` resolves this order independently — one space may be tracker-backed while
+  another is mirror-native.
+  With `tracker: none` there is no backlog of record at all and no mirror to be the
+  authority; work is tracked ad hoc and the transition procedures do not apply.
 - **Flow:** a single continuous board — backlog → in-progress → done, WIP-limited, pulled
   not planned. No sprints, no velocity, no burndown.
 - **Discipline gates kept:** one-branch-per-item, clean-verify before PR, review before

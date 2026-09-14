@@ -31,7 +31,8 @@ agile` prints the resolved values):
 - **`config.tracker`** (`jira` | `local` | `none`), **`config.space`**,
   **`config.mirror-repo`** — resolve the `<space>` / mirror-repo placeholders. With
   `tracker: local` the mirror *is* the top authority (no external tracker); with
-  `tracker: none` there is no backlog file. `tracker: local` splits further on
+  `tracker: none` there is no backlog of record. Authority resolves **per space**, not
+  globally — see the active profile's ordering. `tracker: local` splits further on
   **`config.backlog-layout`**: `monolith` (one tracker-derived file) or `per-item` (one
   file per work item, e.g. `<mirror-repo>/<space>/{raw,wiki,output}/<KEY>.md`). **The
   procedures in `references/ceremonies.md` and `references/backlog-and-reconciliation.md`
@@ -39,7 +40,8 @@ agile` prints the resolved values):
   tool calls to whatever `config.tooling` points at.
 - **`config.sprint-files`**, **`config.tooling`**, **`config.ceremony-home`**,
   **`config.spaces`** — `per-item`-only keys: the sprint-record path template, the CLI
-  that mutates the backlog, where retro/standup/planning records live, and the space keys.
+  that mutates the backlog, where retro/standup/planning records live, and the space
+  keys each of which resolves the authority order on its own.
 
 An instance may override any single convention without switching profiles — see
 "Overrides" in the pack README.
@@ -83,9 +85,15 @@ An instance may override any single convention without switching profiles — se
 Mirrored always-on in the instance's CLAUDE.md — these are what the harness *rejects*, not
 advice:
 
-- **Authority order is absolute:** `<tracker>` (project `<space>`) → the backlog mirror →
-  this skill → CLAUDE.md invariants. On any state conflict the **tracker wins** (under
-  `tracker: local`, the mirror is that top authority). A skill or a note never overrules it.
+- **Authority order — resolved per space, not globally:** `tracker` → the `mirror-repo`
+  mirror → the pack's skills → CLAUDE.md invariants. On any state conflict the tracker
+  wins. Under `tracker: local` there is no external tracker, so the mirror is itself the
+  top authority; under `backlog-layout: per-item` the mirror repo is the **sole
+  authority** for every space it carries and `<tooling>` is its only writer. Every key in
+  `spaces` resolves this order independently — one space may be tracker-backed while
+  another is mirror-native.
+  This ordering is stated word-for-word in `profiles/scrum.md` and `profiles/kanban.md`;
+  a skill or a note never overrules it.
 - **The declared `config.tooling` is the only backlog write from a code PR.** A
   hand-edited mirror file is a rejection *even when the resulting state is correct* — an
   unwritten-through change is unreconcilable later.

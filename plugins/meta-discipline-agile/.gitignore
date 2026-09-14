@@ -11,6 +11,8 @@ Thumbs.db
 
 # Agent/session scratch — never commit run artifacts or resolved instance config
 .claude/
+.claude-flow/
+*.db
 *.local.yaml
 *.local.md
 .packs.yaml

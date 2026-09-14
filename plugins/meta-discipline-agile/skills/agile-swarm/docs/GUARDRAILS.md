@@ -30,7 +30,7 @@ Ask the PO, or find the tool, before writing. One question up front is cheaper t
 
 | Tracker | Where state lives | How to write it |
 |---|---|---|
-| **Local text backlog** | `backlog.json` / markdown in the repo | Edit the file — but the repo's own convention (schema, required fields) is the contract. |
+| **Local text backlog** (`backlog-layout: monolith`) | a single `backlog.json`-style file or markdown in the repo | Edit through the repo's own tool; its convention (schema, required fields) is the contract, not the file's shape. |
 | **Jira** | The Jira project | Connector/API transitions. Fetch the available transitions for a sample issue first — **transition ids are per-project**, not global. |
 | **Local vault** (markdown, folder-as-state) | `vault/<space>/{raw,wiki,output}/` | The vault's **own CLI**, atomically moving file + status + sprint stamp. The folder **is** the lifecycle state, so a hand-edited `status:` desynchronises it and a schema gate rejects the commit. Never hand-edit `status:`. |
 | **Linear** | Linear workspace | API/connector. |
