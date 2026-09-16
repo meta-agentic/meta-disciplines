@@ -82,6 +82,40 @@ sits `In Progress` across sprint boundaries with real commits landing and no com
 its extension keeps moving while its intension is still being decided. **An item stuck
 across two sprints is a re-estimation trigger, not a nagging trigger.**
 
+### Carry-over — repoint to the work that is left
+
+A story that does not finish is re-estimated at the **next planning**, and the new number
+is the **work still to be done**, read in the light of what the unfinished attempt
+revealed. Not a fresh total, and not the old number nodded through: what remains.
+
+This is a third basis for a number. An **up-front** estimate is a forecast; an **ex-post**
+one is a calibration anchor derived knowing the outcome; a **carry-over** estimate is
+neither — it is made mid-delivery, with the extension now largely known and the intension
+partly discharged. It is usually the most accurate number the item will ever carry, and it
+is the one the next sprint commits to.
+
+Four things must hold, or the repoint destroys more than it fixes:
+
+1. **Keep the original.** The prior number and its axis placement survive the repoint as
+   history. `consumed = original − remaining` is the measured size of the estimation
+   error — the entire reason the repoint is worth making. A repoint that overwrites the
+   original is not a recalibration; it is the loss of the only evidence that anything
+   needed recalibrating.
+2. **The origin sprint delivers nothing for it.** No partial credit into velocity —
+   *delivered* keeps meaning done. The item stays visible there in that sprint's
+   `committed:` list, where it reads as what it is: committed here, delivered later.
+3. **The delivering sprint counts the remaining points only.** Across the two sprints the
+   story contributes `remaining`, never `original + remaining`. Membership is per
+   reference, so a carried item that still names both sprints is counted in both.
+4. **Move the placement, not just the number.** Carrying usually discharges intension —
+   the undefined part got decided — while extension stays put or grows. Say which axis
+   moved and why; a bare smaller number teaches the next forecast nothing.
+
+**Do not sum `deliveredSP` across sprints to size an epic.** Under this rule sprint totals
+are delivery *rates*, and a story that carries twice contributes only its last slice to
+them. An epic's size is its items' current estimates; the sprint columns answer a
+different question.
+
 ### The pass — one item, in order
 
 1. **Place it on both axes before naming a number**, and write the placement into the
@@ -155,6 +189,9 @@ the session is a shared *model of the work*, and the story points fall out of it
   repoint however close the numbers.
 - **Everything sized, including enablers, spikes and bugs.** Unpointed deliveries fake a
   downward velocity trend.
+- **A carried item is repointed to what is left, and the original is kept.** Remaining work
+  is the number the next sprint commits to; `original − remaining` is the calibration
+  signal, and a repoint that erases the prior estimate erases it.
 - **Out of scope:** when an estimate is demanded, how it is recorded in the backlog of
   record, and what a stuck item triggers procedurally — that is
   [[skills/agile-process/SKILL|agile-process]]'s harness; this skill only produces the
@@ -170,6 +207,7 @@ A-12    low (1 module)            low (known pattern)          simple          2
 A-40    high (4 repos, 1 schema)  low (mechanical migration)   complicated     5  SPLIT by extension → 3 items
 A-51    med (3 config levels)     high (contract undefined)    complex+broad   8  DO NOT COMMIT — spike the contract first
 A-77    low (1 doc)               high (discovery is the goal) complex         5  time-box: 2 days
+A-19    high (4 repos, unchanged) high→low (contract settled)  complicated     3  CARRY-OVER from S-14 — was 8, 5 consumed
 ```
 
 Under team estimation the ledger gains a round-by-round section — who placed where, per
@@ -182,6 +220,7 @@ An estimate is **not done**, and the row is a **rejection**, while it:
 - sits in **complex+broad with a bare number** and no split/spike prescription;
 - sits in **complicated with an 8** (should have been split);
 - is an **enabler, spike or bug left unpointed**.
+- is a **carried item repointed without its prior number and placement retained**.
 
 ## Anti-patterns
 
@@ -197,6 +236,10 @@ An estimate is **not done**, and the row is a **rejection**, while it:
   exist to provide.
 - **Nagging a stuck item instead of re-estimating it.** Two sprints `In Progress` is the
   signal the original placement was wrong.
+- **Overwriting the original estimate when repointing a carried item.** The delta between
+  the two is the only measurement of the miss; without it, a bad forecast simply vanishes.
+- **Leaving the previous sprint named on a carried story.** It then counts as delivered in
+  both, and the doubled points read as velocity.
 
 ## Configure
 
