@@ -84,9 +84,17 @@ across two sprints is a re-estimation trigger, not a nagging trigger.**
 
 ### Carry-over — repoint to the work that is left
 
-A story that does not finish is re-estimated at the **next planning**, and the new number
-is the **work still to be done**, read in the light of what the unfinished attempt
-revealed. Not a fresh total, and not the old number nodded through: what remains.
+A story that does not finish is re-estimated at the **next planning**, in the light of what
+the unfinished attempt revealed — and what the next sprint commits to is **the work still
+to be done**, not the whole item again.
+
+Record that as two numbers, and derive the third. The **estimate** is revised to the true
+size of the whole story; **delivered** is what is already done, accumulated across every
+sprint the item has touched; **remaining = estimate − delivered** is computed, never
+stored. Keeping the estimate as the size of the *whole* item is what makes the revision
+safe: every reader that predates delivery tracking goes on reading it as the item's size,
+and nothing silently shrinks under them. A story that turns out bigger than anyone thought
+says so — the estimate goes **up** while the remaining work goes down.
 
 This is a third basis for a number. An **up-front** estimate is a forecast; an **ex-post**
 one is a calibration anchor derived knowing the outcome; a **carry-over** estimate is
@@ -104,9 +112,12 @@ Four things must hold, or the repoint destroys more than it fixes:
 2. **The origin sprint delivers nothing for it.** No partial credit into velocity —
    *delivered* keeps meaning done. The item stays visible there in that sprint's
    `committed:` list, where it reads as what it is: committed here, delivered later.
-3. **The delivering sprint counts the remaining points only.** Across the two sprints the
-   story contributes `remaining`, never `original + remaining`. Membership is per
-   reference, so a carried item that still names both sprints is counted in both.
+3. **No point is counted twice.** A carried story contributes its work to the estate once,
+   however many sprints it touched. Membership is usually per reference, so an item that
+   still names both sprints is counted in both — the commonest way a carry silently
+   inflates delivery. Splitting the credit *between* those sprints needs a per-sprint
+   record of what each one earned; a single cumulative delivered figure cannot be
+   apportioned after the fact, and guessing at the split is worse than not claiming one.
 4. **Move the placement, not just the number.** Carrying usually discharges intension —
    the undefined part got decided — while extension stays put or grows. Say which axis
    moved and why; a bare smaller number teaches the next forecast nothing.
@@ -189,9 +200,10 @@ the session is a shared *model of the work*, and the story points fall out of it
   repoint however close the numbers.
 - **Everything sized, including enablers, spikes and bugs.** Unpointed deliveries fake a
   downward velocity trend.
-- **A carried item is repointed to what is left, and the original is kept.** Remaining work
-  is the number the next sprint commits to; `original − remaining` is the calibration
-  signal, and a repoint that erases the prior estimate erases it.
+- **A carried item is repointed to the true size of the whole, and the original is kept.**
+  What the next sprint commits to is `estimate − delivered`, derived rather than stored;
+  the gap between the superseded estimate and the real cost is the calibration signal, and
+  a repoint that erases the prior estimate erases it.
 - **Out of scope:** when an estimate is demanded, how it is recorded in the backlog of
   record, and what a stuck item triggers procedurally — that is
   [[skills/agile-process/SKILL|agile-process]]'s harness; this skill only produces the
@@ -207,7 +219,7 @@ A-12    low (1 module)            low (known pattern)          simple          2
 A-40    high (4 repos, 1 schema)  low (mechanical migration)   complicated     5  SPLIT by extension → 3 items
 A-51    med (3 config levels)     high (contract undefined)    complex+broad   8  DO NOT COMMIT — spike the contract first
 A-77    low (1 doc)               high (discovery is the goal) complex         5  time-box: 2 days
-A-19    high (4 repos, unchanged) high→low (contract settled)  complicated     3  CARRY-OVER from S-14 — was 8, 5 consumed
+A-19    high (4 repos, unchanged) high→low (contract settled)  complicated    10  CARRY-OVER from S-14 — was 8, 5 delivered, 5 left
 ```
 
 Under team estimation the ledger gains a round-by-round section — who placed where, per
