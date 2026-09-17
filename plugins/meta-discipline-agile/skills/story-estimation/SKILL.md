@@ -115,9 +115,11 @@ Four things must hold, or the repoint destroys more than it fixes:
 3. **No point is counted twice.** A carried story contributes its work to the estate once,
    however many sprints it touched. Membership is usually per reference, so an item that
    still names both sprints is counted in both — the commonest way a carry silently
-   inflates delivery. Splitting the credit *between* those sprints needs a per-sprint
-   record of what each one earned; a single cumulative delivered figure cannot be
-   apportioned after the fact, and guessing at the split is worse than not claiming one.
+   inflates delivery. So record delivery **per sprint**, at the moment each slice is
+   known: what the sprint earned is obvious while it is closing and unrecoverable
+   afterwards. A single cumulative figure cannot be apportioned later, and a split
+   guessed after the fact is worse than not claiming one. The item then counts once as a
+   delivered *item* too, in the sprint that finished it.
 4. **Move the placement, not just the number.** Carrying usually discharges intension —
    the undefined part got decided — while extension stays put or grows. Say which axis
    moved and why; a bare smaller number teaches the next forecast nothing.
