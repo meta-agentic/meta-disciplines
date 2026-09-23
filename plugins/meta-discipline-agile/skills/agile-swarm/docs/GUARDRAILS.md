@@ -49,6 +49,54 @@ Corollary for shared trackers: if the backlog serves several projects or session
 - **Don't poll** after spawning — leads message back / complete automatically.
 - Leads run on the capable model and consume the real budget — scale lane count to budget; don't fan out beyond what's affordable.
 
+## Engine plugin (only when `engines-enabled: true`)
+
+When the plugin is off, skip this section: every lane is the lead engine end to end. When it is
+on, a lane may hand work to a **worker** engine through the multiplexer (`engines-bin`, e.g.
+meta-cli). Each rule below comes from a real trial.
+
+- **The lead keeps the lane.** Only `engines-lead` writes the brief, verifies, runs the gate,
+  stages explicit paths, commits, opens the PR, and makes every tracker write. A worker runs as
+  a subprocess **inside the lane's worktree** (`<bin> run -p <worker> -C <worktree>`). It never
+  commits, pushes, checks out, or transitions an item, and its brief says so.
+- **The brief is not the guard; the lead's check is.** An implementing worker runs with
+  auto-approve, so "no git writes" in its brief is a promise, not a boundary. Before each worker
+  run the lead records `git rev-parse HEAD` and the branch. After the run it checks that both are
+  unchanged and that `git status` touches only the paths the brief allowed. A worker commit,
+  branch switch, or out-of-scope write **rejects the lane**. The lead discards the worker's
+  output and re-runs the step; it does not repair the result by hand. With that check the
+  single-writer rule, one-story-one-branch and PO-owned merges hold.
+- **Verify by diff and gate, never by exit code.** Exit codes mislead in both directions. One
+  engine exited 0 after its sandbox refused the write; another exited 1 on a quota error
+  *after* delivering complete, correct work. The verdict is `git diff` against the brief, plus
+  the foreground gate.
+- **What may leave the lead:**
+  - *Tier 0, read-only work: review and research.* A worker with the `review` or `research`
+    role, run **read-only** (never with an auto-approve flag). If the worker cannot run tools
+    headless, put the diff or the sources in the prompt instead. Its output is advisory. A review
+    verdict is a signal to the lead and the PO, and research lands in notes the lead reads. It
+    never becomes a commit or a tracker write without passing through the lead. A different model
+    is a *more* independent reviewer than a second instance of the lead engine. Tier 0 needs
+    nothing but the plugin being on.
+  - *Tier 1, implementation.* Only items that story-estimation places low-intension (`simple`,
+    or `complicated` with intension ≤ 0.3). The item must not touch auth, crypto or external
+    input, and must not be cross-cutting. The PO opts in per lane at scope approval.
+- **Never offloaded:** the `complex` or spike quadrants, security-flagged items, decision
+  records, anything that writes the tracker, and anything that edits a default branch.
+- **The reviewer is never the implementer's engine, and never the lane's lead.** The lead
+  commits and opens the PR, so it is an author (§Review). If the implementer ran out of quota
+  and another worker finished the fix round, the re-review goes to a third engine or to a
+  separate `reviewer-<N>` agent.
+- **Quota runs out mid-lane; plan for it.** Fall back down the `engines-workers` order, and
+  record every hand-over in the lane ledger. A declared plan is not proof: one trial found the
+  worker CLI on a free tier despite a paid subscription. `plan` is declared, and the run is
+  the evidence.
+- **The plugin stretches the lead's budget; it does not bypass a rate-limit freeze.** The lead
+  itself spends budget. If the lead engine is rate-limited, offloaded lanes stall with it, and
+  any freeze your pipeline enforces stands as written.
+- **Record the cost.** For a tier-1 lane the ledger carries the worker run id and the lead's own
+  token spend, so the saving is measured rather than assumed.
+
 ## Decision discipline
 - Use a **single structured multi-select** to get PO scope approval before spawning.
 - Reserve questions for genuinely PO-owned forks (scope, risky/irreversible mechanism choices). Otherwise pick the sensible default and proceed.

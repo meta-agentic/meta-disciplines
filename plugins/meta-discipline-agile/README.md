@@ -67,6 +67,8 @@ placeholders in the docs come from here.
 | `estimation-scale` | `fibonacci` (1·2·3·5·8) \| `t-shirt` \| `linear` | `fibonacci` |
 | `estimation-consensus` | `median` (per axis) \| `strict` (unanimous quadrant) | `median` |
 | `estimation-repoint-threshold` | per-axis range that triggers a repoint (span is 2.0) | `1.0` |
+| `engines-enabled` | opt-in agile-swarm engine plugin: hand review / low-intension implementation to worker engines while the lead keeps the lane | `false` |
+| `engines-bin`, `engines-lead`, `engines-workers` | the multiplexer binary, the one engine that owns lanes, and the ordered worker map (`plan`, `roles`) | `meta`, `claude`, — |
 
 ### Profiles
 

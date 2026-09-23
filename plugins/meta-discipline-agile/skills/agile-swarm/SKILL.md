@@ -53,6 +53,12 @@ Lane sizing uses [[skills/story-estimation/SKILL|story-estimation]]'s axes: a la
    tick the batch on merge, and roll to the next batch — recording every lane in the ledger
    below.
 
+**Optional engine plugin.** With `engines-enabled: true` in the pack config, a lane may hand
+review, or low-intension implementation, to a worker engine through a multiplexer such as
+meta-cli. The lead still owns the lane, verifies by diff and gate, and makes every commit and
+tracker write. The rules are in `docs/GUARDRAILS.md` §Engine plugin. When the plugin is off,
+none of this applies.
+
 ## The rigor standard
 
 Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejects*:
@@ -102,6 +108,11 @@ is a **rejection** when the worktree column is anything but a verified isolated 
 OVERLAP is non-empty, when a gate was backgrounded rather than run foreground, or when the
 reviewer is the lane's own lead — and a rejected lane is re-planned or re-spawned, never
 waved through.
+
+With the engine plugin on, the ledger gains `ENGINE` (worker and tier, or `—`), `RUN` (the worker
+run id or ids) and `LEAD TOK` (the lead's own spend for the lane). A row is also a **rejection**
+when a worker committed or moved HEAD, when the only evidence of success is a worker exit code,
+or when the reviewer ran on the implementer's engine or was the lane's lead.
 
 ## When NOT to use this
 

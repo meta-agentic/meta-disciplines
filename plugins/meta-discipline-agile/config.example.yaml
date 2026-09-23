@@ -23,3 +23,18 @@ packs:
 #       tooling: automations/backlog/backlog.py
 #       ceremony-home: memory/wiki
 #       spaces: [acme]
+
+# Optional engine plugin for agile-swarm (off unless engines-enabled is true).
+# The lead engine owns every lane; workers only do review / low-intension
+# implementation inside the lane's worktree, via a multiplexer such as meta-cli.
+#
+# packs:
+#   agile:
+#     config:
+#       engines-enabled: true
+#       engines-bin: meta
+#       engines-lead: claude
+#       engines-workers:                 # order = fallback order
+#         codex:  { plan: <your plan>, roles: [implement, review] }
+#         grok:   { plan: <your plan>, roles: [implement, review, research] }
+#         gemini: { plan: free,        roles: [review, research] }

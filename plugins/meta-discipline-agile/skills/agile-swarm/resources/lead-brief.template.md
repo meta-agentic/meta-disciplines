@@ -21,6 +21,18 @@ GUARDRAILS:
 - Pre-set the tracker/backlog state in the code PR.
 - TRACKER WRITES: `<either: the exact command/tool to use, e.g. "run `<tool> transition <KEY> IN REVIEW`" — or: "do NOT touch the tracker; the orchestrator owns all status writes and will transition on PR open/merge">`. Never hand-edit a tracker item to change its state, and never infer the write method from the file's shape. If the tracker is shared across projects or sessions, concurrent lane writes are a hazard — default to the orchestrator owning them.
 
+ENGINE PLUGIN (include only when `engines-enabled: true` and the PO opted this lane in; delete otherwise):
+- Worker: **<worker>** (fallback: <next worker in engines-workers>), tier <0 read-only review/research | 1 implementation>.
+- Eligibility (orchestrator fills in at spawn): <why this lane qualifies. Tier 1 needs a low-intension placement, no auth/crypto/external-input flag, not cross-cutting, and not in the never-offloaded list in docs/GUARDRAILS.md §Engine plugin>. If a story in this lane turns out not to qualify, do it yourself and report it; do not offload it.
+- Tier 1 loop, per story:
+  1. write a self-contained worker brief (goal, ACs, files it may edit, "no git writes", the gate command);
+  2. record `git rev-parse HEAD` and the branch, then run `<engines-bin> run -p <worker> --yolo -t <cap-seconds> -C <this worktree> -- "<brief>"`;
+  3. check that HEAD and the branch are unchanged and that `git status` shows only allowed paths (otherwise the lane is rejected: discard and re-run), then **verify with `git diff` against the brief, never by the exit code**;
+  4. run the gate yourself in the foreground;
+  5. stage explicit paths, commit, and open the PR. The worker never commits.
+- Review: a read-only run of a *different* worker, or a separate `reviewer-<N>`. Never the engine that implemented the change, and never you: you commit, so you are an author.
+- Record the worker run id(s) and your own token spend for the ledger. On a worker quota error, fall back to the next worker and note the hand-over.
+
 COMMS: `SendMessage` progress + PR links to "lead" after each PR; coordinate with peers by name only if genuinely needed. **NO-PROGRESS RULE: if you make no verifiable progress for 10 minutes, STOP and report to lead — never retry silently.**
 
 Start with <first story>.

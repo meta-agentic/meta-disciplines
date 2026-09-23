@@ -49,6 +49,18 @@ config:
   estimation-repoint-threshold:
     default: 1.0
     doc: "Per-axis range above which a repoint is called. The axis span is 2.0, so the default of 1.0 is half the span."
+  engines-enabled:
+    default: false
+    one_of: "true | false"
+    doc: "Opt-in engine plugin for agile-swarm. When false (the default), every lane is one lead engine end to end and none of the engine rules in agile-swarm apply. When true, a lane may hand review (tier 0) or low-intension implementation (tier 1) to a declared worker engine through a process multiplexer such as meta-cli, while the lead keeps ownership of the lane. See agile-swarm docs/GUARDRAILS.md, 'Engine plugin'."
+  engines-bin:
+    default: meta
+    doc: "The multiplexer binary the lead calls (`<bin> run -p <worker> -C <worktree> …`). Use an absolute path when the session's PATH may not include it."
+  engines-lead:
+    default: claude
+    doc: "The only engine allowed to own a lane: it writes the brief, verifies, runs the gate, commits, opens the PR and makes every tracker write. Workers never do any of these."
+  engines-workers:
+    doc: "Ordered map of worker engines to their declared plan and allowed roles, e.g. `{grok: {plan: <plan>, roles: [implement, review, research]}, gemini: {plan: free, roles: [review, research]}}`. Order is the fallback order when a worker runs out of quota. Only listed engines are used; a listed engine that the multiplexer reports as not ready is skipped, and the skip is recorded in the lane ledger. `plan` is declared, never detected. Roles: `review` and `research` are tier 0 (read-only, advisory); `implement` is tier 1."
 
 profiles:
   scrum: profiles/scrum.md

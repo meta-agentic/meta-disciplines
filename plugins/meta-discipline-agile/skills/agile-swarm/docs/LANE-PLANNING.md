@@ -25,6 +25,11 @@ Pull the current sprint's **non-done** items (exclude epics/containers) with: `k
 ## Present for approval
 Show a table: lane → codebase → ready items → SP → priority/dep notes, plus an explicit **independence/collision-safety** statement. Recommend a first parallel set. Get PO approval via a single multi-select before spawning — this is a scope decision the PO owns.
 
+**With `engines-enabled: true`,** add an **Engine** column: for each lane, the proposed worker and
+tier, and why the lane qualifies. Tier 1 needs a low-intension placement and no security flag.
+Tier 0 review needs nothing extra. The PO approves the engine choice in the same question;
+leaving the column blank means the lead engine does the whole lane.
+
 ## Example shape
 | Lane | Codebase (isolated) | Ready items | SP | Notes |
 |---|---|---|---|---|
