@@ -73,6 +73,11 @@ Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejec
   because branch switches don't wipe build output and stale cross-branch artifacts cause
   spurious failures. Never end a turn parked on a background build in a
   connection-bound session.
+- **The host is shared, so every build is bounded.** A hard timeout and a free-disk floor
+  kill the build's *whole* process tree, forks included, never just the launcher. Nothing
+  waits on a background notifier. A Docker-free step is enforced below the config. Only one
+  lane uses Docker at a time, and no lane starts or stops the container runtime
+  (`docs/GUARDRAILS.md` §Lane runtime).
 - **One story → one branch → one PR**, and the tracker state is pre-set in the code PR —
   never a standalone PR just to change issue state.
 - **Independent review on every PR before merge** — a reviewer that is not the author,

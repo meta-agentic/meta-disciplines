@@ -49,6 +49,8 @@ config:
   estimation-repoint-threshold:
     default: 1.0
     doc: "Per-axis range above which a repoint is called. The axis span is 2.0, so the default of 1.0 is half the span."
+  lane-guard:
+    doc: "Optional. The instance's lane runtime guard: a script lanes source to run builds in the foreground with a hard timeout, a free-disk floor that kills the build's whole process tree, and a mode where the container socket cannot be reached. Lead briefs name it, and every lane build goes through it. When unset, agile-swarm's lane-runtime rules still apply, and the lead enforces them by hand. See agile-swarm docs/GUARDRAILS.md, 'Lane runtime'."
   engines-enabled:
     default: false
     one_of: "true | false"

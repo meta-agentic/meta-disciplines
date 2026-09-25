@@ -13,6 +13,18 @@ Hard-won from a real multi-agent run. Each rule traces to a concrete failure it 
   - **Never `git add -A` / `git add .`** — stage explicit paths only. An un-isolated lead running `git add -A` on the primary sweeps sibling worktrees (as gitlinks) and tool dirs (e.g. `.diffblue/`) into the commit. **Gitignore the worktree root and tool dirs** as belt-and-suspenders.
   - Orchestrator: after spawning, **`git worktree list` to confirm each lead got one**; if a lane's isolation didn't take, **pre-create a manual worktree** and point that lead at it rather than respawning blindly.
 
+## Lane runtime: the host is shared
+Lanes share one machine: its disk, its container runtime, its process table. A failure in one lane's build is every lane's problem. These rules come from one day in which a lane filled the disk twice and hung a build for four hours. Each lane had improvised its own guard, and each guard failed differently.
+
+- **Every build runs in the FOREGROUND under a hard timeout. Never depend on a background notifier.** A completion notification that never arrives leaves the lane idle, not waiting. Set the timeout on the build itself, not only on the tool call, so the build dies with the turn. A job too long for a turn goes to CI.
+- **A timeout or disk guard kills the whole process tree, not the launcher.** Build tools fork: a test runner's JVM forks outlive the launcher, and a fork reparented to init descends from nothing you started. Kill every descendant, plus every process whose working directory is inside the lane's worktree. Freeze the set first (SIGSTOP), rescan, then kill, so nothing forks in between. Never include the lane's own agent or shell.
+- **Watch free disk, with a floor.** Poll free space at least once a second while a build runs. Below the floor (a few GB), kill the tree. A full disk breaks every lane and the human's session with it. Log the low-water mark, so a near miss is visible before it becomes a hit.
+- **"No Docker" is enforced below the config, not by it.** Test filters (`-Dtest`, tags, profiles) do not reliably stop integration tests from starting containers. A user-level client config, such as a Testcontainers properties file in the home directory, can override an environment-variable opt-out. A step that must be Docker-free runs where the container socket cannot be reached, for example an OS sandbox denying connects to it. A test that tries anyway then fails loudly instead of quietly succeeding.
+- **Only one Docker-using lane at a time.** Containers from parallel lanes compete for disk and memory and leave volumes and images behind. A lane claims the runtime before its first container, and releases it when done. The orchestrator serialises Docker-using lanes like any other shared resource.
+- **Lanes never start, quit, restart or kill the container runtime** (e.g. Docker Desktop). Its restart policy is the human's: starting it can bring back stacks and clusters nobody asked for, and quitting it breaks other lanes mid-build. A lane that needs the runtime and finds it stopped STOPS and reports.
+
+When the instance declares `lane-guard`, the brief names that runner and every build goes through it. Without one, the brief states these rules, and the lead applies the timeout and floor with whatever the host offers.
+
 ## Compiler / toolchain traps (language-specific, generalize the habit)
 - Don't re-pin a dependency the imported platform BOM already manages — a local override shadows it and drifts.
 - Some flags are mutually exclusive (e.g. `--release` vs `--add-exports` on javac). Know the per-module wiring and centralize it once (e.g. a repo-root JVM config) rather than per-module gymnastics.

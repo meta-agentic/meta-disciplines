@@ -16,7 +16,8 @@ CONVENTIONS (read the repo's CLAUDE.md + relevant ADRs first): <architecture pat
 
 GUARDRAILS:
 - One story = one branch (`<prefix>/<KEY>-<slug>`) + one PR vs main. Do NOT bundle a second story or an incidental fix — file it and branch it separately.
-- Before each push run the gate `<mvn clean verify / npm build+lint+typecheck>` in the **FOREGROUND with a bounded timeout** (set the Bash timeout field). Never end a turn parked on a background build.
+- Before each push run the gate `<mvn clean verify / npm build+lint+typecheck>` in the **FOREGROUND with a hard timeout on the build itself** (`<lane-guard runner and timeout, e.g. "source <lane-guard>; run the gate with its --timeout <S>">`, plus the Bash timeout field). Never end a turn parked on a background build, and never rely on a completion notification to wake you.
+- HOST RESOURCES (docs/GUARDRAILS.md §Lane runtime): a timeout or disk-floor kill takes the build's whole process tree, never just the launcher. Docker: `<"none — run Docker-free steps in the guard's no-Docker mode" | "this lane holds the Docker claim">`. Never start, quit or kill the container runtime; if you need it and it is down, STOP and report.
 - Run `/code-review` (and `/security-review` if it touches auth/crypto/external input) on the diff before opening the PR.
 - Pre-set the tracker/backlog state in the code PR.
 - TRACKER WRITES: `<either: the exact command/tool to use, e.g. "run `<tool> transition <KEY> IN REVIEW`" — or: "do NOT touch the tracker; the orchestrator owns all status writes and will transition on PR open/merge">`. Never hand-edit a tracker item to change its state, and never infer the write method from the file's shape. If the tracker is shared across projects or sessions, concurrent lane writes are a hazard — default to the orchestrator owning them.
