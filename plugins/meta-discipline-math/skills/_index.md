@@ -32,3 +32,5 @@ each closing on its own ledger.
 | [[skills/graph-drawing/SKILL\|graph-drawing]] | Graph layout: convention choice, pipelines, bounds, animation | layout ledger with measured drawing metrics |
 
 Config knobs in `pack.yaml`; profiles in `profiles/` (pure / applied). See `README.md`.
+
+To find which skill covers an engineering or physics topic — or, where none does, which authoritative source to fetch from — see [[reference/curriculum-routing-map|the curriculum routing map]].

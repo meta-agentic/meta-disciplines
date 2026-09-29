@@ -30,6 +30,8 @@ of rigor* per branch that turns an agent into a competent mathematical practitio
 | [`scientific-validation`](skills/scientific-validation/SKILL.md) | Design-to-inference validation of data-driven scientific claims — reconstruct the design (true replicates, error strata), require model ≡ design, check assumptions on residuals, bound the inference domain, verify reproducibility. | A validation ledger walking the whole chain + a typed claim graph (nodes/edges with verdicts, portable into any knowledge-graph store). |
 | [`graph-drawing`](skills/graph-drawing/SKILL.md) | Graph layout as a discipline — classify the graph (planarity, direction, degree, density), pick the convention from the data's semantics, declare the aesthetic priority order, run the matching pipeline (topology–shape–metrics, Sugiyama, multilevel force/stress), respect the known bounds, preserve the mental map when animating. | A layout ledger: classification, chosen trade, pipeline with heuristic/guaranteed labels, and drawing metrics measured on the actual output. |
 
+**Routing map.** [`reference/curriculum-routing-map.md`](reference/curriculum-routing-map.md) lists the mathematics of a typical engineering and physics degree (14 areas, 93 topics), with the skill that covers each topic — in this pack or the companion physics pack — and, where none does, the authoritative source to fetch from instead of answering from memory.
+
 ## The three-part test (why this is a pack)
 
 1. **Recognizable** — a working mathematician/physicist/engineer would call it "how we
