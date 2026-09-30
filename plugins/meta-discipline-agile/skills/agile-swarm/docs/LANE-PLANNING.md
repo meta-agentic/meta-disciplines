@@ -6,7 +6,7 @@ How to turn a sprint into independent, parallel-safe lanes.
 Pull the current sprint's **non-done** items (exclude epics/containers) with: `key, summary, status, priority, story-points, parent, dependencies`. Cross-reference dependencies from the backlog mirror.
 
 ## Filter to "ready"
-- **Dependency-ready**: all blockers are Done (or NO-GO). 
+- **Dependency-ready**: all blockers are Done. A blocker that went `NO GO` does not make its dependents ready: their premise is gone, so re-examine them (re-point, supersede or re-refine) before planning them.
 - **Watch for stale/legacy dependency keys** (e.g. pre-migration project keys). A "blocked" flag pointing at a legacy key is often noise — verify whether it maps to already-done work before excluding (or excluding it from the swarm) the item.
 - Prefer **PLANNED / REFINED** items with clean acceptance criteria.
 

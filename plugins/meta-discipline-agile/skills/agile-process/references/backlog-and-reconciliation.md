@@ -50,14 +50,14 @@ state** — this pack's recommended convention is to enforce it with a schema ga
 
 | Tier | Statuses | Meaning |
 |---|---|---|
-| `raw/` | `TO DO`, `PLANNED`, `REFINED`, `NO GO` | captured, not yet (or no longer) in flight |
-| `wiki/` | `IN PROGRESS`, `IN REVIEW` | refinement/delivery underway — DoR met to get here |
+| `raw/` | `TO DO`, `PLANNED`, `REFINED`, `NO GO` | captured, not yet in flight; or, for `NO GO`, stopped before the work started |
+| `wiki/` | `IN PROGRESS`, `IN REVIEW`, `NO GO` | refinement/delivery underway (DoR met to get here); or, for `NO GO`, stopped while underway |
 | `output/` | `DONE` | delivered artifact |
 
 `<tooling> transition <key> <status>` should move the file to the right tier **and**
-stamp the sprint in one step — never hand-move a file between tiers. `NO GO` is a
-deliberate terminal status (killed on purpose, lesson recorded) — not drift, never
-"fixed" to a canonical status, kept in `raw/` for traceability.
+stamp the sprint in one step — never hand-move a file between tiers.
+
+`NO GO` is a deliberate terminal status: the work was stopped on purpose and has no viable path forward. It is aborted work, never a delivered increment and not pending work waiting its turn either, so it never counts toward delivery, velocity or throughput. A `NO GO` item is never promoted: it stays in the tier its work had reached, `raw/` if it never started and `wiki/` if it was underway, and the item itself is the memory of the abort. So `NO GO` is the one status that does not fix its tier: a transition to `NO GO` leaves the file in its current tier, and the schema gate accepts `NO GO` in either `raw/` or `wiki/`. Recording the reasons or decisions that stopped it is recommended rather than required, because an abort is often a valuable lesson: it explains an architectural decision, or exposes a development path proved wrong or inconvenient. The transition may stamp the current sprint like any other, but sprint close never counts a `NO GO` item as delivered. It is not drift and is never "fixed" to a canonical status. An item whose work actually shipped is `DONE`, not `NO GO`.
 
 ## Item shape (front-matter)
 An item is discoverable by declaring `kind:` in its front-matter — not by filename

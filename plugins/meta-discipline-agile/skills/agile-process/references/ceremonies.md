@@ -100,8 +100,8 @@ Lead proposes the basket; **PO approves scope**.
 
 ## Close a sprint  *(PO-only by convention)*
 `<tooling> sprint close <space> <SPACE>-S{n}` — flips `state: closed`, stamps
-`closed:`, and computes delivered SP/items from the items actually carrying that
-sprint. Append a close-out note to the live sprint-history register at
+`closed:`, and computes delivered SP/items from the `DONE` items actually carrying that
+sprint (a `NO GO` item carrying it is never delivered). Append a close-out note to the live sprint-history register at
 `<ceremony-home>` (velocity, increment narrative, retro highlights). Sprint
 **closure** is the Product Owner's exclusive authority as a process rule — if your
 instance doesn't yet have a mechanical gate for this (a `PreToolUse` hook matching
