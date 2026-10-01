@@ -44,14 +44,7 @@ label **are** the triage queue.
 | **question** | answer; close, or convert to a discussion | nothing |
 | **security** | no public discussion; redirect to the private advisory channel | minted from the advisory, not the issue |
 
-**Where a declined decision lives: on the issue.** The closed state, the reason label and
-the comment are the record. `NO GO` in the backlog is for work that was *accepted into the
-backlog* and later killed with a lesson; it does not apply to an issue that was never
-accepted, and minting a `NO GO` per decline would import the tracker's noise and create a
-second copy of the decision to drift. One exception: a decline whose **reasoning is
-private** and worth remembering (a product direction, a security posture) — the reasoning
-goes into a decision record or a `NO GO` item that cites the issue, and the public comment
-carries only the outcome.
+**Where a declined decision lives: on the issue.** The closed state, the reason label and the comment are the record. `NO GO` in the backlog is for work that was *accepted into the backlog* and later stopped for good (see the `NO GO` rule in `backlog-and-reconciliation.md`); it does not apply to an issue that was never accepted, and minting a `NO GO` per decline would import the tracker's noise and create a second copy of the decision to drift. One exception: a decline whose **reasoning is private** and worth remembering (a product direction, a security posture). The reasoning goes into a decision record, or into a `NO GO` item that cites the issue and stays in `raw/` because no work started; that is the one case where an issue enters the backlog already stopped. The public comment carries only the outcome.
 
 The triage window and the default triager are instance conventions (see *Open questions*).
 An issue untriaged past the window is a standup item, not a surprise.
@@ -173,7 +166,7 @@ auditable instead of invisible. Then decide:
 |---|---|
 | An existing item covers the same scope and has not started | **Fold**: attach the URL as `primary` to that item; no new item; comment on the issue |
 | An existing item overlaps, and the issue's extra scope would change that item's **estimate quadrant or DoD** | **New item**, with a dependency edge in the direction delivery requires; the URL goes `primary` on the item that delivers the reporter's outcome, `related` on the other |
-| The issue invalidates an existing item's premise | **Supersede**: the existing item goes `NO GO` with the lesson (or is rewritten if not started — a PO call); the URL attaches to the replacement |
+| The issue invalidates an existing item's premise | **Supersede**: the existing item goes `NO GO`, citing the issue as the reason (or is rewritten if not started — a PO call); the URL attaches to the replacement |
 | The existing item is already `IN PROGRESS` | **Never widen it** — new item and a dependency, unless the PO explicitly rescopes |
 | Two issues describe one problem | Close the later as `duplicate` pointing at the earlier; one item |
 
