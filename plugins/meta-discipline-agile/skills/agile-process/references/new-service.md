@@ -9,10 +9,10 @@ Before seeding a skeleton, run a multi-agent design swarm to produce the
 architecture, exploiting Claude Code sub-agents.
 
 1. **Convene perspectives** — spawn specialised sub-agents in parallel (`Agent` /
-   Task tool), each given the *same* ground truth (the real platform seams —
-   MSOT · TTC · AGE · SMC · MPS · SLR · SFD · CLK · XTR — and the constraints:
-   Quarkus 3 · Java 25 · hexagonal · Mutiny · Kafka · JSR-385 · multi-tenant +
-   `BaselineId`) plus one distinct lens (e.g. domain/hexagon · real-time pipeline ·
+   Task tool), each given the *same* ground truth (the real platform seams — every
+   service that already exists — and the constraints: Quarkus 3 · Java 25 · hexagonal ·
+   Mutiny · Kafka · JSR 385 · multi-tenant + the domain's own invariants) plus one
+   distinct lens (e.g. domain/hexagon · real-time pipeline ·
    inference/forecast · agentic/consensus · integration & external ports). Ground
    the swarm in existing ADRs/spikes first — never invent services that exist.
 2. **Exchange & converge** — R1: each agent emits an independent position paper
@@ -36,16 +36,17 @@ architecture, exploiting Claude Code sub-agents.
 ## New microservice — the 5-epic skeleton
 Prepopulate the backlog mirror (`<mirror-repo>/{prj}/raw/`, one file per epic —
 `<tooling> id alloc {prj}` for each) so every service aligns and never drifts. For
-prefix `{PRJ}` (e.g. `PLD`):
+prefix `{PRJ}` (e.g. `ABC`):
 
 - `{PRJ}-E1` **Platform Foundation** — scaffold the **four-module in-service hexagon**
   (`{prj}-domain`, `-api`, `-persistence`, `-rest`) plus the centralized
-  composition-root deployable `launchers/{service}-svc` (per **ADR-INF-04**, <SPACE>-386
-  — *no* in-service `*-launcher`; one `api` → many launchers → many topologies, also
+  composition-root deployable `launchers/{service}-svc` (the composition root lives only
+  in a launcher, so the application layer stays framework-free and never knows the
+  concrete wiring — *no* in-service `*-launcher`; one `api` → many launchers → many topologies, also
   wired into `-Pmonolith`), ArchUnit layering rules (`DomainPurityTest` in `-domain`,
   `HexagonalArchitectureTest` in the launcher), initial container/deploy profile.
 - `{PRJ}-E2` **Domain Model & Types** — pure immutable domain structures (data
-  products, calibration, …); physical quantities via JSR-385 (`javax.measure`).
+  products, calibration, …); physical quantities via JSR 385 (`javax.measure`).
 - `{PRJ}-E3` **Ingestion & API** — contract-first OpenAPI 3.1 schemas; search
   endpoints and incoming streaming/packet buffers.
 - `{PRJ}-E4` **Persistence** — Hibernate Reactive entities indexing processed files
@@ -59,8 +60,9 @@ system-entry-points roster).
 
 ## Mandatory tenancy-adoption story
 Also create the standing story *Adopt multi-tenancy isolation + tenant-claim
-propagation in {PRJ}* under epic **<SPACE>-42** ([INF] SaaS Multi-tenancy & Data Plane;
-umbrella **<SPACE>-548**), blocked by **<SPACE>-365** (Postgres RLS) + **<SPACE>-366**
-(Keycloak/X-Tenant-Id propagation). It is **not optional** (see the multi-tenancy
-engineering convention in CLAUDE.md). Mirror the <SPACE>-403–407 / <SPACE>-542–547 pattern
-(labels `INF, {PRJ}, multi-tenancy, identity, rls, security`).
+propagation in {PRJ}* under the space's multi-tenancy & data-plane epic (and its
+umbrella), blocked by the stories that deliver row-level security (Postgres RLS) and
+tenant-claim propagation (Keycloak/X-Tenant-Id). It is **not optional** (see the
+multi-tenancy engineering convention in CLAUDE.md). Mirror the adoption stories of the
+services that already went through it (labels `INF, {PRJ}, multi-tenancy, identity,
+rls, security`).

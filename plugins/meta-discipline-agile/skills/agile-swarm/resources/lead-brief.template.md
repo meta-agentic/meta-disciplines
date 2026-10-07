@@ -8,8 +8,8 @@ You are lead **<lead-name>** in a <N>-lead swarm (peers: <other-lead-names>; orc
 SCOPE — your codebase only: `<paths the lead may edit>`. (If part of the work lives in another repo, name it and how to reach it.)
 
 STORIES (own branch + PR each, in priority order):
-1. **<KEY-1>** (<priority>) — <one-line goal + the acceptance criteria that matter>.
-2. **<KEY-2>** — <…>.
+1. **<first-key>** (<priority>) — <one-line goal + the acceptance criteria that matter>.
+2. **<second-key>** — <…>.
    (Lead story already transitioned to In-Progress by the orchestrator; you transition the rest as you start them.)
 
 CONVENTIONS (read the repo's CLAUDE.md + relevant ADRs first): <architecture pattern, logging convention, typed-quantities/units rule, multi-tenancy/security rule, the project's validation approach, etc.>.

@@ -19,8 +19,8 @@ full parallel sprint run, use the **`agile-swarm`** skill (multi-lane worktree l
   parallelism**: prefer a *diverse basket* of **independent** stories across distinct
   projects / vertical slices (one infra · one backend service · one frontend/SPA)
   over a dependent chain inside one epic — independent slices let N swarms run in N
-  worktrees with no cross-blocking or shared-`.git` collisions (the SMS-swarm +
-  MPS-swarm parallel win). Lead proposes the basket; PO approves scope.
+  worktrees with no cross-blocking or shared-`.git` collisions (two service swarms have
+  already run side by side this way). Lead proposes the basket; PO approves scope.
 - **Implementation** — enter **plan mode** (or the `Plan` agent) for any non-trivial
   story, then `java-architect` (design) → `java-coder` (impl) → `java-tester`
   (JUnit5/Mockito, always after a class) → `java-reasoner` (debug failures);

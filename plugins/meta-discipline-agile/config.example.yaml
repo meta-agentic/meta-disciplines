@@ -5,7 +5,7 @@ packs:
     config:
       profile: scrum          # scrum (full harness) | kanban (lightweight, pull-based)
       tracker: jira           # jira | local | none
-      space: acme             # resolves <space> in the skills
+      space: sample           # resolves <space> in the skills
       mirror-repo: you/scrum  # <owner>/<repo> for the backlog mirror (jira only)
 
 # tracker: local, per-item layout instead (one file per work item, no external
@@ -22,7 +22,7 @@ packs:
 #       sprint-files: backlog/<space>/sprints/<SPRINT-ID>.md
 #       tooling: automations/backlog/backlog.py
 #       ceremony-home: memory/wiki
-#       spaces: [acme]
+#       spaces: [sample]
 
 # Optional engine plugin for agile-swarm (off unless engines-enabled is true).
 # The lead engine owns every lane; workers only do review / low-intension

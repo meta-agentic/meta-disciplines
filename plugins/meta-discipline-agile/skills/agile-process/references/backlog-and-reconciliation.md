@@ -70,23 +70,23 @@ Common fields seen on stories/enablers/spikes (illustrative, not your real data)
 ```yaml
 ---
 kind: story
-space: acme
-id: ACME-184
+space: sample
+id: SAMPLE-184
 title: 'Short, clear summary of the change'
 status: TO DO
-project: ACME
-epic: ACME-4                # parent, by id
+project: SAMPLE
+epic: SAMPLE-4              # parent, by id
 storyPoints: 5.0
 estimation:                 # both axes recorded — see story-estimation skill; a bare
   extension: 0.5            # storyPoints with no estimation: block fails DoR
   intension: -0.25
   quadrant: complicated
 priority: P2
-labels: [ACME]
-dependencies: [ACME-21, ACME-26]  # blocking ids, this space's id scheme
+labels: [SAMPLE]
+dependencies: [SAMPLE-21, SAMPLE-26]  # blocking ids, this space's id scheme
 usecase: As a ..., I want ..., so that ...
 actors: [Some Role]
-sprint: ACME-S2              # stamped by `transition`; multi-valued if it spans sprints
+sprint: SAMPLE-S2            # stamped by `transition`; multi-valued if it spans sprints
 ---
 
 ## Description
