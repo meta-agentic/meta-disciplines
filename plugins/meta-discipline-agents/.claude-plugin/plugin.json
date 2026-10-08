@@ -1,6 +1,6 @@
 {
   "name": "meta-discipline-agents",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Agent engineering discipline (7 skills): deciding whether to build an agent and what shape it takes, prompt architecture as versioned code, declarative skill authoring, the harness that makes enforcement deterministic, the safety and permission model, trajectory-level evaluation, and the engineered loop that runs unattended — each emitting a checkable ledger. First-party.",
   "author": {
     "name": "meta-agentic",

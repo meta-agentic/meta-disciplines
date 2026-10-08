@@ -1,6 +1,6 @@
 {
   "name": "meta-discipline-physics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle) — each emitting a checkable ledger. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports.",
   "author": {
     "name": "meta-agentic",
