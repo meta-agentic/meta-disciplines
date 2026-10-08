@@ -17,9 +17,9 @@ run concurrently like the parallel pipelines of a superscalar CPU. Disjoint code
 lanes **hazard-free** (no shared-file "data hazards"); cross-cutting work that would touch
 many lanes is the hazard you serialize.
 
-Each lane still runs [[skills/agile-process/SKILL|agile-process]]'s ceremony and transition
+Each lane still runs [agile-process](../agile-process/SKILL.md)'s ceremony and transition
 rules — that skill owns the per-story harness, this one owns the parallelism around it.
-Lane sizing uses [[skills/story-estimation/SKILL|story-estimation]]'s axes: a lane must be
+Lane sizing uses [story-estimation](../story-estimation/SKILL.md)'s axes: a lane must be
 **low-intension at its boundary**, or the lanes interlock however disjoint their files are.
 
 ## Method
@@ -89,8 +89,8 @@ Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejec
 - **Stay current with `main`** — rebase in-flight lanes when it advances; don't discover
   drift at a red gate.
 - **Out of scope:** per-story ceremony and transition mechanics
-  ([[skills/agile-process/SKILL|agile-process]]) and item sizing
-  ([[skills/story-estimation/SKILL|story-estimation]]).
+  ([agile-process](../agile-process/SKILL.md)) and item sizing
+  ([story-estimation](../story-estimation/SKILL.md)).
 
 ## Checkable output
 
@@ -122,7 +122,7 @@ or when the reviewer ran on the implementer's engine or was the lane's lead.
 ## When NOT to use this
 
 A single story, a 1–2 line fix, or dependent work that all lives in one module — do it
-directly with one lead under [[skills/agile-process/SKILL|agile-process]]. The swarm pays
+directly with one lead under [agile-process](../agile-process/SKILL.md). The swarm pays
 off only with **3+ genuinely independent slices**.
 
 **Cost note.** N parallel leads each run full gate cycles — token- and time-heavy. Scale

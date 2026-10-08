@@ -1,9 +1,9 @@
-# software-engineering pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
+# meta-discipline-swe pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
 # Skills read config-first, fall back to these defaults. `scripts/packs.sh config
-# software-engineering` resolves instance .packs.yaml `config:` over these and validates enums.
+# meta-discipline-swe` resolves instance .packs.yaml `config:` over these and validates enums.
 # Contract: meta-os/systems/pack.schema.json — validate before publishing.
 version: 1
-name: software-engineering
+name: meta-discipline-swe
 description: "Software-engineering discipline (8 skills): judgment rather than process — design-review (structure judged against the change pattern the system actually has, principles as diagnostics not goals), architecture-tradeoffs (quality attributes as scenarios with response measures; sensitivity points, tradeoff points, one-way doors), test-strategy (risk-first: which failures are bought protection against, at the cheapest level that sees them, and what is knowingly uncovered), resilience-review (a declared degradation contract per dependency, everything bounded, no retry without idempotency evidence, contracts exercised rather than assumed), legacy-modernization (name the blocked change, disposition per component rather than per system, a rewrite gate whose default is no, a freeze-or-mirror policy before the first line), performance-engineering (workload model and percentile before any number, saturated resource by measurement, Little's-law and Amdahl ceilings before profiling, utilization read through queueing, unmoved optimizations reverted), decision-records (ADR discipline: rejected alternatives, accepted costs, reopening triggers), and the opt-in constrained-generation (restrict what may be emitted, behind a four-condition gate whose default answer is no) — each emitting a checkable ledger."
 provenance: first-party
 license: MIT

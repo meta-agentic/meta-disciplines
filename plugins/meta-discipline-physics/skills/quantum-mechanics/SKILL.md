@@ -42,16 +42,16 @@ executable so nonsense is caught before it propagates.
    conserved ($\hbar\,\tfrac{d}{dt}\langle\hat Q\rangle=i\langle[\hat H,\hat Q]\rangle=0$), shares
    eigenstates with $\hat H$, and labels the spectrum — degenerate levels organize into the symmetry's
    representations. Diagonalize $\hat Q$ to block-diagonalize $\hat H$; see
-   [[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]].
+   [symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md).
 7. **Recover the classical limit.** Ehrenfest's theorem gives $\tfrac{d}{dt}\langle\hat x\rangle=\langle\hat p\rangle/m$
    and $\tfrac{d}{dt}\langle\hat p\rangle=-\langle\partial_x V\rangle$: expectation values obey the
    classical equations. As $\hbar\to0$ or at large quantum number $n$ the correspondence principle
    must hold — the probability density approaches the classical distribution. Route the limit through
-   [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]].
+   [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md).
 8. **Verify every result before shipping.** Confirm: state normalized, operator Hermitian,
    eigenvalues real, probabilities sum to 1, dimensions consistent, classical limit recovered.
    Record each on the ledger. For quantum ensembles and occupation statistics, hand off to
-   [[skills/statistical-mechanics-and-thermodynamics/SKILL|statistical-mechanics-and-thermodynamics]].
+   [statistical-mechanics-and-thermodynamics](../statistical-mechanics-and-thermodynamics/SKILL.md).
 
 ## The rigor standard
 

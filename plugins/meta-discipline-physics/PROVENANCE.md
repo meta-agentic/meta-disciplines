@@ -50,6 +50,6 @@ core method.
 
 ## Dependency
 
-This pack reuses the `advanced-math` pack's `dimensional-analysis` skill (dimensional
+This pack reuses the `meta-discipline-math` pack's `dimensional-analysis` skill (dimensional
 homogeneity, Buckingham π, uncertainty propagation) rather than redefining it, and—under the
 `pure` profile—its `mathematical-rigor`. See `pack.yaml` `depends:`.

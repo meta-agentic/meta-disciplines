@@ -17,7 +17,7 @@ that bookkeeping made executable.
    $u_x=v_y,\ u_y=-v_x$ at the point. They are *necessary*; they are **sufficient only when
    $u,v$ have continuous first partials** on a neighborhood. State where $f$ fails to be
    holomorphic — those points are the whole game. Cross-check differentiability with
-   [[skills/calculus-and-analysis/SKILL|calculus-and-analysis]].
+   [calculus-and-analysis](../calculus-and-analysis/SKILL.md).
 2. **Name the domain before invoking Cauchy.** Cauchy's theorem $\oint_\gamma f\,dz=0$ needs
    $f$ holomorphic on and inside a closed contour in a **simply connected** region; the
    integral formula $f(a)=\frac{1}{2\pi i}\oint_\gamma\frac{f(z)}{z-a}\,dz$ needs $a$ *inside*
@@ -51,10 +51,10 @@ that bookkeeping made executable.
 - **Holomorphy is asserted only after Cauchy–Riemann + continuous partials are checked**, and
   the non-holomorphic points are listed by name.
 - **Every theorem invocation names its satisfied hypothesis** — simply connected, pole-free
-  contour, $a$ strictly inside — per [[skills/mathematical-rigor/SKILL|mathematical-rigor]].
+  contour, $a$ strictly inside — per [mathematical-rigor](../mathematical-rigor/SKILL.md).
 - **The residue sum matches the enclosed-pole count**, and the chosen half-plane is stated.
 - **The arc contribution is bounded to zero in writing** (ML or Jordan), never waved away.
-- **A real integral returns a real answer** (imaginary part cancels, sign and positivity plausible) — the sanity gate shared with [[skills/dimensional-analysis/SKILL|dimensional-analysis]].
+- **A real integral returns a real answer** (imaginary part cancels, sign and positivity plausible) — the sanity gate shared with [dimensional-analysis](../dimensional-analysis/SKILL.md).
 
 ## Checkable output
 

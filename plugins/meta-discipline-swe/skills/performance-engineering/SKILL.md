@@ -47,10 +47,10 @@ frequently ends with the conclusion that the code was never the problem.
    information: the model of the system was wrong, so return to step 2.
 7. **State what the speed cost.** Memory, complexity, cache staleness, correctness risk,
    operational surface. Then record: measurable targets become scenarios for
-   [[skills/architecture-tradeoffs/SKILL|architecture-tradeoffs]], irreversible choices
-   become ADRs via [[skills/decision-records/SKILL|decision-records]], and a cache
+   [architecture-tradeoffs](../architecture-tradeoffs/SKILL.md), irreversible choices
+   become ADRs via [decision-records](../decision-records/SKILL.md), and a cache
    introduced as a fallback is a degradation contract for
-   [[skills/resilience-review/SKILL|resilience-review]].
+   [resilience-review](../resilience-review/SKILL.md).
 
 ## The rigor standard
 

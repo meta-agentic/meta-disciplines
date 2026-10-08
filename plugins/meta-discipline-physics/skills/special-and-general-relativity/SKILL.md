@@ -34,8 +34,8 @@ answer in the appropriate limit.
    $A^\mu B_\mu=\eta_{\mu\nu}A^\mu B^\nu$ is an invariant: $u^\mu u_\mu=-c^2$ and
    $p^\mu p_\mu=-(mc)^2$, which *is* the mass-shell relation $E^2=(pc)^2+(mc^2)^2$. Conservation laws and
    Lorentz/Poincaré invariance link to
-   [[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]]; the electromagnetic
-   field tensor $F^{\mu\nu}$ to [[skills/electromagnetism/SKILL|electromagnetism]].
+   [symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md); the electromagnetic
+   field tensor $F^{\mu\nu}$ to [electromagnetism](../electromagnetism/SKILL.md).
 5. **Invoke the equivalence principle to pass to gravity.** A freely falling frame is locally inertial:
    gravity is not a force but curvature of spacetime, encoded in the metric $g_{\mu\nu}$ (which reduces to
    $\eta_{\mu\nu}$ locally). Free-fall worldlines are **geodesics** — straightest paths in the curved
@@ -49,8 +49,8 @@ answer in the appropriate limit.
    $c\to\infty$): $\gamma\to1$, $E\to mc^2+\tfrac12mv^2$, and the geodesic equation becomes
    $\ddot{\mathbf x}=-\nabla\phi$. Write $g_{00}\approx-(1+2\phi/c^2)$; then Einstein's equation collapses
    to $\nabla^2\phi=4\pi G\rho$. Hand the systematic $c\to\infty$ expansion to
-   [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]] and the recovered
-   Newtonian dynamics/gravity to [[skills/classical-mechanics/SKILL|classical-mechanics]].
+   [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md) and the recovered
+   Newtonian dynamics/gravity to [classical-mechanics](../classical-mechanics/SKILL.md).
 8. **Check against the classic tests and close the ledger.** Perihelion precession, light deflection, and
    gravitational redshift/time dilation are the empirical anchors; e.g. redshift
    $\Delta\nu/\nu\approx gh/c^2$ falls straight out of the equivalence principle. Confirm each result is

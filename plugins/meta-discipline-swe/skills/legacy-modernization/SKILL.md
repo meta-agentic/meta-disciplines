@@ -22,7 +22,7 @@ meant to unblock.
 2. **Measure before you judge.** Combine **churn with complexity**: components that are
    complex *and* change constantly are the pain; complex and stable ones are usually fine
    left alone. Read the history — who changes what, together — the same evidence
-   [[skills/design-review/SKILL|design-review]] uses. Judging by reading the code alone
+   [design-review](../design-review/SKILL.md) uses. Judging by reading the code alone
    reliably indicts whatever is merely unfamiliar.
 3. **Build the safety net at the seam you will touch.** Characterization tests pin *what
    the system does*, not what it should do — they are how you find out whether a
@@ -49,8 +49,8 @@ meant to unblock.
    valuable and independently revertible. **A plan that only pays off at the end is a
    rewrite wearing a migration's clothes** — and it will be cancelled at 70%, leaving two
    half-systems. Record the disposition and gate verdict via
-   [[skills/decision-records/SKILL|decision-records]]; the irreversibility analysis belongs
-   to [[skills/architecture-tradeoffs/SKILL|architecture-tradeoffs]].
+   [decision-records](../decision-records/SKILL.md); the irreversibility analysis belongs
+   to [architecture-tradeoffs](../architecture-tradeoffs/SKILL.md).
 
 ## The rigor standard
 

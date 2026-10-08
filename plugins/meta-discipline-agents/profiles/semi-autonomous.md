@@ -1,6 +1,6 @@
 ---
 type: profile
-tags: [pack, agents, profile, autonomy]
+tags: [pack, meta-discipline-agents, profile, autonomy]
 ---
 # Profile — semi-autonomous
 
@@ -28,5 +28,5 @@ The gate erodes. Approvals become reflexive, the diff gets skimmed, and the mode
 becomes `autonomous` without anyone deciding to change it. Two defenses: keep the gated
 action list explicit in the harness contract rather than in a habit, and read the
 disagreements — where the builder and the adversarial reviewer differ — instead of reading
-every green diff. See [[skills/loop-engineering/SKILL|loop-engineering]] on what still
+every green diff. See [loop-engineering](../skills/loop-engineering/SKILL.md) on what still
 deserves human eyes.

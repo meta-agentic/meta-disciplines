@@ -1,6 +1,6 @@
 ---
 type: reference
-tags: [pack/software-engineering, patterns]
+tags: [pack/meta-discipline-swe, patterns]
 ---
 # Patterns — how the constraint is actually enforced
 

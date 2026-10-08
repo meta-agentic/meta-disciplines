@@ -72,9 +72,9 @@ scale (V ∝ 1/r)          —           (not a symmetry)     —               
 Mandatory under **both** profiles for any claimed solution of a dynamical system: under `pure`
 the ledger backs the first-principles Noether derivation; under `applied` it is the fast sanity
 check run before reporting a number. Cross-check the energy/momentum rows against a
-[[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]] limit and the
-Noether derivation against [[skills/classical-mechanics/SKILL|classical-mechanics]]; the $[Q,H]=0$
-rows against [[skills/quantum-mechanics/SKILL|quantum-mechanics]] degeneracy structure. Hold the
+[limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md) limit and the
+Noether derivation against [classical-mechanics](../classical-mechanics/SKILL.md); the $[Q,H]=0$
+rows against [quantum-mechanics](../quantum-mechanics/SKILL.md) degeneracy structure. Hold the
 derivation itself to the proof standard in `mathematical-rigor`.
 
 ## Anti-patterns (reject these in review)

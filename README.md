@@ -27,7 +27,7 @@ practitioner actually works: a repeatable **method**, a **standard of rigor**, a
 Skills are then available as `/meta-discipline-math:multivariate-analysis`, and Claude
 loads them on its own when a task matches. Install only the packs you use: every
 installed pack adds its skill descriptions to each session (from about 700 tokens for
-`agile` to about 3,500 for `physics`).
+`meta-discipline-agile` to about 3,500 for `meta-discipline-physics`).
 
 **Claude app (web, desktop, Cowork)** — *Customize › Plugins › Add › Add marketplace*,
 enter `meta-agentic/meta-disciplines`, then add the packs you want. A plugin added there

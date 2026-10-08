@@ -1,6 +1,6 @@
-# Copy this block into your instance's .packs.yaml under packs: software-engineering: config:
+# Copy this block into your instance's .packs.yaml under packs: meta-discipline-swe: config:
 packs:
-  software-engineering:
+  meta-discipline-swe:
     config:
       adr_home: docs/adr/       # where decision records live in your repos
       adr_format: nygard        # nygard | madr | y-statement
@@ -15,7 +15,7 @@ packs:
 # repair loop cannot close, and the skill says so rather than pretending to check itself.
 #
 # packs:
-#   software-engineering:
+#   meta-discipline-swe:
 #     config:
 #       dsl_generation: on
 #       dsl_style: internal              # internal | external

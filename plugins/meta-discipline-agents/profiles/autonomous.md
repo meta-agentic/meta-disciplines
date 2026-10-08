@@ -1,6 +1,6 @@
 ---
 type: profile
-tags: [pack, agents, profile, autonomy]
+tags: [pack, meta-discipline-agents, profile, autonomy]
 ---
 # Profile — autonomous
 
@@ -11,16 +11,16 @@ suite runs, routine dependency updates, scheduled report generation, bounded ref
 This profile is *earned*, not chosen. The prerequisites are not advisory:
 
 1. An eval suite that covers the failure modes, gating deploys in CI —
-   [[skills/agent-evaluation/SKILL|agent-evaluation]].
+   [agent-evaluation](../skills/agent-evaluation/SKILL.md).
 2. A termination condition a shell script can decide with no judgment call —
-   [[skills/loop-engineering/SKILL|loop-engineering]].
+   [loop-engineering](../skills/loop-engineering/SKILL.md).
 3. Deterministic enforcement in the harness, not the prompt —
-   [[skills/agent-harness/SKILL|agent-harness]].
+   [agent-harness](../skills/agent-harness/SKILL.md).
 4. A sandbox (`microvm`, or `container` at minimum) for anything that executes code.
 5. A configured `escalation` target. A loop with nowhere to page does not escalate; it
    stalls silently, which is the expensive failure.
 6. Least-privilege tool scoping and an audit log of every invocation —
-   [[skills/agent-safety/SKILL|agent-safety]].
+   [agent-safety](../skills/agent-safety/SKILL.md).
 
 ## What this profile sets
 

@@ -148,7 +148,7 @@ A red verdict blocks the deploy. A suite diff with no accompanying reason blocks
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -164,11 +164,11 @@ has no human in the path, so the gate is the only thing that stops a regression 
 
 ## Related
 
-[[skills/agent-harness/SKILL|agent-harness]] — supplies the trajectory this skill grades,
+[agent-harness](../agent-harness/SKILL.md) — supplies the trajectory this skill grades,
 and stops at well-formed where this skill starts at correct.
-[[skills/agent-prompting/SKILL|agent-prompting]] — prompt regression runs against this
-suite. [[skills/agent-safety/SKILL|agent-safety]] — supplies the red-team cases.
-[[skills/loop-engineering/SKILL|loop-engineering]] — the evaluator problem here is the
+[agent-prompting](../agent-prompting/SKILL.md) — prompt regression runs against this
+suite. [agent-safety](../agent-safety/SKILL.md) — supplies the red-team cases.
+[loop-engineering](../loop-engineering/SKILL.md) — the evaluator problem here is the
 verifier problem there, at a different scale.
 
 *Grounding:* trajectory evaluation, judge discipline and CI gating from *Building AI Agents:

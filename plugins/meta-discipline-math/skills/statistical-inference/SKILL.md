@@ -79,7 +79,7 @@ pieces alone.
 
 Route computation through the configured `cas`/software and report to `config.sig_figs`;
 under the `pure` profile every distributional claim is proved or cited per
-[[skills/mathematical-rigor/SKILL|mathematical-rigor]], under `applied` the ledger below
+[mathematical-rigor](../mathematical-rigor/SKILL.md), under `applied` the ledger below
 is the deliverable.
 
 ## The rigor standard (what "done right" means)

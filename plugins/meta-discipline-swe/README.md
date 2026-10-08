@@ -49,7 +49,7 @@ Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
 
 ```yaml
 packs:
-  software-engineering:
+  meta-discipline-swe:
     config:
       fault_injection_command: ./chaos/run.sh   # exercises declared degradation contracts
       load_test_command: ./perf/run.sh          # measures a change against the stated workload
@@ -66,8 +66,8 @@ alternative methodologies to bundle.
 
 ```bash
 # in a meta-os instance
-scripts/packs.sh add software-engineering https://github.com/meta-agentic/meta-discipline-swe
-scripts/packs.sh config software-engineering      # resolve/validate config
+scripts/packs.sh add meta-discipline-swe https://github.com/meta-agentic/meta-discipline-swe
+scripts/packs.sh config meta-discipline-swe      # resolve/validate config
 ```
 
 Skills land in the instance's union `skills/` and project-local `.claude/skills/`. This
@@ -94,7 +94,7 @@ and is deliberately stricter than its sources where the common reading has gone 
 ## Registry entry (`meta-os/systems/packs.yaml`)
 
 ```yaml
-  software-engineering:
+  meta-discipline-swe:
     repo: https://github.com/meta-agentic/meta-discipline-swe
     ref: main
     description: "Software-engineering discipline as judgment, not process: design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, and the opt-in constrained-generation — each emitting a checkable ledger. First-party."

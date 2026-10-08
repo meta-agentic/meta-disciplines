@@ -1,9 +1,9 @@
-# agile pack — manifest + config schema (method vs. opinion; see meta-os/systems/packs.md).
-# Skills read config-first, fall back to these defaults. `scripts/packs.sh config agile`
+# meta-discipline-agile pack — manifest + config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config meta-discipline-agile`
 # resolves the instance's .packs.yaml `config:` over these and validates enums.
 # Contract: meta-os/systems/pack.schema.json — validate before publishing.
 version: 1
-name: agile
+name: meta-discipline-agile
 description: "Agile delivery discipline (3 skills): agile-process (the backlog-of-record harness — ceremonies, story transitions, branch/PR gates), agile-swarm (multi-lane parallel sprint execution with hazard-free lanes and PO-owned merges), and story-estimation (two-axis extension/intension sizing) — each emitting a checkable ledger. First-party, extracted from the meta-os framework core."
 provenance: first-party
 license: MIT

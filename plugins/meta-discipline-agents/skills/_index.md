@@ -1,13 +1,13 @@
 ---
 type: index
-tags: [os, skills, pack, agents]
+tags: [os, skills, pack, meta-discipline-agents]
 ---
-# agents pack — skills
+# meta-discipline-agents pack — skills
 
 Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
 artifact. They compose in the order an agent is actually built.
 
-**[[skills/agent-architecture/SKILL|agent-architecture]] is the entry point** — it decides
+**[agent-architecture](agent-architecture/SKILL.md) is the entry point** — it decides
 whether to build an agent at all and what shape it takes. Three skills fill that shape in:
 **agent-prompting** (the instruction layer), **agent-skills** (the procedure library), and
 **agent-harness** (the code that makes rules deterministic instead of hopeful).
@@ -17,16 +17,16 @@ another — each cites its siblings by wikilink.
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|
-| [[skills/agent-architecture/SKILL\|agent-architecture]] | The shape decision: the refusal test, the escalation ladder (loop → handoff → graph → crew), reasoning-pattern selection, loop invariants | **agent decision record** |
-| [[skills/agent-prompting/SKILL\|agent-prompting]] | The prompt as versioned code: four layers, measured personas, reasoning budget, regression testing | **prompt version record** |
-| [[skills/agent-skills/SKILL\|agent-skills]] | Declarative procedures: Clarify–Execute–Verify, descriptions as activation indexes, bundled scripts, skills-are-code security | **skill review record** |
-| [[skills/agent-harness/SKILL\|agent-harness]] | Model proposes, code disposes: execution boundary, sandbox, persistence and memory, verification loops, context pipelines | **harness contract** |
-| [[skills/agent-safety/SKILL\|agent-safety]] | Guardrails and permissions: layered inspection, the fetched-data threat model, zero-trust scoping, where the human gate goes | **threat & permission ledger** |
-| [[skills/agent-evaluation/SKILL\|agent-evaluation]] | Trajectory-level grading: strong cases, judge discipline, CI gates, permanent red-team cases | **eval report** |
-| [[skills/loop-engineering/SKILL\|loop-engineering]] | The system as the loop: termination conditions, structured feedback, futility detection, unattended operation, the self-improving harness | **loop charter** |
+| [agent-architecture](agent-architecture/SKILL.md) | The shape decision: the refusal test, the escalation ladder (loop → handoff → graph → crew), reasoning-pattern selection, loop invariants | **agent decision record** |
+| [agent-prompting](agent-prompting/SKILL.md) | The prompt as versioned code: four layers, measured personas, reasoning budget, regression testing | **prompt version record** |
+| [agent-skills](agent-skills/SKILL.md) | Declarative procedures: Clarify–Execute–Verify, descriptions as activation indexes, bundled scripts, skills-are-code security | **skill review record** |
+| [agent-harness](agent-harness/SKILL.md) | Model proposes, code disposes: execution boundary, sandbox, persistence and memory, verification loops, context pipelines | **harness contract** |
+| [agent-safety](agent-safety/SKILL.md) | Guardrails and permissions: layered inspection, the fetched-data threat model, zero-trust scoping, where the human gate goes | **threat & permission ledger** |
+| [agent-evaluation](agent-evaluation/SKILL.md) | Trajectory-level grading: strong cases, judge discipline, CI gates, permanent red-team cases | **eval report** |
+| [loop-engineering](loop-engineering/SKILL.md) | The system as the loop: termination conditions, structured feedback, futility detection, unattended operation, the self-improving harness | **loop charter** |
 
 Progressive disclosure: `agent-architecture` carries
-[[skills/agent-architecture/references/pattern-catalogue|references/pattern-catalogue.md]] —
+[references/pattern-catalogue.md](agent-architecture/references/pattern-catalogue.md) —
 21 patterns with a selection criterion and a cost for each — loaded only when the four
 primary reasoning patterns don't settle the shape.
 

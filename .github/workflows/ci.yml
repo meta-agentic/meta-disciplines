@@ -25,6 +25,9 @@ jobs:
           python -m pip install --disable-pip-version-check --quiet "pyyaml==6.0.2"
           python scripts/sync_manifests.py --check
 
+      - name: No wikilinks; every relative link resolves
+        run: python scripts/check_links.py
+
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

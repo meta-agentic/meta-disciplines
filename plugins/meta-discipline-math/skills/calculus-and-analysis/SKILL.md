@@ -60,7 +60,7 @@ makes every passage to the limit a checkable act, not a reflex.
 - **Every derivative/integral used has its existence condition on the record** (differentiability,
   $C^1$, integrability), not assumed.
 - Under `config.profile: pure` the convergence & interchange ledger below is **mandatory** and
-  its proofs meet [[skills/mathematical-rigor/SKILL|mathematical-rigor]]; under `applied` it
+  its proofs meet [mathematical-rigor](../mathematical-rigor/SKILL.md); under `applied` it
   backs each numeric limit or truncation, with error bounds to `config.sig_figs`. Symbolic
   radius/remainder work may be delegated to the configured CAS (`config.cas`: sympy | sage | none);
   when `none`, derive by hand and show the bound.
@@ -99,6 +99,6 @@ re-derived.
   continuous second partials (Clairaut's hypothesis).
 - Applying the mean value theorem or Taylor's remainder across a point of non-differentiability,
   or an improper/oscillatory integral treated as ordinary Riemann. For results feeding a
-  [[skills/differential-equations/SKILL|differential-equations]] existence argument or a
-  [[skills/complex-analysis/SKILL|complex-analysis]] contour/series manipulation, the same
+  [differential-equations](../differential-equations/SKILL.md) existence argument or a
+  [complex-analysis](../complex-analysis/SKILL.md) contour/series manipulation, the same
   interchange license is required there — do not launder it across the boundary.

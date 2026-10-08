@@ -1,10 +1,10 @@
 ---
 type: reference
-tags: [pack, agents, patterns]
+tags: [pack, meta-discipline-agents, patterns]
 ---
 # Pattern catalogue — the 21 selection criteria
 
-Loaded on demand from [[skills/agent-architecture/SKILL|agent-architecture]] when the four
+Loaded on demand from [agent-architecture](../SKILL.md) when the four
 reasoning patterns in the main table don't settle the shape. Each row is *when to reach for
 it* and *what it costs you* — the compositional vocabulary of agent design, not an
 implementation guide. Frameworks change; these choices don't.
@@ -27,11 +27,11 @@ original wording, and the cost/failure columns are this pack's.
 
 | Pattern | Reach for it when | Cost / failure mode |
 |---|---|---|
-| **Tool use** | The agent needs anything beyond its own weights: live data, private systems, exact computation, side effects | Every tool is attack surface and permission scope — see [[skills/agent-safety/SKILL|agent-safety]] |
+| **Tool use** | The agent needs anything beyond its own weights: live data, private systems, exact computation, side effects | Every tool is attack surface and permission scope — see [agent-safety](../../agent-safety/SKILL.md) |
 | **Knowledge retrieval (RAG)** | Answers must rest on specific, current, or proprietary material, ideally with citations | Retrieval quality *is* answer quality; a dense-only retriever silently drops exact identifiers |
 | **Model Context Protocol** | Tools must be shared across frameworks or discovered without redeploying | Overkill for a fixed handful of functions — direct function calling is fine there |
 | **Inter-agent communication (A2A)** | Agents built on different stacks or owned by different teams must collaborate | A remote agent is an untrusted boundary; validate at every handoff |
-| **Memory management** | The agent must hold context across turns, track multi-step progress, or recall preferences | Unmanaged memory becomes noise that misleads worse than silence — see [[skills/agent-harness/SKILL|agent-harness]] |
+| **Memory management** | The agent must hold context across turns, track multi-step progress, or recall preferences | Unmanaged memory becomes noise that misleads worse than silence — see [agent-harness](../../agent-harness/SKILL.md) |
 
 ## Reasoning patterns — how the agent thinks
 
@@ -39,7 +39,7 @@ original wording, and the cost/failure columns are this pack's.
 |---|---|---|
 | **Reasoning techniques** (CoT, self-consistency, tree search, ReAct) | One pass can't get there, and the reasoning path itself matters | Deeper reasoning is not free and not monotonic — past a budget it hedges rather than improves |
 | **Reflection** | Output quality matters more than speed and cost, and first drafts reliably improve | Self-critique degenerates into self-approval; use a separate critic where objectivity matters |
-| **Goal setting and monitoring** | The agent must pursue a high-level objective over many steps without supervision | A goal a machine can't check is not a goal — see [[skills/loop-engineering/SKILL|loop-engineering]] |
+| **Goal setting and monitoring** | The agent must pursue a high-level objective over many steps without supervision | A goal a machine can't check is not a goal — see [loop-engineering](../../loop-engineering/SKILL.md) |
 | **Exploration and discovery** | The solution space isn't defined and the point is to surface unknown unknowns | Unbounded by nature; needs an explicit budget and a stopping rule more than most |
 | **Learning and adaptation** | The environment shifts and yesterday's behavior degrades | Every adaptation changes future behavior, so every one is a reviewable, eval-gated change |
 
@@ -49,8 +49,8 @@ original wording, and the cost/failure columns are this pack's.
 |---|---|---|
 | **Exception handling and recovery** | Anywhere real: tools time out, APIs return nonsense, inputs are malformed | A `try/except` around the whole loop is not recovery — model failures as routes, not crashes |
 | **Human-in-the-loop** | Errors carry safety, legal, or financial weight, or the judgment is genuinely ambiguous | A gate everyone clicks through is not a gate; place few and mean them |
-| **Guardrails / safety** | The output reaches users, systems, or your reputation | Guardrails run in code, not in the prompt — [[skills/agent-safety/SKILL|agent-safety]] |
-| **Evaluation and monitoring** | Always, before deploy and continuously after | Behavior drifts when the model changes underneath you — [[skills/agent-evaluation/SKILL|agent-evaluation]] |
+| **Guardrails / safety** | The output reaches users, systems, or your reputation | Guardrails run in code, not in the prompt — [agent-safety](../../agent-safety/SKILL.md) |
+| **Evaluation and monitoring** | Always, before deploy and continuously after | Behavior drifts when the model changes underneath you — [agent-evaluation](../../agent-evaluation/SKILL.md) |
 | **Resource-aware optimization** | Budget, latency, or constrained hardware bind the design | Big model for planning, small model for execution; a single model tier for everything overpays or underperforms |
 
 ## Using this catalogue

@@ -23,7 +23,7 @@ Counting is proof. A closed form is not established by pattern-matching small ca
 - A bijection claim carries its inverse explicitly, or it is not a bijection — "the map is clearly onto" is not a proof.
 - Inclusion–exclusion terms are enumerated in full; a sieve with an unstated or truncated alternating sum is wrong.
 - Every closed-form count is confirmed against direct enumeration for small $n$; disagreement means the formula is wrong, not the enumeration.
-- Cited results (Cayley's $n^{n-2}$, four-color theorem) are named and attributed, never silently reused as if derived here — see [[skills/mathematical-rigor/SKILL|mathematical-rigor]].
+- Cited results (Cayley's $n^{n-2}$, four-color theorem) are named and attributed, never silently reused as if derived here — see [mathematical-rigor](../mathematical-rigor/SKILL.md).
 - Asymptotic claims state the growth class ($\Theta$, $\sim$) and the regime; a bare "grows fast" is not a claim.
 
 ## Checkable output
@@ -47,4 +47,4 @@ $\binom{2n}{n}\sim 4^n/\sqrt{\pi n}$  Stirling asymptotic        $\Theta$; ratio
 - Proving an identity by algebra when a one-line bijective argument exists, thereby hiding *why* it holds.
 - Writing an inclusion–exclusion or a recurrence-to-closed-form step but never cross-checking the result against direct enumeration via the configured CAS.
 - Reusing $n^{n-2}$, the four-color theorem, or Euler's formula as if self-evident, without naming them as cited results with stated hypotheses (connected, planar, simple).
-- Reporting a growth rate with no $\Theta$/$\sim$ and no regime, or substituting an asymptotic for a required closed form under `config.profile=pure` — generating-function convergence questions belong to [[skills/calculus-and-analysis/SKILL|calculus-and-analysis]], integer-structure ones to [[skills/number-theory/SKILL|number-theory]].
+- Reporting a growth rate with no $\Theta$/$\sim$ and no regime, or substituting an asymptotic for a required closed form under `config.profile=pure` — generating-function convergence questions belong to [calculus-and-analysis](../calculus-and-analysis/SKILL.md), integer-structure ones to [number-theory](../number-theory/SKILL.md).

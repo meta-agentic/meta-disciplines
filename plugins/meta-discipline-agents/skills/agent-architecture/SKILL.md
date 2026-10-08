@@ -80,7 +80,7 @@ blocked anything is not an adversary.
 
 When those four don't settle it — the task is really about parallel decomposition,
 prioritization under constraint, open-ended discovery, or retrieval quality — load
-[[skills/agent-architecture/references/pattern-catalogue|references/pattern-catalogue.md]]:
+[references/pattern-catalogue.md](references/pattern-catalogue.md):
 21 patterns with a selection criterion and a cost for each.
 
 A note on reasoning models: when the model does extended thinking internally, it wants one
@@ -103,7 +103,7 @@ Ship none of these unbounded, whatever the shape.
 
 Reversibility is the axis that matters most: prefer tools that are idempotent or undoable,
 and gate everything else. The cap is the floor of loop discipline, not the ceiling — the
-full treatment is [[skills/loop-engineering/SKILL|loop-engineering]].
+full treatment is [loop-engineering](../loop-engineering/SKILL.md).
 
 ### 5. Record the decision
 
@@ -174,7 +174,7 @@ one below it, or when an invariant names an intention rather than a config value
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -189,10 +189,10 @@ prerequisites — see `profiles/autonomous.md`.
 
 ## Related
 
-[[skills/agent-harness/SKILL|agent-harness]] — the shape decided here is only real once the
-harness enforces it. [[skills/loop-engineering/SKILL|loop-engineering]] — owns the
+[agent-harness](../agent-harness/SKILL.md) — the shape decided here is only real once the
+harness enforces it. [loop-engineering](../loop-engineering/SKILL.md) — owns the
 termination condition this skill only requires to exist.
-[[skills/agent-evaluation/SKILL|agent-evaluation]] — the eval suite is what lets a rung or
+[agent-evaluation](../agent-evaluation/SKILL.md) — the eval suite is what lets a rung or
 an autonomy level be raised on evidence.
 
 *Grounding:* pattern taxonomy from *Agentic Design Patterns* (Gulli, Springer 2025);

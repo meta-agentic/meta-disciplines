@@ -3,7 +3,7 @@
 A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the
 **physics discipline** — not a pile of physics facts, but a *method + a standard of rigor*
 that turns an agent into a competent physical reasoner (per `meta-os/systems/pack-strategy.md`,
-the *Quantitative rigor* wedge). Companion to the [`advanced-math`](https://github.com/meta-agentic/meta-discipline-math)
+the *Quantitative rigor* wedge). Companion to the [`meta-discipline-math`](https://github.com/meta-agentic/meta-discipline-math)
 pack, whose `dimensional-analysis` it reuses.
 
 > A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
@@ -57,13 +57,13 @@ School).
 ## Configure
 
 Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
-`config.example.yaml`). Also add the `advanced-math` pack — physics reuses its
+`config.example.yaml`). Also add the `meta-discipline-math` pack — physics reuses its
 `dimensional-analysis`. Skills read config-first and fall back to documented defaults.
 
 ```yaml
 packs:
-  advanced-math: {}
-  physics:
+  meta-discipline-math: {}
+  meta-discipline-physics:
     config:
       profile: applied      # pure | applied
       units: SI             # SI | gaussian | natural
@@ -79,9 +79,9 @@ vs **applied** (computation + sanity-checking emphasis).
 
 ```bash
 # from your meta-os instance root
-scripts/packs.sh add advanced-math https://github.com/meta-agentic/meta-discipline-math
-scripts/packs.sh add physics       https://github.com/meta-agentic/meta-discipline-physics
-scripts/packs.sh config physics    # resolve/validate config
+scripts/packs.sh add meta-discipline-math https://github.com/meta-agentic/meta-discipline-math
+scripts/packs.sh add meta-discipline-physics       https://github.com/meta-agentic/meta-discipline-physics
+scripts/packs.sh config meta-discipline-physics    # resolve/validate config
 ```
 
 ## Provenance & license
@@ -93,12 +93,12 @@ no third-party content vendored.
 ## Registry entry (add to `meta-os/systems/packs.yaml`)
 
 ```yaml
-  physics:
+  meta-discipline-physics:
     repo: https://github.com/meta-agentic/meta-discipline-physics
     ref: main
-    description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle). First-party; reuses advanced-math/dimensional-analysis. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
+    description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle). First-party; reuses meta-discipline-math/dimensional-analysis. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
     provenance: first-party
     license: MIT
-    depends: [advanced-math]
+    depends: [meta-discipline-math]
     status: planned   # first-party; lands when the pack repo publishes
 ```

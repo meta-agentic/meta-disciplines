@@ -90,7 +90,7 @@ recomputes.
 - Rounding a continued-fraction convergent and dropping the $|x-p/q|<1/q^2$ bound that made it a certificate.
 - "Verified for all $n$ up to $N$" offered as proof of a universal statement.
 
-Cross-links: [[skills/mathematical-rigor/SKILL|mathematical-rigor]] (the proved/cited/conjectured
-standard this ledger specializes), [[skills/abstract-algebra/SKILL|abstract-algebra]] (the ring
+Cross-links: [mathematical-rigor](../mathematical-rigor/SKILL.md) (the proved/cited/conjectured
+standard this ledger specializes), [abstract-algebra](../abstract-algebra/SKILL.md) (the ring
 $\mathbb{Z}/n\mathbb{Z}$, units, and fields $\mathbb{F}_p$ underlying every congruence here),
-[[skills/discrete-mathematics/SKILL|discrete-mathematics]].
+[discrete-mathematics](../discrete-mathematics/SKILL.md).

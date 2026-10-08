@@ -16,9 +16,9 @@ trials) into a domain-agnostic method, and turns what it validates into a **know
 graph**: claims, methods, assumptions, and evidence as typed nodes and edges, each edge
 carrying its verdict.
 
-Builds on [[skills/probability-and-statistics/SKILL|probability-and-statistics]] (the
+Builds on [probability-and-statistics](../probability-and-statistics/SKILL.md) (the
 inferential layer: estimator/interval/test semantics) and
-[[skills/dimensional-analysis/SKILL|dimensional-analysis]] (units and sanity checks on
+[dimensional-analysis](../dimensional-analysis/SKILL.md) (units and sanity checks on
 every reported quantity).
 
 ## Method
@@ -77,7 +77,7 @@ every reported quantity).
    the treatment (which is a result, not a hole to impute).
 
 6. **Judge the inference honestly.** Per
-   [[skills/probability-and-statistics/SKILL|probability-and-statistics]]: correct p-value
+   [probability-and-statistics](../probability-and-statistics/SKILL.md): correct p-value
    and interval semantics, effect size with its CI alongside every p, power planned
    *before* the study against a minimum effect of practical relevance (post-hoc power on
    the observed effect is a tautology), multiplicity controlled, planned contrasts
@@ -126,8 +126,8 @@ every reported quantity).
 - **Every claim states its domain of inference** and whether condition-interaction was
   scale-type or rank-reversing.
 - **Every reported quantity carries units, uncertainty, and effect size** per
-  [[skills/dimensional-analysis/SKILL|dimensional-analysis]] and
-  [[skills/probability-and-statistics/SKILL|probability-and-statistics]].
+  [dimensional-analysis](../dimensional-analysis/SKILL.md) and
+  [probability-and-statistics](../probability-and-statistics/SKILL.md).
 - **Reproducibility is scored, not presumed** — data, code, seed, protocol each
   present/absent.
 - **Every graph edge traces to a ledger row** — the graph asserts nothing the ledger did
@@ -165,7 +165,7 @@ and every edge carries its verdict, which is the checkable property of the graph
 
 Mandatory under **both** profiles: a collapsed error stratum, pseudoreplication, or an
 undeclared design invalidates the result regardless of `config.profile`. Under `pure`,
-pair with the claims ledger of [[skills/mathematical-rigor/SKILL|mathematical-rigor]]
+pair with the claims ledger of [mathematical-rigor](../mathematical-rigor/SKILL.md)
 (each inferential step proved or cited); under `applied`, sanity-check every effect
 against an order-of-magnitude expectation before shipping. Render math per
 `config.notation`; round per `config.sig_figs`.

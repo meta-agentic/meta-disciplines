@@ -51,7 +51,7 @@ algebra but drifts to the wrong steady state is still wrong.
    CFL $\Delta t \le C\,\Delta x$ for explicit hyperbolic schemes; use implicit methods when
    the Jacobian's eigenvalue spread makes the problem stiff.
 8. **Cross-check units and limits.** Every term shares dimensions (see
-   [[skills/dimensional-analysis/SKILL|dimensional-analysis]]); the $t\to\infty$ limit hits
+   [dimensional-analysis](../dimensional-analysis/SKILL.md)); the $t\to\infty$ limit hits
    the steady state; a rate constant $k$ sets a timescale $1/k$ that matches the transient.
 
 ## The rigor standard
@@ -71,8 +71,8 @@ algebra but drifts to the wrong steady state is still wrong.
 Emit a **solution-verification ledger** — one row per solution, columns
 `CLASSIFICATION | METHOD | BACK-SUBSTITUTION | QUALITATIVE/LIMIT CHECK`, with the
 existence/uniqueness verdict noted in the row. Eigenvalues/stability lean on
-[[skills/linear-algebra/SKILL|linear-algebra]]; the symbolic steps on
-[[skills/calculus-and-analysis/SKILL|calculus-and-analysis]].
+[linear-algebra](../linear-algebra/SKILL.md); the symbolic steps on
+[calculus-and-analysis](../calculus-and-analysis/SKILL.md).
 
 ```
 CLASSIFICATION            METHOD               BACK-SUBSTITUTION                 QUALITATIVE / LIMIT CHECK
@@ -87,7 +87,7 @@ nonlinear autonomous      separable            y=t²/4 AND y≡0 satisfy ✓    
 
 Under the `applied` profile the ledger is mandatory — every model row carries back-sub and a
 limit check. Under `pure` it is the concrete companion to the existence/uniqueness proof,
-which [[skills/mathematical-rigor/SKILL|mathematical-rigor]] owns. Notation follows
+which [mathematical-rigor](../mathematical-rigor/SKILL.md) owns. Notation follows
 `config.notation`; `config.profile` selects emphasis (proof vs prediction).
 
 ## Anti-patterns

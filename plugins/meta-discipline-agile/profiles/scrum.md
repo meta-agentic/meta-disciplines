@@ -1,16 +1,16 @@
 ---
 type: profile
 profile: scrum
-tags: [pack/agile, profile]
+tags: [pack/meta-discipline-agile, profile]
 ---
 # Profile: scrum (default)
 
 The full Scrum harness — sprints, ceremonies, a backlog of record. This is the
 methodology the pack's skills document in detail; the profile just names it and pins its
-parameters. `[[skills/agile-process/SKILL|agile-process]]` and
-`[[skills/agile-swarm/SKILL|agile-swarm]]` are the procedures.
+parameters. [agile-process](../skills/agile-process/SKILL.md) and
+[agile-swarm](../skills/agile-swarm/SKILL.md) are the procedures.
 
-## Parameters (from `packs.agile.config`)
+## Parameters (from `packs.meta-discipline-agile.config`)
 
 | Key | Meaning | Default |
 |-----|---------|---------|

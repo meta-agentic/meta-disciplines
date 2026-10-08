@@ -1,6 +1,6 @@
-# Copy this block into your instance's .packs.yaml under packs: advanced-math: config:
+# Copy this block into your instance's .packs.yaml under packs: meta-discipline-math: config:
 packs:
-  advanced-math:
+  meta-discipline-math:
     config:
       profile: applied      # pure | applied
       notation: latex       # latex | unicode | ascii

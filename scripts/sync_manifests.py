@@ -7,7 +7,8 @@ One source of truth per pack: `plugins/<dir>/pack.yaml`. From it this script der
 plugin's `version`, which a release bumps in `plugin.json` (and which this script preserves).
 
 Rules it enforces:
-  * a plugin's name is its directory name (`meta-discipline-<x>`);
+  * a plugin's name is its directory name (`meta-discipline-<x>`), and pack.yaml `name:`
+    says the same — one name per pack, the repository's;
   * every directory under plugins/ has a catalogue entry, and every entry a directory;
   * description and licence come from pack.yaml; version lives only in plugin.json,
     never in the catalogue entry (Claude Code would silently prefer plugin.json);
@@ -56,6 +57,9 @@ def plugin_manifest(pack: Path, errors: list[str]) -> dict:
     name = pack.name
     if not name.startswith(PREFIX):
         errors.append(f"{name}: plugin directories are named {PREFIX}<discipline>")
+    declared = str(meta.get("name", "")).strip()
+    if declared != name:
+        errors.append(f"{name}: pack.yaml name {declared!r} must equal the directory name")
     current = pack / ".claude-plugin" / "plugin.json"
     version = INITIAL_VERSION
     if current.is_file():

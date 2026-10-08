@@ -12,9 +12,9 @@ stamped with the sprint, tied to exactly one branch, and reconcilable afterwards
 someone who wasn't there. Load it whenever you do process work, and follow the relevant
 reference so the ceremony isn't re-derived each time.
 
-Sizing is [[skills/story-estimation/SKILL|story-estimation]]'s (it owns the number and its
+Sizing is [story-estimation](../story-estimation/SKILL.md)'s (it owns the number and its
 audit trail; this skill only demands one at DoR). Running N stories concurrently is
-[[skills/agile-swarm/SKILL|agile-swarm]]'s (it owns lane planning and isolation; every lane
+[agile-swarm](../agile-swarm/SKILL.md)'s (it owns lane planning and isolation; every lane
 still obeys the rules below).
 
 ## Configuration & profile (read first)
@@ -67,7 +67,7 @@ An instance may override any single convention without switching profiles — se
    and every status move stamped with the current sprint through `config.tooling`.
 6. **Record the transition in the ledger below**, then reconcile: tracker and mirror agree,
    or the tracker wins. An item stuck `In Progress` across two sprints is a re-estimation
-   trigger — hand it to [[skills/story-estimation/SKILL|story-estimation]], not a nag.
+   trigger — hand it to [story-estimation](../story-estimation/SKILL.md), not a nag.
 
 ## References — load the one you need
 
@@ -110,8 +110,8 @@ advice:
 - **Draft only while a review agent is reviewing** — so it isn't merged mid-review; with
   the PO as sole reviewer and no agent running, open it ready.
 - **PO-only sprint close**, and **multi-tenancy fail-closed** on every service.
-- **Out of scope:** the estimate itself ([[skills/story-estimation/SKILL|story-estimation]])
-  and parallel lane execution ([[skills/agile-swarm/SKILL|agile-swarm]]) — cite them, don't
+- **Out of scope:** the estimate itself ([story-estimation](../story-estimation/SKILL.md))
+  and parallel lane execution ([agile-swarm](../agile-swarm/SKILL.md)) — cite them, don't
   restate them.
 
 ## Checkable output

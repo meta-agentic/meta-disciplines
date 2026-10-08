@@ -37,7 +37,7 @@ string you can only observe.
 Past roughly 800 tokens, structure stops being optional: long unstructured prose gets
 treated as tone, while numbered rules and explicit do/don't lists get treated as a contract.
 If instructions have grown past a few thousand tokens, that is not a prompting problem — move
-procedures into [[skills/agent-skills/SKILL|agent-skills]].
+procedures into [agent-skills](../agent-skills/SKILL.md).
 
 ### 3. Choose the persona by measurement
 
@@ -72,7 +72,7 @@ so a running agent can report which prompt it is on. Every change gets a regress
 before it ships, asserting on behavior rather than prose: which tools must be called, which
 keywords must appear, which must *not*, the maximum tool-call count, and whether an
 out-of-scope request is refused. Gate on `eval-pass-rate` and `eval-hallucination-rate`; the
-harness for that is [[skills/agent-evaluation/SKILL|agent-evaluation]].
+harness for that is [agent-evaluation](../agent-evaluation/SKILL.md).
 
 Test the unhappy path. A suite where every case is well-formed and similarly phrased passes
 at 100% and tells you nothing.
@@ -139,11 +139,11 @@ no measurement, or when the reason names a preference rather than an observed fa
 - **Maxing the reasoning budget on everything** because more thinking sounds better —
   paying latency and tokens to make a model hedge on a question it had right.
 - **Pasting the whole conversation into layer 3** and calling it memory. That is
-  [[skills/agent-harness/SKILL|agent-harness]]'s job, and it involves forgetting.
+  [agent-harness](../agent-harness/SKILL.md)'s job, and it involves forgetting.
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -157,9 +157,9 @@ it carries the same review requirement as any other, per `profiles/autonomous.md
 
 ## Related
 
-[[skills/agent-harness/SKILL|agent-harness]] — receives every rule that must be enforced
-rather than instructed. [[skills/agent-skills/SKILL|agent-skills]] — where instructions go
-once the prompt outgrows them. [[skills/agent-evaluation/SKILL|agent-evaluation]] — owns the
+[agent-harness](../agent-harness/SKILL.md) — receives every rule that must be enforced
+rather than instructed. [agent-skills](../agent-skills/SKILL.md) — where instructions go
+once the prompt outgrows them. [agent-evaluation](../agent-evaluation/SKILL.md) — owns the
 suite this skill's regression step runs against.
 
 *Grounding:* the four-layer architecture and prompt-regression discipline from *Building AI

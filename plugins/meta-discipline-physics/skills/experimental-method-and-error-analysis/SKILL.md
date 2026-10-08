@@ -84,7 +84,7 @@ one contact with data, under `applied` it is the deliverable.
 - Choosing cuts after seeing the answer (un-blinded, un-pre-registered) so the expected value steers the result.
 
 See also `dimensional-analysis` and `probability-and-statistics` (propagation and hypothesis-test
-mechanics), [[skills/model-building-and-approximation/SKILL|model-building-and-approximation]] for
-what the fit is testing, and [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]]
+mechanics), [model-building-and-approximation](../model-building-and-approximation/SKILL.md) for
+what the fit is testing, and [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md)
 for checking the theory value before comparison. Fit and propagate with the configured CAS
 (`config.cas`: sympy|sage|none).

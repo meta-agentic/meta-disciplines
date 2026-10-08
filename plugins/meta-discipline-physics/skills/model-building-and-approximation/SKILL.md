@@ -92,10 +92,10 @@ Mandatory under **both** profiles whenever a reported result rests on an approxi
 the ledger backs the claim that the discarded physics is provably subleading in the stated regime;
 under `applied` it is the pre-report check that the operating point actually sits inside the regime of
 validity. Cross-check the leading-neglected-term column against
-[[skills/order-of-magnitude-estimation/SKILL|order-of-magnitude-estimation]] for its size, the
-regime boundaries against [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]]
+[order-of-magnitude-estimation](../order-of-magnitude-estimation/SKILL.md) for its size, the
+regime boundaries against [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md)
 (the model must reproduce the exact result as $\epsilon\to0$), and — when the model is fit to data —
-the assumptions against [[skills/experimental-method-and-error-analysis/SKILL|experimental-method-and-error-analysis]].
+the assumptions against [experimental-method-and-error-analysis](../experimental-method-and-error-analysis/SKILL.md).
 Hold the expansion's convergence and error-order claims to the proof standard in `mathematical-rigor`.
 
 ## Anti-patterns (reject these in review)

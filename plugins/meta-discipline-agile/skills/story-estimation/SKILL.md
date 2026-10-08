@@ -208,7 +208,7 @@ the session is a shared *model of the work*, and the story points fall out of it
   a repoint that erases the prior estimate erases it.
 - **Out of scope:** when an estimate is demanded, how it is recorded in the backlog of
   record, and what a stuck item triggers procedurally — that is
-  [[skills/agile-process/SKILL|agile-process]]'s harness; this skill only produces the
+  [agile-process](../agile-process/SKILL.md)'s harness; this skill only produces the
   number and its audit trail.
 
 ## Checkable output
@@ -257,7 +257,7 @@ An estimate is **not done**, and the row is a **rejection**, while it:
 
 ## Configure
 
-Reads `packs.agile.config` (`scripts/packs.sh config agile`), config-first with these
+Reads `packs.meta-discipline-agile.config` (`scripts/packs.sh config meta-discipline-agile`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -271,8 +271,8 @@ there is no sprint to protect, so "do not commit unsplit" becomes "do not pull u
 
 ## Related
 
-`[[skills/agile-process/SKILL|agile-process]]` — DoR requires an estimate; this skill is
-how that estimate is produced. `[[skills/agile-swarm/SKILL|agile-swarm]]` — lane sizing
+[agile-process](../agile-process/SKILL.md) — DoR requires an estimate; this skill is
+how that estimate is produced. [agile-swarm](../agile-swarm/SKILL.md) — lane sizing
 uses the same axes: a lane must be low-intension at the boundary, or the lanes interlock.
 
 *Grounding:* [Cynefin framework](https://en.wikipedia.org/wiki/Cynefin_framework) ·

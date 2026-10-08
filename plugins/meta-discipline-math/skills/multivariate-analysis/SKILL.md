@@ -68,7 +68,7 @@ one decomposition; recognizing the identity is part of the discipline.
 
 Route computation through the configured `cas`/software; report to `config.sig_figs`;
 under `pure`, the optimality and identifiability claims used are proved or cited per
-[[skills/mathematical-rigor/SKILL|mathematical-rigor]].
+[mathematical-rigor](../mathematical-rigor/SKILL.md).
 
 ## The rigor standard (what "done right" means)
 

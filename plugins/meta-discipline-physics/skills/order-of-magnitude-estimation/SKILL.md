@@ -33,7 +33,7 @@ owns what those quantities *mean* about scale, and defers to it for the mechanic
 5. **Nondimensionalize the governing equation.** Rescale each variable by its characteristic
    scale ($x=L\tilde x$, $t=\tau\tilde t$); the equation reorganizes into $\tilde{\mathcal O}$
    plus terms multiplied by dimensionless groups $\epsilon_i$. The small/large $\epsilon$ is
-   the controlling parameter — hand it to [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]].
+   the controlling parameter — hand it to [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md).
 6. **Decide what to keep.** Drop any term whose dimensionless prefactor is $\lesssim10^{-1}$
    relative to the retained terms, and record the threshold. Keeping everything is not rigor;
    it is a refusal to estimate.
@@ -74,7 +74,7 @@ H ground-state E      ~14 eV        ½α²m_ec² = ½(1/137)²·511 keV     α�
 
 Ship only when the scales are named, each dropped term cites a small parameter, and the
 cross-check agrees to $10^{\pm1}$. Under the `applied` profile this block is mandatory; under
-`pure` it anchors the argument that [[skills/model-building-and-approximation/SKILL|model-building-and-approximation]] then formalizes.
+`pure` it anchors the argument that [model-building-and-approximation](../model-building-and-approximation/SKILL.md) then formalizes.
 
 ## Anti-patterns
 

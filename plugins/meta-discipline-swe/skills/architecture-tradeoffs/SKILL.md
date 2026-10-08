@@ -9,7 +9,7 @@ An architecture is the set of decisions that are expensive to change later. Eval
 is therefore not about whether it is *good* — it is about **which quality attributes it
 buys, which it spends, and which of those purchases are irreversible.** This skill turns
 that into a trade study a reviewer can check. It ends where
-[[skills/decision-records/SKILL|decision-records]] begins: the study is the analysis, the
+[decision-records](../decision-records/SKILL.md) begins: the study is the analysis, the
 ADR is the record.
 
 ## Method
@@ -41,7 +41,7 @@ ADR is the record.
    architectural problem, not five.
 7. **Conclude and hand off.** State the chosen option, the tradeoff knowingly accepted, and
    the scenario that would reverse it. Then record it via
-   [[skills/decision-records/SKILL|decision-records]] — the study is the input to the ADR,
+   [decision-records](../decision-records/SKILL.md) — the study is the input to the ADR,
    never a substitute for it.
 
 ## The rigor standard
