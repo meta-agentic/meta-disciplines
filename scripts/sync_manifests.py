@@ -11,7 +11,8 @@ Rules it enforces:
   * every directory under plugins/ has a catalogue entry, and every entry a directory;
   * description and licence come from pack.yaml; version lives only in plugin.json,
     never in the catalogue entry (Claude Code would silently prefer plugin.json);
-  * `renames` in the catalogue is append-only history and is carried over untouched.
+  * `renames` in the catalogue is append-only history and is carried over untouched;
+  * the CI conformance matrix names exactly the plugin directories.
 
 Usage:
     python3 scripts/sync_manifests.py          # write the files
@@ -103,6 +104,14 @@ def main() -> int:
     for pack in packs:
         wanted[pack / ".claude-plugin" / "plugin.json"] = dump(plugin_manifest(pack, errors))
     wanted[CATALOGUE] = dump(catalogue(packs))
+
+    ci = ROOT / ".github" / "workflows" / "ci.yml"
+    if ci.is_file():
+        matrix = yaml.safe_load(ci.read_text())["jobs"]["conformance"]["strategy"]["matrix"]["pack"]
+        expected = [p.name[len(PREFIX):] for p in packs]
+        if sorted(matrix) != sorted(expected):
+            errors.append(f".github/workflows/ci.yml: conformance matrix {sorted(matrix)} "
+                          f"!= plugin directories {sorted(expected)}")
 
     stray = [p.name for p in PLUGINS.iterdir() if p.is_dir() and p not in packs]
     errors += [f"plugins/{s}: a plugin directory without pack.yaml" for s in stray]
