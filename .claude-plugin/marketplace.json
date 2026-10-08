@@ -1,0 +1,35 @@
+{
+  "name": "meta-agentic",
+  "description": "Discipline packs for Claude: each one a method, a standard of rigor and a checkable ledger for a field — agents, agile delivery, mathematics, physics, software engineering.",
+  "owner": {
+    "name": "meta-agentic",
+    "url": "https://meta-agentic.ai"
+  },
+  "plugins": [
+    {
+      "name": "meta-discipline-agents",
+      "source": "./plugins/meta-discipline-agents",
+      "category": "discipline"
+    },
+    {
+      "name": "meta-discipline-agile",
+      "source": "./plugins/meta-discipline-agile",
+      "category": "discipline"
+    },
+    {
+      "name": "meta-discipline-math",
+      "source": "./plugins/meta-discipline-math",
+      "category": "discipline"
+    },
+    {
+      "name": "meta-discipline-physics",
+      "source": "./plugins/meta-discipline-physics",
+      "category": "discipline"
+    },
+    {
+      "name": "meta-discipline-swe",
+      "source": "./plugins/meta-discipline-swe",
+      "category": "discipline"
+    }
+  ]
+}
