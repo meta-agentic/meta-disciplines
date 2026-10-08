@@ -1,0 +1,55 @@
+# advanced-math pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config
+# advanced-math` resolves instance .packs.yaml `config:` over these and validates enums.
+version: 1
+name: advanced-math
+description: "Advanced-mathematics discipline (17 skills): a rigor spine (proof rigor, quantitative sanity-checking, hypercomplex/geometric-algebra modeling), per-branch disciplines across calculus & analysis, linear algebra, probability & statistics, number theory, discrete math, differential equations, abstract algebra, complex analysis, and geometry & trigonometry, an empirical-statistics wing (experimental design, statistical inference, multivariate analysis), a scientific-validation discipline (design-to-inference review of data-driven claims, distilled into a typed claim graph), and a graph-drawing discipline (layout-convention choice, drawing pipelines, bounds, and mental-map-preserving animation) — each emitting a checkable ledger."
+provenance: first-party
+license: MIT
+
+# The skill names other packs may depend on. A collision on a provided name is an
+# error, not a warning — see meta-os/systems/packs.md, "Dependencies between packs".
+provides:
+  # rigor spine
+  - mathematical-rigor
+  - dimensional-analysis
+  - hypercomplex-and-geometric-algebra
+  # branch disciplines
+  - calculus-and-analysis
+  - linear-algebra
+  - probability-and-statistics
+  - number-theory
+  - discrete-mathematics
+  - differential-equations
+  - abstract-algebra
+  - complex-analysis
+  - geometry-and-trigonometry
+  # empirical-statistics wing
+  - experimental-design
+  - statistical-inference
+  - multivariate-analysis
+  # validation discipline
+  - scientific-validation
+  # visualization discipline
+  - graph-drawing
+
+config:
+  profile:
+    default: applied
+    one_of: pure | applied
+    doc: "Rigor bundle: pure = proof-first; applied = computation + sanity-checking emphasis."
+  notation:
+    default: latex
+    one_of: latex | unicode | ascii
+    doc: "How math is rendered in outputs."
+  cas:
+    default: sympy
+    one_of: sympy | sage | none
+    doc: "Computer-algebra system used to verify symbolic results; none = hand-derivation only."
+  sig_figs:
+    default: 3
+    doc: "Default significant figures for numeric answers (integer)."
+
+profiles:
+  pure: profiles/pure.md
+  applied: profiles/applied.md

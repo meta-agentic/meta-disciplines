@@ -1,0 +1,127 @@
+# Worked knowledge-graph determination (scientific-validation, step 9), applied to the
+# discipline's own source domain: experimental design & inference for field/lab science.
+# Node types: Claim | Design | Method | Assumption | Domain   (Evidence nodes appear when
+# the graph is built from a concrete study; this is a domain-level graph, so none here.)
+# Edge types: assumes | tested-by | requires | controls-for | escalates-to |
+#             alternative-to | superseded-by | generalizes-to | confounded-with | supports
+# Every edge carries a verdict: here "std" = standard result of the discipline (citable in
+# any experimental-statistics text); in a study-level graph the verdict is the ledger row.
+# Portable: plain nodes/edges — import into any knowledge-graph store.
+
+nodes:
+  # --- Claims (methodological principles) ---
+  - {id: c-design-first,      type: Claim,      label: "Errors made at the design stage propagate and cannot be repaired by analysis"}
+  - {id: c-structured-var,    type: Claim,      label: "Background variability is structured (gradients, batches), not random noise"}
+  - {id: c-subsamples,        type: Claim,      label: "Sub-samples and repeated measures are not replicates"}
+  - {id: c-model-mirrors,     type: Claim,      label: "The model must mirror the design (strata <-> random terms)"}
+  - {id: c-sig-not-rel,       type: Claim,      label: "Statistical significance is not practical relevance (in either direction)"}
+  - {id: c-aliasing,         type: Claim,      label: "A design flaw can make a question formally unanswerable (aliasing)"}
+  - {id: c-power-upfront,     type: Claim,      label: "Power is planned before the study; post-hoc power is a tautology"}
+  - {id: c-repro,             type: Claim,      label: "A result is worth what its reproduction costs (data + code + seed + protocol)"}
+
+  # --- Designs ---
+  - {id: d-crd,          type: Design, label: "Completely randomized design (CRD)"}
+  - {id: d-rcbd,         type: Design, label: "Randomized complete blocks (RCBD)"}
+  - {id: d-latin,        type: Design, label: "Latin square (two orthogonal gradients)"}
+  - {id: d-lattice,      type: Design, label: "Incomplete blocks / lattice (many treatments, small blocks)"}
+  - {id: d-splitplot,    type: Design, label: "Split-plot (operational constraint -> two error strata)"}
+  - {id: d-stripplot,    type: Design, label: "Strip-plot (two large-scale factors -> three error strata)"}
+  - {id: d-factorial,    type: Design, label: "Factorial (interactions estimable; confounding manages size)"}
+  - {id: d-rsm,          type: Design, label: "Response surface (continuous factor, optimum-seeking)"}
+  - {id: d-met,          type: Design, label: "Multi-environment trial (sites/years as sampled conditions)"}
+  - {id: d-repmeas,      type: Design, label: "Repeated measures (time correlated within unit, not randomized)"}
+
+  # --- Methods ---
+  - {id: m-lm,           type: Method, label: "Linear model / ANOVA (t-test and regression as special cases)"}
+  - {id: m-ancova,       type: Method, label: "ANCOVA (covariate reduces error, adjusted means)"}
+  - {id: m-mixed,        type: Method, label: "Mixed model, REML (fixed/random, error strata as random terms)"}
+  - {id: m-satt,         type: Method, label: "Satterthwaite / Kenward-Roger approximate df"}
+  - {id: m-transform,    type: Method, label: "Variance-stabilizing transformation (log, sqrt, Box-Cox)"}
+  - {id: m-glm,          type: Method, label: "GLM (mean-variance family for counts, proportions)"}
+  - {id: m-overdisp,     type: Method, label: "Overdispersion handling (quasi-likelihood, negative binomial)"}
+  - {id: m-survival,     type: Method, label: "Time-to-event analysis (Kaplan-Meier, Cox; censoring modeled)"}
+  - {id: m-nonpar,       type: Method, label: "Design-matched rank tests (Mann-Whitney, Wilcoxon, Kruskal-Wallis, Friedman, Durbin, ART)"}
+  - {id: m-papadakis,    type: Method, label: "Neighbor adjustment (Papadakis covariate)"}
+  - {id: m-ar1ar1,       type: Method, label: "Autoregressive residuals AR1xAR1 (rows x columns)"}
+  - {id: m-spats,        type: Method, label: "Smooth spatial surface (tensor P-splines, SpATS)"}
+  - {id: m-covstruct,    type: Method, label: "Repeated-measures covariance structures (CS, AR(1), unstructured)"}
+  - {id: m-contrasts,    type: Method, label: "Planned contrasts (a priori, 1 df each)"}
+  - {id: m-posthoc,      type: Method, label: "FWER-controlling post-hoc (Tukey, Dunnett, Scheffe, Holm)"}
+  - {id: m-ranges,       type: Method, label: "Sequential range tests (Duncan, SNK)"}
+  - {id: m-ammi-gge,     type: Method, label: "Interaction decomposition & stability (AMMI, GGE, ecovalence)"}
+  - {id: m-meta,         type: Method, label: "Meta-analysis (inverse-variance weighting, heterogeneity, funnel)"}
+  - {id: m-power,        type: Method, label: "Prospective power analysis (delta, sigma, alpha, 1-beta)"}
+  - {id: m-effectsize,   type: Method, label: "Effect size with CI (d, odds ratio, difference in units)"}
+
+  # --- Assumptions ---
+  - {id: a-independence, type: Assumption, label: "Independent errors (guaranteed by randomization, not testable post hoc)"}
+  - {id: a-truereps,     type: Assumption, label: "True replication at the experimental-unit level"}
+  - {id: a-strata,       type: Assumption, label: "Test denominators drawn from the correct error stratum"}
+  - {id: a-normality,    type: Assumption, label: "Approximately normal residuals"}
+  - {id: a-homosced,     type: Assumption, label: "Homogeneous residual variance"}
+  - {id: a-meanvar,      type: Assumption, label: "Mean-variance relation matches the chosen family"}
+  - {id: a-prophaz,      type: Assumption, label: "Proportional hazards"}
+  - {id: a-fixedrandom,  type: Assumption, label: "Fixed/random classification by the resampling test"}
+
+  # --- Domains ---
+  - {id: dom-single,     type: Domain, label: "The conditions actually studied (one site-year, one batch)"}
+  - {id: dom-broad,      type: Domain, label: "The stated inference domain (region, population of environments)"}
+
+edges:
+  # Designs exist to control structured variability
+  - {from: c-structured-var, type: supports,      to: c-design-first,  verdict: std}
+  - {from: d-rcbd,       type: controls-for,  to: c-structured-var, verdict: std, note: "blocks perpendicular to one gradient"}
+  - {from: d-latin,      type: controls-for,  to: c-structured-var, verdict: std, note: "two orthogonal gradients"}
+  - {from: d-lattice,    type: alternative-to, to: d-rcbd,          verdict: std, note: "when complete blocks grow too heterogeneous"}
+  - {from: d-crd,        type: assumes,       to: a-independence,   verdict: std, note: "valid only where environment is truly homogeneous"}
+
+  # Replication, strata, and the design-model isomorphism
+  - {from: m-lm,         type: assumes,       to: a-truereps,       verdict: std}
+  - {from: c-subsamples, type: supports,      to: a-truereps,       verdict: std}
+  - {from: d-splitplot,  type: requires,      to: a-strata,         verdict: std, note: "two randomization levels -> two errors"}
+  - {from: d-stripplot,  type: requires,      to: a-strata,         verdict: std, note: "three errors; interaction more precise than main effects"}
+  - {from: m-mixed,      type: tested-by,     to: a-strata,         verdict: std, note: "random terms encode the strata"}
+  - {from: c-model-mirrors, type: supports,   to: m-mixed,          verdict: std}
+  - {from: m-mixed,      type: assumes,       to: a-fixedrandom,    verdict: std}
+  - {from: m-satt,       type: requires,      to: m-mixed,          verdict: std, note: "when no exact denominator exists"}
+  - {from: d-repmeas,    type: requires,      to: m-covstruct,      verdict: std, note: "time is not randomized; correlation modeled, not ignored"}
+  - {from: d-repmeas,    type: confounded-with, to: c-subsamples,   verdict: std, note: "temporal pseudoreplication if treated as independent"}
+
+  # Assumption checking and the escalation ladder
+  - {from: m-lm,         type: assumes,       to: a-normality,      verdict: std, note: "checked on residuals, plots first"}
+  - {from: m-lm,         type: assumes,       to: a-homosced,       verdict: std}
+  - {from: m-lm,         type: assumes,       to: a-independence,   verdict: std}
+  - {from: m-lm,         type: escalates-to,  to: m-transform,      verdict: std}
+  - {from: m-transform,  type: escalates-to,  to: m-glm,            verdict: std, note: "model the true distribution instead of forcing the data"}
+  - {from: m-glm,        type: assumes,       to: a-meanvar,        verdict: std}
+  - {from: m-glm,        type: escalates-to,  to: m-overdisp,       verdict: std, note: "field counts/proportions overdispersed as the norm"}
+  - {from: m-glm,        type: escalates-to,  to: m-nonpar,         verdict: std, note: "last resort, matched to the design's blocking"}
+  - {from: m-survival,   type: assumes,       to: a-prophaz,        verdict: std}
+  - {from: m-survival,   type: alternative-to, to: m-glm,           verdict: std, note: "censored time-to-event data; censoring is information"}
+  - {from: m-ancova,     type: requires,      to: m-lm,             verdict: std, note: "covariate measured before treatment; homogeneous slopes"}
+
+  # Spatial correction lineage (design remains the first defense)
+  - {from: m-papadakis,  type: controls-for,  to: c-structured-var, verdict: std, note: "residuals of neighbors as covariate"}
+  - {from: m-ar1ar1,     type: superseded-by, to: m-spats,          verdict: std, note: "P-spline surface converges where AR1xAR1+trend+nugget confound"}
+  - {from: m-papadakis,  type: superseded-by, to: m-ar1ar1,         verdict: std, note: "REML spatial models replace covariate iteration"}
+  - {from: m-spats,      type: requires,      to: d-rcbd,           verdict: std, note: "corrects what blocking did not remove; never substitutes for it"}
+
+  # Honest inference
+  - {from: m-lm,         type: requires,      to: m-effectsize,     verdict: std, note: "p alone is not a result"}
+  - {from: m-power,      type: supports,      to: c-power-upfront,  verdict: std}
+  - {from: m-effectsize, type: supports,      to: c-sig-not-rel,    verdict: std}
+  - {from: m-contrasts,  type: alternative-to, to: m-posthoc,       verdict: std, note: "few planned questions beat all-pairs dredging"}
+  - {from: m-ranges,     type: superseded-by, to: m-posthoc,        verdict: std, note: "Duncan/SNK inflate FWER; exploratory screening only"}
+
+  # Domain of inference
+  - {from: d-crd,        type: generalizes-to, to: dom-single,      verdict: std}
+  - {from: d-met,        type: generalizes-to, to: dom-broad,       verdict: std, note: "only with conditions treated as random"}
+  - {from: d-met,        type: requires,      to: m-mixed,          verdict: std}
+  - {from: m-ammi-gge,   type: tested-by,     to: d-met,            verdict: std, note: "crossover interaction bounds any global recommendation"}
+  - {from: m-meta,       type: generalizes-to, to: dom-broad,       verdict: std, note: "only as good as study comparability; probe publication bias"}
+  - {from: c-aliasing,  type: supports,      to: c-design-first,   verdict: std, note: "confounded factors cannot be separated by any analysis"}
+
+  # Reproducibility closes the loop
+  - {from: c-repro,      type: requires,      to: c-design-first,   verdict: std, note: "declared design + seedable randomization are what a colleague replays"}
+  - {from: d-factorial,  type: requires,      to: a-strata,         verdict: std, note: "declared confounding sacrifices named high-order interactions"}
+  - {from: d-rsm,        type: alternative-to, to: d-factorial,     verdict: std, note: "optimum-seeking on a continuous factor, not mean comparison"}
