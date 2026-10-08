@@ -1,7 +1,7 @@
-# Copy this block under packs.agile in your instance's .packs.yaml, then edit.
-# scripts/packs.sh config agile  prints the resolved values (profile defaults filled in).
+# Copy this block under packs.meta-discipline-agile in your instance's .packs.yaml, then edit.
+# scripts/packs.sh config meta-discipline-agile  prints the resolved values (profile defaults filled in).
 packs:
-  agile:
+  meta-discipline-agile:
     config:
       profile: scrum          # scrum (full harness) | kanban (lightweight, pull-based)
       tracker: jira           # jira | local | none
@@ -13,7 +13,7 @@ packs:
 # external needs reconciling against it:
 #
 # packs:
-#   agile:
+#   meta-discipline-agile:
 #     config:
 #       profile: scrum
 #       tracker: local
@@ -29,7 +29,7 @@ packs:
 # implementation inside the lane's worktree, via a multiplexer such as meta-cli.
 #
 # packs:
-#   agile:
+#   meta-discipline-agile:
 #     config:
 #       engines-enabled: true
 #       engines-bin: meta

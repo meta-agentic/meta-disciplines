@@ -23,7 +23,7 @@ the CERN Yellow Reports / European School of HEP as breadth-and-method maps, not
    $\mathcal L=-\tfrac14 F_{\mu\nu}F^{\mu\nu}$. State `config.units` first: HEP works in natural units
    $\hbar=c=1$, so masses, momenta, and energies share one unit and SI is restored later by dimensional
    analysis. Fix the metric signature exactly as in
-   [[skills/special-and-general-relativity/SKILL|special-and-general-relativity]].
+   [special-and-general-relativity](../special-and-general-relativity/SKILL.md).
 2. **Count mass dimensions before anything else.** In $d=4$ natural units $[S]=0$ so $[\mathcal L]=4$; with
    $[\partial]=1$ this forces $[\phi]=1$ (scalar), $[\psi]=3/2$ (fermion), $[A_\mu]=1$. Every coupling's
    dimension is then read off its interaction term and is a renormalizability flag: $[g]\ge0$ is
@@ -36,7 +36,7 @@ the CERN Yellow Reports / European School of HEP as breadth-and-method maps, not
    $\langle\text{out}|\text{in}\rangle=\int\mathcal D\phi\,e^{iS/\hbar}$ sums over field configurations —
    physical when you want manifest symmetry, gauge fixing, and generating functionals. They agree; pick by
    convenience. The linear-algebra of mode operators links to `linear-algebra`; overlaps with
-   [[skills/quantum-mechanics/SKILL|quantum-mechanics]] (this is its relativistic completion).
+   [quantum-mechanics](../quantum-mechanics/SKILL.md) (this is its relativistic completion).
 4. **Get the propagator as the Green's function of the free operator.** The free two-point function is the
    inverse of the quadratic differential operator: the scalar Feynman propagator is
    $\tilde D_F(p)=i/(p^2-m^2+i\epsilon)$, the fermion $\ i(\slashed p+m)/(p^2-m^2+i\epsilon)$. The $i\epsilon$
@@ -53,7 +53,7 @@ the CERN Yellow Reports / European School of HEP as breadth-and-method maps, not
    a $2\to2$ cross-section $d\sigma/d\Omega=|\mathcal M|^2/(64\pi^2 s)$ in the CM frame (massless limit), a
    decay rate $\Gamma=|\mathcal M|^2\,p^*/(8\pi m^2)$ for $1\to2$. Spin sums/averages use completeness
    relations; kinematics (Mandelstam $s,t,u$ with $s+t+u=\sum m_i^2$) come from
-   [[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]]. Cross-sections must be
+   [symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md). Cross-sections must be
    positive and Lorentz-invariant.
 7. **Regulate divergences, renormalize, and run the coupling.** Loop integrals often diverge in the UV;
    **regularize** (dimensional regularization $d=4-\epsilon$ preserves gauge symmetry, isolating a $1/\epsilon$

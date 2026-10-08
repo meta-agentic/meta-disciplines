@@ -48,7 +48,7 @@ Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
 
 ```yaml
 packs:
-  advanced-math:
+  meta-discipline-math:
     config:
       profile: applied      # pure | applied
       notation: latex       # latex | unicode | ascii
@@ -63,8 +63,8 @@ Profiles (`profiles/*.md`) are named rigor bundles: **pure** (proof-first) vs **
 
 ```bash
 # from your meta-os instance root
-scripts/packs.sh add advanced-math https://github.com/meta-agentic/meta-discipline-math
-scripts/packs.sh config advanced-math      # resolve/validate config
+scripts/packs.sh add meta-discipline-math https://github.com/meta-agentic/meta-discipline-math
+scripts/packs.sh config meta-discipline-math      # resolve/validate config
 ```
 
 ## Provenance & license
@@ -79,7 +79,7 @@ commit `6c0411c`. Add under `packs:` (the local `meta-os` checkout must be synce
 `origin/main`, which carries the packs system):
 
 ```yaml
-  advanced-math:
+  meta-discipline-math:
     repo: https://github.com/meta-agentic/meta-discipline-math
     ref: main
     description: "Advanced-mathematics discipline (17 skills): the rigor spine (mathematical-rigor, dimensional-analysis, hypercomplex-and-geometric-algebra), per-branch disciplines — calculus-and-analysis, linear-algebra, probability-and-statistics, number-theory, discrete-mathematics, differential-equations, abstract-algebra, complex-analysis, geometry-and-trigonometry — the empirical-statistics wing (experimental-design, statistical-inference, multivariate-analysis), scientific-validation (design-to-inference review emitting a validation ledger + typed claim graph), and graph-drawing (layout-convention choice, drawing pipelines, bounds, mental-map-preserving animation). First-party — the quantitative-rigor wedge from pack-strategy."

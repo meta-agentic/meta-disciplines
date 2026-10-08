@@ -35,7 +35,7 @@ disagrees localizes the bug immediately.
 6. **Apply equipartition — and know where it breaks.** Each quadratic degree of freedom contributes
    $\tfrac12k_BT$ to $\langle E\rangle$ only in the classical regime $k_BT\gg$ level spacing. When
    $k_BT\ll\Delta$ the mode freezes out ($C_V\to0$): vibrational/rotational modes deactivate,
-   defer the quantized levels to [[skills/quantum-mechanics/SKILL|quantum-mechanics]].
+   defer the quantized levels to [quantum-mechanics](../quantum-mechanics/SKILL.md).
 7. **Use the right statistics; recover the classical limit.** Indistinguishable quanta obey
    Bose–Einstein $\bar n=1/(e^{\beta(\epsilon-\mu)}-1)$ or Fermi–Dirac $\bar n=1/(e^{\beta(\epsilon-\mu)}+1)$;
    both → Maxwell–Boltzmann $\bar n=e^{-\beta(\epsilon-\mu)}$ when $e^{\beta(\epsilon-\mu)}\gg1$
@@ -44,7 +44,7 @@ disagrees localizes the bug immediately.
 8. **At a phase transition, name the order parameter and the broken symmetry.** A nonanalyticity
    in $F$ (thermodynamic limit only) signals a transition; identify the order parameter, which
    symmetry the ordered state breaks, and the critical behavior — tie the broken symmetry to
-   [[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]].
+   [symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md).
 
 ## The rigor standard
 
@@ -56,7 +56,7 @@ disagrees localizes the bug immediately.
   intensive $T,P,\mu$ do not. A non-extensive entropy signals a missing $1/N!$ or a bad limit.
 - **Both temperature limits are taken**: high-$T$/classical (equipartition, Dulong–Petit) and
   low-$T$/third-law ($S\to0$, $C_V\to0$) — cross-checked via
-  [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]].
+  [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md).
 - **The thermodynamic limit is stated** wherever a sharp transition or ensemble equivalence is used.
 
 ## Checkable output

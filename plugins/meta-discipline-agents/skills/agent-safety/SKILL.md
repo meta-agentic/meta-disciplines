@@ -170,7 +170,7 @@ no scan, or when a gate exists with no breaker behind it.
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -186,11 +186,11 @@ prerequisites that must be met before it may be selected at all.
 
 ## Related
 
-[[skills/agent-harness/SKILL|agent-harness]] — makes structural what this skill would
-otherwise only inspect. [[skills/agent-evaluation/SKILL|agent-evaluation]] — red-team cases
+[agent-harness](../agent-harness/SKILL.md) — makes structural what this skill would
+otherwise only inspect. [agent-evaluation](../agent-evaluation/SKILL.md) — red-team cases
 are permanent, and a safety regression always blocks.
-[[skills/agent-skills/SKILL|agent-skills]] — a writable skill directory is itself an
-injection vector. [[skills/loop-engineering/SKILL|loop-engineering]] — escalations are the
+[agent-skills](../agent-skills/SKILL.md) — a writable skill directory is itself an
+injection vector. [loop-engineering](../loop-engineering/SKILL.md) — escalations are the
 backlog of missing guardrails.
 
 *Grounding:* the agentic threat model, layered guardrails and zero-trust scoping from

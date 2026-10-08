@@ -1,6 +1,6 @@
 ---
 type: profile
-tags: [pack, agents, profile, autonomy]
+tags: [pack, meta-discipline-agents, profile, autonomy]
 ---
 # Profile — supervised
 
@@ -30,7 +30,7 @@ setting *per capability*, and you re-enter it every time one of these is true:
 Watching the first ten decisions to find out where the agent is *uncertain*, not whether it
 is *correct*. Correctness you can test later; uncertainty is what tells you which harness
 layer is missing. Every approval you find yourself granting mechanically is a rule that
-should move into code — see [[skills/agent-harness/SKILL|agent-harness]]. Every approval
+should move into code — see [agent-harness](../skills/agent-harness/SKILL.md). Every approval
 that made you hesitate is an escalation condition worth encoding.
 
 Leaving this profile is a decision with evidence behind it: the eval suite covers the

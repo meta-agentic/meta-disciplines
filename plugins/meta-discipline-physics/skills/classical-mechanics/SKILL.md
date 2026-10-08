@@ -25,7 +25,7 @@ symmetry, limits — meets the machinery of $L$, $H$, and generalized coordinate
 3. **Read conserved momenta off cyclic coordinates.** A coordinate absent from $L$ (cyclic /
    ignorable) has $\partial L/\partial q_i=0$, so $\dot p_i=0$ — its conjugate momentum is conserved.
    This is the fast route to constants of motion; tie each one to its symmetry via
-   [[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]] (cyclic $t$ → energy,
+   [symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md) (cyclic $t$ → energy,
    cyclic angle → angular momentum). If $L$ has no explicit $t$, the Jacobi integral
    $h=\sum_i\dot q_i\,p_i-L$ is conserved — equal to $E$ only when the coordinates are not themselves
    time-dependent (e.g. a hoop spun at fixed $\omega$).
@@ -43,15 +43,15 @@ symmetry, limits — meets the machinery of $L$, $H$, and generalized coordinate
    q_i=0$, Hessian positive-definite), expand to quadratic order: $T\approx\tfrac12\dot q^{\top}M\dot q$,
    $V\approx\tfrac12 q^{\top}K q$. Normal frequencies and modes solve the generalized eigenproblem
    $\det(K-\omega^2 M)=0$ — hand the eigenvalue mechanics to `linear-algebra`, and the wave/mode
-   propagation content to [[skills/waves-and-oscillations/SKILL|waves-and-oscillations]].
+   propagation content to [waves-and-oscillations](../waves-and-oscillations/SKILL.md).
 7. **Verify the equations of motion three ways.** (a) Energy: confirm $dE/dt=0$ (or that the Jacobi
    integral is the conserved quantity) against the derived motion. (b) Dimensions: every term of each
    equation carries the same units — defer to `dimensional-analysis`. (c) Limit: recover a known case —
    small-angle SHM, weak coupling, a decoupled subsystem — via
-   [[skills/limiting-cases-and-asymptotics/SKILL|limiting-cases-and-asymptotics]].
+   [limiting-cases-and-asymptotics](../limiting-cases-and-asymptotics/SKILL.md).
 8. **State when the regime leaves Newtonian mechanics.** If speeds approach $c$, if a frame is
    non-inertial in a way that matters, or if gravity is strong, classical mechanics is the wrong tool —
-   hand off to [[skills/special-and-general-relativity/SKILL|special-and-general-relativity]] rather
+   hand off to [special-and-general-relativity](../special-and-general-relativity/SKILL.md) rather
    than patching. Respect `config.units`: under `natural`, keep the same bookkeeping with $c=1$.
 
 ## The rigor standard

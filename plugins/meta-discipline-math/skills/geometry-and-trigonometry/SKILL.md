@@ -8,8 +8,8 @@ description: "Use whenever a problem is spatial — a triangle, angle, length, a
 Most geometry pain comes from the *wrong frame*: the answer is easy in coordinates chosen to
 respect the symmetry, and brutal otherwise. This skill makes method-and-frame a deliberate
 first move, then forces the answer through a coordinate-independent invariant so a frame
-mistake cannot survive to the page. Cross-links: [[skills/linear-algebra/SKILL|linear-algebra]]
-(transforms, determinants), [[skills/hypercomplex-and-geometric-algebra/SKILL|hypercomplex-and-geometric-algebra]] (rotations/GA).
+mistake cannot survive to the page. Cross-links: [linear-algebra](../linear-algebra/SKILL.md)
+(transforms, determinants), [hypercomplex-and-geometric-algebra](../hypercomplex-and-geometric-algebra/SKILL.md) (rotations/GA).
 
 ## Method
 
@@ -58,7 +58,7 @@ mistake cannot survive to the page. Cross-links: [[skills/linear-algebra/SKILL|l
 
 Each result names the frame it was computed in, the invariant that confirms it, and the degenerate
 case that bounds it. Angles carry radians/degrees explicitly; areas and lengths carry units (see
-[[skills/dimensional-analysis/SKILL|dimensional-analysis]]). Round to `config.sig_figs` (default 3).
+[dimensional-analysis](../dimensional-analysis/SKILL.md)). Round to `config.sig_figs` (default 3).
 
 ```
 RESULT            METHOD / FRAME                INVARIANT CHECK                          DEGENERATE / LIMIT CHECK
@@ -69,7 +69,7 @@ tetra. volume     scalar triple product         = ⅙|a·(b×c)| = 0.500 (coord-
 ```
 
 Under the `applied` profile this ledger is mandatory — no spatial number ships without it. Under
-`pure` it backs the synthetic argument produced by [[skills/mathematical-rigor/SKILL|mathematical-rigor]].
+`pure` it backs the synthetic argument produced by [mathematical-rigor](../mathematical-rigor/SKILL.md).
 Symbolic invariants (e.g. confirming $\det R=1$ identically) go through the configured CAS
 (`config.cas`: sympy|sage|none); with `none`, verify by hand and mark the check `[manual]`.
 

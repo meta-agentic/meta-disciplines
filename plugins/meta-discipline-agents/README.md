@@ -76,7 +76,7 @@ of each `SKILL.md`, and overridable wherever your project keeps configuration.
 **As a [meta-os](https://github.com/meta-agentic/meta-os) pack**, from your instance root:
 
 ```bash
-scripts/packs.sh add agents
+scripts/packs.sh add meta-discipline-agents
 ```
 
 Skills land in the instance's union `skills/` and project-local `.claude/skills/`.

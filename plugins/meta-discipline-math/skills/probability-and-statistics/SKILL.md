@@ -55,7 +55,7 @@ violate the method's premises. This skill makes the premises explicit and checka
 - **Every method's assumptions are listed and each marked checked/violated**, with *how* it was
   checked (normality via QQ-plot, independence via design, variance via Levene).
 - **Every point estimate carries an uncertainty** — an interval with its correct
-  frequentist-or-Bayesian reading, and units/sig-figs per [[skills/dimensional-analysis/SKILL|dimensional-analysis]].
+  frequentist-or-Bayesian reading, and units/sig-figs per [dimensional-analysis](../dimensional-analysis/SKILL.md).
 - **Every test reports effect size, power, and comparison count**, not $p$ alone.
 - **Prior-driven conclusions are flagged** — under a Bayesian frame, say what the prior
   contributes versus the likelihood.
@@ -76,7 +76,7 @@ comparisons run: 1 of 1 pre-registered        multiplicity: none (single primary
 
 Mandatory under **both** profiles: an unstated or violated assumption invalidates the result
 regardless of `config.profile`. Under `pure`, pair it with the derivation ledger of
-[[skills/mathematical-rigor/SKILL|mathematical-rigor]]; under `applied`, sanity-check every
+[mathematical-rigor](../mathematical-rigor/SKILL.md); under `applied`, sanity-check every
 estimate against a limiting or order-of-magnitude expectation before shipping. Compute via the
 configured CAS (`config.cas`: sympy|sage|none); when `none`, show the closed form and round to
 `config.sig_figs`.

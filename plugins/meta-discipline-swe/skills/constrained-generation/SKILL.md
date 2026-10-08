@@ -1,6 +1,6 @@
 ---
 name: constrained-generation
-description: "OPT-IN — declines unless the instance sets `dsl_generation` in packs.software-engineering.config. Use when deciding whether to make LLM code generation reliable by constraining WHAT may be emitted — a DSL, a schema, a typed builder API — rather than by enlarging the prompt: 'should we build a DSL for this', 'the model keeps getting this shape wrong', 'how do we make generation verifiable instead of reviewable', or when the same kind of artifact (scenarios, pipelines, configs, protocol logic) is generated over and over. Applies a four-condition gate whose default answer is no, picks internal vs external form, and wires a deterministic validator into a bounded generate→validate→repair loop."
+description: "OPT-IN — declines unless the instance sets `dsl_generation` in packs.meta-discipline-swe.config. Use when deciding whether to make LLM code generation reliable by constraining WHAT may be emitted — a DSL, a schema, a typed builder API — rather than by enlarging the prompt: 'should we build a DSL for this', 'the model keeps getting this shape wrong', 'how do we make generation verifiable instead of reviewable', or when the same kind of artifact (scenarios, pipelines, configs, protocol logic) is generated over and over. Applies a four-condition gate whose default answer is no, picks internal vs external form, and wires a deterministic validator into a bounded generate→validate→repair loop."
 ---
 
 # Constrained Generation
@@ -15,8 +15,8 @@ cost.
 ## Activation gate — this skill ships off
 
 **Do nothing until the adopter has turned it on.** Resolve the switch before reading
-further, via `scripts/packs.sh config software-engineering dsl_generation` or
-`packs.software-engineering.config.dsl_generation` in the instance `.packs.yaml`.
+further, via `scripts/packs.sh config meta-discipline-swe dsl_generation` or
+`packs.meta-discipline-swe.config.dsl_generation` in the instance `.packs.yaml`.
 
 | Value | What you may do |
 |-------|-----------------|

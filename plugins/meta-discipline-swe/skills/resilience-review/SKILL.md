@@ -44,9 +44,9 @@ the default took over, and the default is cascade.
    call can tell degraded from broken, and the fallback hides the incident instead of
    surviving it.
 7. **Record and hand off.** Contracts that are expensive to reverse become ADRs via
-   [[skills/decision-records/SKILL|decision-records]]; measurable availability scenarios
-   belong in [[skills/architecture-tradeoffs/SKILL|architecture-tradeoffs]]; the level at
-   which each failure test runs is [[skills/test-strategy/SKILL|test-strategy]]'s call.
+   [decision-records](../decision-records/SKILL.md); measurable availability scenarios
+   belong in [architecture-tradeoffs](../architecture-tradeoffs/SKILL.md); the level at
+   which each failure test runs is [test-strategy](../test-strategy/SKILL.md)'s call.
 
 ## The rigor standard
 

@@ -24,9 +24,9 @@ conventions and formulae below.
 2. **Write four-momentum conservation once, for the whole process.** $\sum p_i^\mu=\sum p_f^\mu$ holds
    component by component in *any* frame — it is the master equation for both decays and collisions. Defer
    the general boost/contraction machinery to
-   [[skills/special-and-general-relativity/SKILL|special-and-general-relativity]] and the underlying
+   [special-and-general-relativity](../special-and-general-relativity/SKILL.md) and the underlying
    Poincaré/Noether origin of the conservation law to
-   [[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]]; here the four-vector
+   [symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md); here the four-vector
    sum *is* the constraint that every subsequent invariant is built from.
 3. **Form the invariant mass and prove it is frame-independent.** For any set of momenta,
    $M^2=(\sum p)^2=(\sum E)^2-|\sum\mathbf p|^2$ is a scalar contraction — the same number in the lab, the
@@ -56,7 +56,7 @@ conventions and formulae below.
    golden-rule structure — rate $\propto |\mathcal M|^2\times(\text{phase space})$ — with the
    Lorentz-invariant phase space $d\Pi=\prod_f\dfrac{d^3p_f}{(2\pi)^3\,2E_f}\,(2\pi)^4\delta^4(\sum p_i-\sum p_f)$.
    The $\delta^4$ enforces four-momentum conservation and the $1/2E_f$ factors keep the measure invariant.
-   Take $|\mathcal M|^2$ from the dynamics ([[skills/particle-physics-and-the-standard-model/SKILL|particle-physics-and-the-standard-model]]);
+   Take $|\mathcal M|^2$ from the dynamics ([particle-physics-and-the-standard-model](../particle-physics-and-the-standard-model/SKILL.md));
    this skill supplies the kinematic skeleton and the invariants it must respect.
 8. **Report collider observables in variables with clean boost behavior.** Longitudinal boosts along the
    beam shift **rapidity** $y=\tfrac12\ln\frac{E+p_z}{E-p_z}$ by an additive constant, so rapidity

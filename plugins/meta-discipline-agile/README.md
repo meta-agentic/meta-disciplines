@@ -34,7 +34,7 @@ The three-part test every pack must pass (`systems/pack-strategy.md`):
 From your instance root (see the framework's `systems/packs.md`):
 
 ```bash
-scripts/packs.sh add agile
+scripts/packs.sh add meta-discipline-agile
 ```
 
 Skills land in the instance's union `skills/` and project-local `.claude/skills/`.
@@ -51,8 +51,8 @@ packs; `pack.yaml` declares all three skills as this pack's `provides:` surface.
 ## Configure it
 
 The method lives in the pack; your choices live in your instance. Copy the block from
-[`config.example.yaml`](config.example.yaml) under `packs.agile` in your `.packs.yaml`
-and edit. `scripts/packs.sh config agile` prints the resolved values (profile defaults
+[`config.example.yaml`](config.example.yaml) under `packs.meta-discipline-agile` in your `.packs.yaml`
+and edit. `scripts/packs.sh config meta-discipline-agile` prints the resolved values (profile defaults
 filled in); the skills resolve config-first, so the `<space>` / `<owner>/<scrum-repo>`
 placeholders in the docs come from here.
 

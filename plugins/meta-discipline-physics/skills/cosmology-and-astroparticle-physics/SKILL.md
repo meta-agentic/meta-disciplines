@@ -19,7 +19,7 @@ of $a$, or an era where the wrong component dominates, is caught the moment the 
    the dynamics live entirely in $a(t)$ (set $a_0=1$ today). Redshift is a pure kinematic stretch of wavelength,
    $1+z=1/a$; the **Hubble parameter** $H=\dot a/a$ gives the local Hubble law $v=Hd$. Honor `config.units` — natural
    units ($\hbar=c=k_B=1$) are the cosmology default; restore SI by dimensional analysis. The GR machinery (metric,
-   geodesics, $G_{\mu\nu}$) belongs to [[skills/special-and-general-relativity/SKILL|special-and-general-relativity]].
+   geodesics, $G_{\mu\nu}$) belongs to [special-and-general-relativity](../special-and-general-relativity/SKILL.md).
 2. **Impose the Friedmann constraint — the master equation.** Einstein's equation on FLRW gives
    $H^2=\frac{8\pi G}{3}\rho-\frac{k c^2}{a^2}$ and the acceleration equation
    $\frac{\ddot a}{a}=-\frac{4\pi G}{3}\left(\rho+\frac{3P}{c^2}\right)$. The first is a *constraint*, not an
@@ -47,8 +47,8 @@ of $a$, or an era where the wrong component dominates, is caught the moment the 
    minutes; their predicted abundances depend sharply on the baryon-to-photon ratio and the expansion rate, so the
    observed abundances are a precision probe of the early thermal history and of the relativistic degrees of freedom.
    Equilibrium distributions, freeze-out, and entropy come from
-   [[skills/statistical-mechanics-and-thermodynamics/SKILL|statistical-mechanics-and-thermodynamics]]; reaction rates and
-   relic abundances from [[skills/particle-physics-and-the-standard-model/SKILL|particle-physics-and-the-standard-model]].
+   [statistical-mechanics-and-thermodynamics](../statistical-mechanics-and-thermodynamics/SKILL.md); reaction rates and
+   relic abundances from [particle-physics-and-the-standard-model](../particle-physics-and-the-standard-model/SKILL.md).
 7. **Pass through recombination and read the CMB; weigh dark matter and dark energy.** When $T$ drops enough for
    electrons and protons to combine into neutral hydrogen, photons decouple and stream freely — the **cosmic microwave
    background**, a near-perfect blackbody whose temperature and anisotropy spectrum encode $\Omega_b,\Omega_m,\Omega_\Lambda,H_0$.

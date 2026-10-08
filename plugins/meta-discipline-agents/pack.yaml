@@ -1,9 +1,9 @@
-# agents pack — manifest + config schema (method vs. opinion; see meta-os/systems/packs.md).
-# Skills read config-first, fall back to these defaults. `scripts/packs.sh config agents`
+# meta-discipline-agents pack — manifest + config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config meta-discipline-agents`
 # resolves the instance's .packs.yaml `config:` over these and validates enums.
 # Contract: meta-os/systems/pack.schema.json — validate before publishing.
 version: 1
-name: agents
+name: meta-discipline-agents
 description: "Agent engineering discipline (7 skills): deciding whether to build an agent and what shape it takes, prompt architecture as versioned code, declarative skill authoring, the harness that makes enforcement deterministic, the safety and permission model, trajectory-level evaluation, and the engineered loop that runs unattended — each emitting a checkable ledger. First-party."
 provenance: first-party
 license: MIT

@@ -58,7 +58,7 @@ context window.
 
 Compact on the same schedule. A loop running for hours overflows any context window if
 history accumulates — failed attempts survive as one line each, not as transcripts. This is
-the scratchpad from [[skills/agent-harness/SKILL|agent-harness]], run on a cadence.
+the scratchpad from [agent-harness](../agent-harness/SKILL.md), run on a cadence.
 
 ### 5. Detect futility, not just death
 
@@ -97,7 +97,7 @@ reviews failure logs on a schedule and proposes a sharper instruction; **tool sy
 where repeated deterministic computation becomes a registered function; **experience
 distillation**, where a hard-won success is compressed into a reusable procedure so the next
 similar task starts where the last finished — this is what makes a skill library compound,
-and [[skills/agent-skills/SKILL|agent-skills]] owns the authoring and the bounded edits; and
+and [agent-skills](../agent-skills/SKILL.md) owns the authoring and the bounded edits; and
 **learned routing**, where success rates per model per task class stop being static config.
 
 Their shared shape: **failure is inevitable, and the engineering goes into never failing the
@@ -194,7 +194,7 @@ when unattended operation is claimed with any of the four primitives missing.
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -208,11 +208,11 @@ fallbacks:
 
 ## Related
 
-[[skills/agent-harness/SKILL|agent-harness]] — supplies the scratchpad, checkpoints and
-trace this skill runs on. [[skills/agent-evaluation/SKILL|agent-evaluation]] — the evaluator
+[agent-harness](../agent-harness/SKILL.md) — supplies the scratchpad, checkpoints and
+trace this skill runs on. [agent-evaluation](../agent-evaluation/SKILL.md) — the evaluator
 problem there is this skill's verifier problem, and it gates every self-modification.
-[[skills/agent-skills/SKILL|agent-skills]] — receives distilled experience as reviewable
-procedures. [[skills/agent-architecture/SKILL|agent-architecture]] — required the termination
+[agent-skills](../agent-skills/SKILL.md) — receives distilled experience as reviewable
+procedures. [agent-architecture](../agent-architecture/SKILL.md) — required the termination
 predicate this skill designs.
 
 *Grounding:* loop engineering, the self-improving harness and the review-inversion argument

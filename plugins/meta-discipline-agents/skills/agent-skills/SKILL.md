@@ -72,7 +72,7 @@ redirect the agent. Version-control skills alongside the code they operate on; r
 changes in pull requests, because a changed SKILL.md is changed behavior; restrict write
 access by filesystem permission or CI gate; audit skills from outside sources by reading the
 whole body, not the frontmatter; and sandbox the loader so path validation stops an agent
-from talking it into reading elsewhere — see [[skills/agent-harness/SKILL|agent-harness]].
+from talking it into reading elsewhere — see [agent-harness](../agent-harness/SKILL.md).
 
 This applies with full force to skills an agent wrote itself. Distilling a hard-won success
 into a reusable skill is among the highest-return moves available — the lesson is paid for
@@ -152,7 +152,7 @@ PR link, or when the edit is unbounded.
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -163,10 +163,10 @@ fallbacks:
 
 ## Related
 
-[[skills/agent-prompting/SKILL|agent-prompting]] — the prompt shrinks as this library grows.
-[[skills/agent-harness/SKILL|agent-harness]] — owns the loader, its path sandboxing, and the
+[agent-prompting](../agent-prompting/SKILL.md) — the prompt shrinks as this library grows.
+[agent-harness](../agent-harness/SKILL.md) — owns the loader, its path sandboxing, and the
 progressive disclosure this skill applies to procedures.
-[[skills/loop-engineering/SKILL|loop-engineering]] — experience distillation is where
+[loop-engineering](../loop-engineering/SKILL.md) — experience distillation is where
 agent-authored skills come from, and why review matters.
 
 *Grounding:* the Agent Skills protocol, progressive disclosure and the Clarify/Execute/Verify

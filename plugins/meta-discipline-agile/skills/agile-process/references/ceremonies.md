@@ -13,7 +13,7 @@ summarised always-on in `.claude/CLAUDE.md`; the full procedure is here.
 
 ## Definition of Ready / Done
 - **DoR** — clear acceptance criteria, value understood, dependencies identified,
-  effort estimated **per `[[skills/story-estimation/SKILL|story-estimation]]` — both axis
+  effort estimated **per [story-estimation](../../story-estimation/SKILL.md) — both axis
   placements recorded, not a bare number**, no open blockers.
 - **DoD** — all ACs met; code reviewed + merged; tests pass; build/deploy pipelines
   green; docs updated; no known defects; **the backlog item updated** (`<tooling>

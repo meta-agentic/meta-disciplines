@@ -1,7 +1,7 @@
 ---
 type: profile
 profile: kanban
-tags: [pack/agile, profile]
+tags: [pack/meta-discipline-agile, profile]
 ---
 # Profile: kanban (lightweight)
 
@@ -10,7 +10,7 @@ solo work, research instances, or estates that don't want Scrum overhead. Uses t
 `agile-process` skill *procedures* it needs (story transitions, backlog hygiene) and
 ignores the sprint/ceremony ones.
 
-## Parameters (from `packs.agile.config`)
+## Parameters (from `packs.meta-discipline-agile.config`)
 
 | Key | Meaning | Default |
 |-----|---------|---------|

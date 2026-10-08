@@ -35,7 +35,7 @@ dead run.
 Treat tools as any hostile-input boundary: assume arguments are adversarial, validate them,
 and return a structured result — success flag, message, payload, and an error code the
 caller can branch on — rather than a bare string the next step parses by guesswork. Scope
-each tool to least privilege; see [[skills/agent-safety/SKILL|agent-safety]].
+each tool to least privilege; see [agent-safety](../agent-safety/SKILL.md).
 
 ### 2. Sandbox execution
 
@@ -91,13 +91,13 @@ matching strings.
 
 The honest limit: verification proves output is well-formed, not correct. It confirms the
 code parses and lints; it cannot confirm the refactor was the right one. That gap is what
-[[skills/agent-evaluation/SKILL|agent-evaluation]] closes.
+[agent-evaluation](../agent-evaluation/SKILL.md) closes.
 
 ### 5. Pipeline the context
 
 Do not preload every specification, schema and style guide. A model carrying forty thousand
 tokens of reference has already lost the task. Expose a catalog and a tool to fetch one on
-demand — the progressive disclosure [[skills/agent-skills/SKILL|agent-skills]] applies to
+demand — the progressive disclosure [agent-skills](../agent-skills/SKILL.md) applies to
 procedures, applied to reference material. The agent pulls the schema when it writes a query,
 not when it renames a variable.
 
@@ -130,7 +130,7 @@ session and a reviewer can read. That artifact is the checkable output below.
 
 A harness ships a **harness contract**, kept in the repository it operates on and loaded
 every session — one of the few artifacts always worth human eyes, per
-[[skills/loop-engineering/SKILL|loop-engineering]]:
+[loop-engineering](../loop-engineering/SKILL.md):
 
 ```markdown
 # Harness contract — atlas-triage
@@ -186,7 +186,7 @@ A rule absent from this contract, or not enforceable by the code behind it, is n
 
 ## Configure
 
-Reads `packs.agents.config` (`scripts/packs.sh config agents`), config-first with these
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
 fallbacks:
 
 | Key | Meaning | Default |
@@ -201,10 +201,10 @@ execution is not an option at that level (`profiles/autonomous.md`).
 
 ## Related
 
-[[skills/agent-prompting/SKILL|agent-prompting]] — sends every safety-critical rule here.
-[[skills/agent-safety/SKILL|agent-safety]] — decides *what capability exists* before this
-skill decides how it is bounded. [[skills/agent-evaluation/SKILL|agent-evaluation]] — closes
-the gap between well-formed and correct. [[skills/loop-engineering/SKILL|loop-engineering]] —
+[agent-prompting](../agent-prompting/SKILL.md) — sends every safety-critical rule here.
+[agent-safety](../agent-safety/SKILL.md) — decides *what capability exists* before this
+skill decides how it is bounded. [agent-evaluation](../agent-evaluation/SKILL.md) — closes
+the gap between well-formed and correct. [loop-engineering](../loop-engineering/SKILL.md) —
 consumes the trace and checkpoints this layer produces.
 
 *Grounding:* the harness layers and the *model proposes, code disposes* principle from

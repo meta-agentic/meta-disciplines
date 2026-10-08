@@ -1,8 +1,8 @@
-# physics pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
+# meta-discipline-physics pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
 # Skills read config-first, fall back to these defaults. `scripts/packs.sh config
-# physics` resolves instance .packs.yaml `config:` over these and validates enums.
+# meta-discipline-physics` resolves instance .packs.yaml `config:` over these and validates enums.
 version: 1
-name: physics
+name: meta-discipline-physics
 description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle) — each emitting a checkable ledger. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
 provenance: first-party
 license: MIT
@@ -11,7 +11,7 @@ license: MIT
 # uncertainty propagation) rather than duplicating it. Declare the math pack alongside this
 # one in the instance's .packs.yaml; physics skills assume dimensional-analysis is available.
 depends:
-  - advanced-math   # for skills/dimensional-analysis (and, under `pure`, mathematical-rigor)
+  - meta-discipline-math   # for skills/dimensional-analysis (and, under `pure`, mathematical-rigor)
 
 config:
   profile:

@@ -1,8 +1,8 @@
-# Copy this block into your instance's .packs.yaml under packs: physics: config:
-# Also add the `advanced-math` pack — physics reuses its dimensional-analysis skill.
+# Copy this block into your instance's .packs.yaml under packs: meta-discipline-physics: config:
+# Also add the `meta-discipline-math` pack — physics reuses its dimensional-analysis skill.
 packs:
-  advanced-math: {}
-  physics:
+  meta-discipline-math: {}
+  meta-discipline-physics:
     config:
       profile: applied      # pure | applied
       units: SI             # SI | gaussian | natural

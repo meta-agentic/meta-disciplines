@@ -14,8 +14,8 @@ almost always linear-time, while optimizing over structures (fewest crossings, l
 symmetry, minimum bends over all embeddings) is almost always NP-hard. Practical drawing
 therefore pairs cheap structural cores with declared heuristics, and says which is which.
 
-Sits with [[skills/discrete-mathematics/SKILL|discrete-mathematics]] (the combinatorial
-substrate) and [[skills/geometry-and-trigonometry/SKILL|geometry-and-trigonometry]]
+Sits with [discrete-mathematics](../discrete-mathematics/SKILL.md) (the combinatorial
+substrate) and [geometry-and-trigonometry](../geometry-and-trigonometry/SKILL.md)
 (the geometric one); future topology and graph-theory-and-algorithms disciplines slot in
 below it, with this skill as their rendering layer.
 
@@ -138,7 +138,7 @@ VERDICT         fit for purpose — crossings acceptable under declared priority
 ```
 
 Under `pure`, pair structural claims (planarity, embedding validity) with the ledger of
-[[skills/mathematical-rigor/SKILL|mathematical-rigor]]; under `applied`, sanity-check
+[mathematical-rigor](../mathematical-rigor/SKILL.md); under `applied`, sanity-check
 measured metrics against the known bounds (a straight-line planar drawing claiming
 o(n²) worst-case area, or a crossing count below m−3n+6, is wrong before you look).
 

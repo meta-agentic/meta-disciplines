@@ -16,7 +16,7 @@ a theorem whose hypotheses never held. This skill makes the axiom check executab
    magma $\subset$ semigroup (assoc) $\subset$ monoid (identity) $\subset$ group (inverses)
    $\subset$ abelian (commutative); and ring $\subset$ integral domain (no zero divisors)
    $\subset$ field (all nonzero units). Claiming "group" when only a monoid is proved is the
-   root error. See [[skills/hypercomplex-and-geometric-algebra/SKILL|hypercomplex-and-geometric-algebra]] for concrete algebra choices.
+   root error. See [hypercomplex-and-geometric-algebra](../hypercomplex-and-geometric-algebra/SKILL.md) for concrete algebra choices.
 2. **Verify axioms explicitly, in order.** Closure first ($a\ast b\in G$), then
    associativity, identity, inverses; for rings add distributivity. Closure and inverses are
    where candidates die: $(\mathbb Z,\times)$ is a monoid, not a group ($2$ has no inverse);
@@ -34,11 +34,11 @@ a theorem whose hypotheses never held. This skill makes the axiom check executab
    $|H|\mid|G|$, so element orders divide $|G|$ — a hard constraint on what can exist.
 6. **Classify with the finite-group toolkit.** Order, generators/relations, and the Sylow
    theorems (a Sylow $p$-subgroup exists; $n_p\equiv1\pmod p$, $n_p\mid|G|$) pin down structure;
-   $\gcd$-cyclic facts govern $\mathbb Z/n\mathbb Z$ — see [[skills/number-theory/SKILL|number-theory]].
-   For vector spaces and modules, dimension/basis arguments live in [[skills/linear-algebra/SKILL|linear-algebra]].
+   $\gcd$-cyclic facts govern $\mathbb Z/n\mathbb Z$ — see [number-theory](../number-theory/SKILL.md).
+   For vector spaces and modules, dimension/basis arguments live in [linear-algebra](../linear-algebra/SKILL.md).
 7. **Cite only with hypotheses discharged.** "By Lagrange" requires $G$ finite ✓; "it's a
    field, so nonzero elements are invertible" requires the field axioms already checked. An
-   uncited premise is an unproved step — the standard of [[skills/mathematical-rigor/SKILL|mathematical-rigor]].
+   uncited premise is an unproved step — the standard of [mathematical-rigor](../mathematical-rigor/SKILL.md).
 
 ## The rigor standard
 

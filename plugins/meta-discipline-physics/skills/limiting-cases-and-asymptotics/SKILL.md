@@ -36,7 +36,7 @@ verification a reviewer can rerun.
    isn't symmetric where the setup is has a bug.
 7. **Cross-check the number.** Confirm the leading term numerically against the known case to
    `config.sig_figs`, and sanity-check the correction's magnitude against an order-of-magnitude
-   estimate (see [[skills/order-of-magnitude-estimation/SKILL|order-of-magnitude-estimation]]).
+   estimate (see [order-of-magnitude-estimation](../order-of-magnitude-estimation/SKILL.md)).
 
 ## The rigor standard
 
@@ -66,9 +66,9 @@ two-body force, m₁=m₂           mass asymmetry → 0          symmetric unde
 Ship only when every derived formula has a passing row and no row is left unresolved. Under
 `applied` this ledger is mandatory alongside `dimensional-analysis`; under `pure` it backs the
 argument built with `mathematical-rigor`. See also
-[[skills/model-building-and-approximation/SKILL|model-building-and-approximation]] for choosing
-the regime, [[skills/special-and-general-relativity/SKILL|special-and-general-relativity]] and
-[[skills/quantum-mechanics/SKILL|quantum-mechanics]] for the relativistic and classical limits;
+[model-building-and-approximation](../model-building-and-approximation/SKILL.md) for choosing
+the regime, [special-and-general-relativity](../special-and-general-relativity/SKILL.md) and
+[quantum-mechanics](../quantum-mechanics/SKILL.md) for the relativistic and classical limits;
 expand series with the configured CAS (`config.cas`: sympy|sage|none).
 
 ## Anti-patterns

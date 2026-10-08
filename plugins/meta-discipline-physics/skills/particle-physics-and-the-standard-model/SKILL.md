@@ -81,10 +81,10 @@ p → e⁺ π⁰                      B:1→0, ΔB=1                        no S
 Mandatory under **both** profiles: under `pure` the ledger backs the first-principles quantum-number
 and amplitude derivation; under `applied` it is the sanity check run before any number is reported.
 Verify the kinematics and $\sqrt s$ rows against
-[[skills/relativistic-kinematics-and-collisions/SKILL|relativistic-kinematics-and-collisions]], the
-amplitude and coupling structure against [[skills/quantum-field-theory/SKILL|quantum-field-theory]],
+[relativistic-kinematics-and-collisions](../relativistic-kinematics-and-collisions/SKILL.md), the
+amplitude and coupling structure against [quantum-field-theory](../quantum-field-theory/SKILL.md),
 and the conservation/selection-rule rows against
-[[skills/symmetry-and-conservation-laws/SKILL|symmetry-and-conservation-laws]]. Treat rate
+[symmetry-and-conservation-laws](../symmetry-and-conservation-laws/SKILL.md). Treat rate
 measurements and their uncertainties with `probability-and-statistics`, and hold the derivation
 itself to the proof standard in `mathematical-rigor`. When the configured CAS (`config.cas`:
 sympy|sage|none) is available, use it for CKM/PMNS unitarity and phase-space factors; otherwise

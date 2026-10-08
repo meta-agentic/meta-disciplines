@@ -50,7 +50,7 @@ refusing to trust output whose conditioning it never reported.
 
 End with a **verification ledger** the reviewer can audit: each result paired with its method,
 an invariant or residual check, and its conditioning. Under `pure` the invariant column is
-mandatory (proof ledger discipline; see [[skills/mathematical-rigor/SKILL|mathematical-rigor]]);
+mandatory (proof ledger discipline; see [mathematical-rigor](../mathematical-rigor/SKILL.md));
 under `applied` the residual and $\kappa$ columns are mandatory.
 
 ```
@@ -71,4 +71,4 @@ unconditioned row does not count as solved.
 - Reporting $x$ with no residual, or a small $\|Ax-b\|$ with no $\kappa$ to interpret it.
 - Trusting eigenvalues without the $\operatorname{tr}=\sum\lambda$, $\det=\prod\lambda$ cross-check.
 - Cholesky on a non-SPD matrix, or Jordan form computed numerically (it is discontinuous).
-- Confusing basis dimension with rank, or ignoring [[skills/dimensional-analysis/SKILL|dimensional-analysis]] unit sanity on the assembled entries; vector-space axioms per [[skills/abstract-algebra/SKILL|abstract-algebra]].
+- Confusing basis dimension with rank, or ignoring [dimensional-analysis](../dimensional-analysis/SKILL.md) unit sanity on the assembled entries; vector-space axioms per [abstract-algebra](../abstract-algebra/SKILL.md).

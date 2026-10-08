@@ -98,7 +98,7 @@ sizing             δ, σ (sourced), α, power → r                dated sizing
 ```
 
 A study ships only when every row has evidence. The ledger feeds
-[[skills/statistical-inference/SKILL|statistical-inference]] directly: its stratum table
+[statistical-inference](../statistical-inference/SKILL.md) directly: its stratum table
 becomes the model's random part.
 
 ## Anti-patterns (reject these in review)
