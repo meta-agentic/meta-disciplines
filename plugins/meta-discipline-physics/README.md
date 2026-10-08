@@ -86,7 +86,7 @@ scripts/packs.sh config physics    # resolve/validate config
 
 ## Provenance & license
 
-First-party (mova77). MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
+First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
 no instance data. Coverage anchored on the MIT OCW Course 8 taxonomy as a breadth map only;
 no third-party content vendored.
 

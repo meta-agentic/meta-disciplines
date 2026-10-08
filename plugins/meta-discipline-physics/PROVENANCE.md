@@ -2,22 +2,22 @@
 
 | Skill | Origin | License |
 |-------|--------|---------|
-| `symmetry-and-conservation-laws` | first-party (mova77), authored for this pack | MIT |
-| `limiting-cases-and-asymptotics` | first-party (mova77), authored for this pack | MIT |
-| `order-of-magnitude-estimation` | first-party (mova77), authored for this pack | MIT |
-| `model-building-and-approximation` | first-party (mova77), authored for this pack | MIT |
-| `experimental-method-and-error-analysis` | first-party (mova77), authored for this pack | MIT |
-| `classical-mechanics` | first-party (mova77), authored for this pack | MIT |
-| `electromagnetism` | first-party (mova77), authored for this pack | MIT |
-| `waves-and-oscillations` | first-party (mova77), authored for this pack | MIT |
-| `quantum-mechanics` | first-party (mova77), authored for this pack | MIT |
-| `statistical-mechanics-and-thermodynamics` | first-party (mova77), authored for this pack | MIT |
-| `special-and-general-relativity` | first-party (mova77), authored for this pack | MIT |
-| `quantum-field-theory` | first-party (mova77), authored for this pack | MIT |
-| `particle-physics-and-the-standard-model` | first-party (mova77), authored for this pack | MIT |
-| `relativistic-kinematics-and-collisions` | first-party (mova77), authored for this pack | MIT |
-| `accelerator-physics` | first-party (mova77), authored for this pack | MIT |
-| `cosmology-and-astroparticle-physics` | first-party (mova77), authored for this pack | MIT |
+| `symmetry-and-conservation-laws` | first-party, authored for this pack | MIT |
+| `limiting-cases-and-asymptotics` | first-party, authored for this pack | MIT |
+| `order-of-magnitude-estimation` | first-party, authored for this pack | MIT |
+| `model-building-and-approximation` | first-party, authored for this pack | MIT |
+| `experimental-method-and-error-analysis` | first-party, authored for this pack | MIT |
+| `classical-mechanics` | first-party, authored for this pack | MIT |
+| `electromagnetism` | first-party, authored for this pack | MIT |
+| `waves-and-oscillations` | first-party, authored for this pack | MIT |
+| `quantum-mechanics` | first-party, authored for this pack | MIT |
+| `statistical-mechanics-and-thermodynamics` | first-party, authored for this pack | MIT |
+| `special-and-general-relativity` | first-party, authored for this pack | MIT |
+| `quantum-field-theory` | first-party, authored for this pack | MIT |
+| `particle-physics-and-the-standard-model` | first-party, authored for this pack | MIT |
+| `relativistic-kinematics-and-collisions` | first-party, authored for this pack | MIT |
+| `accelerator-physics` | first-party, authored for this pack | MIT |
+| `cosmology-and-astroparticle-physics` | first-party, authored for this pack | MIT |
 
 All content is original and **public-safe by construction** — no instance data (repo
 names, trackers, paths, promoted knowledge). The discipline draws on standard physics

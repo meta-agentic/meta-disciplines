@@ -69,7 +69,7 @@ scripts/packs.sh config advanced-math      # resolve/validate config
 
 ## Provenance & license
 
-First-party (mova77). MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
+First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
 no instance data.
 
 ## Registry entry (add to `meta-os/systems/packs.yaml`)

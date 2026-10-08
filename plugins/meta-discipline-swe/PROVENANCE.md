@@ -2,14 +2,14 @@
 
 | Skill | Origin | License |
 |-------|--------|---------|
-| `design-review` | first-party (mova77), authored for this pack | MIT |
-| `architecture-tradeoffs` | first-party (mova77), authored for this pack | MIT |
-| `test-strategy` | first-party (mova77), authored for this pack | MIT |
-| `resilience-review` | first-party (mova77), authored for this pack | MIT |
-| `legacy-modernization` | first-party (mova77), authored for this pack | MIT |
-| `performance-engineering` | first-party (mova77), authored for this pack | MIT |
-| `decision-records` | first-party (mova77), authored for this pack | MIT |
-| `constrained-generation` | first-party (mova77), authored for this pack | MIT |
+| `design-review` | first-party, authored for this pack | MIT |
+| `architecture-tradeoffs` | first-party, authored for this pack | MIT |
+| `test-strategy` | first-party, authored for this pack | MIT |
+| `resilience-review` | first-party, authored for this pack | MIT |
+| `legacy-modernization` | first-party, authored for this pack | MIT |
+| `performance-engineering` | first-party, authored for this pack | MIT |
+| `decision-records` | first-party, authored for this pack | MIT |
+| `constrained-generation` | first-party, authored for this pack | MIT |
 
 All content is original and **public-safe by construction** — no instance data (repo
 names, trackers, paths, promoted knowledge). The discipline draws on standard

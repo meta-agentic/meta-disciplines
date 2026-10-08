@@ -2,23 +2,23 @@
 
 | Skill | Origin | License |
 |-------|--------|---------|
-| `mathematical-rigor` | first-party (mova77), authored for this pack | MIT |
-| `dimensional-analysis` | first-party (mova77), authored for this pack | MIT |
-| `hypercomplex-and-geometric-algebra` | first-party (mova77), authored for this pack | MIT |
-| `calculus-and-analysis` | first-party (mova77), authored for this pack | MIT |
-| `linear-algebra` | first-party (mova77), authored for this pack | MIT |
-| `probability-and-statistics` | first-party (mova77), authored for this pack | MIT |
-| `number-theory` | first-party (mova77), authored for this pack | MIT |
-| `discrete-mathematics` | first-party (mova77), authored for this pack | MIT |
-| `differential-equations` | first-party (mova77), authored for this pack | MIT |
-| `abstract-algebra` | first-party (mova77), authored for this pack | MIT |
-| `complex-analysis` | first-party (mova77), authored for this pack | MIT |
-| `geometry-and-trigonometry` | first-party (mova77), authored for this pack | MIT |
-| `experimental-design` | first-party (mova77), authored for this pack | MIT |
-| `statistical-inference` | first-party (mova77), authored for this pack | MIT |
-| `multivariate-analysis` | first-party (mova77), authored for this pack | MIT |
-| `scientific-validation` | first-party (mova77), authored for this pack; concepts generalized from standard experimental-design and biostatistics practice (Fisher's principles, mixed models, multi-environment inference) | MIT |
-| `graph-drawing` | first-party (mova77), authored for this pack; original prose over the published results of the graph-drawing field (planarity, crossing minimization, Sugiyama, force-directed/stress, topology-shape-metrics, labeling, simultaneous embedding/morphing), with the Handbook of Graph Drawing and Visualization's chapter taxonomy used as a coverage map only — no text reproduced or vendored | MIT |
+| `mathematical-rigor` | first-party, authored for this pack | MIT |
+| `dimensional-analysis` | first-party, authored for this pack | MIT |
+| `hypercomplex-and-geometric-algebra` | first-party, authored for this pack | MIT |
+| `calculus-and-analysis` | first-party, authored for this pack | MIT |
+| `linear-algebra` | first-party, authored for this pack | MIT |
+| `probability-and-statistics` | first-party, authored for this pack | MIT |
+| `number-theory` | first-party, authored for this pack | MIT |
+| `discrete-mathematics` | first-party, authored for this pack | MIT |
+| `differential-equations` | first-party, authored for this pack | MIT |
+| `abstract-algebra` | first-party, authored for this pack | MIT |
+| `complex-analysis` | first-party, authored for this pack | MIT |
+| `geometry-and-trigonometry` | first-party, authored for this pack | MIT |
+| `experimental-design` | first-party, authored for this pack | MIT |
+| `statistical-inference` | first-party, authored for this pack | MIT |
+| `multivariate-analysis` | first-party, authored for this pack | MIT |
+| `scientific-validation` | first-party, authored for this pack; concepts generalized from standard experimental-design and biostatistics practice (Fisher's principles, mixed models, multi-environment inference) | MIT |
+| `graph-drawing` | first-party, authored for this pack; original prose over the published results of the graph-drawing field (planarity, crossing minimization, Sugiyama, force-directed/stress, topology-shape-metrics, labeling, simultaneous embedding/morphing), with the Handbook of Graph Drawing and Visualization's chapter taxonomy used as a coverage map only — no text reproduced or vendored | MIT |
 
 All content is original and **public-safe by construction** — no instance data (repo
 names, trackers, paths, promoted knowledge). The discipline draws on standard mathematical
