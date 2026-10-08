@@ -1,0 +1,39 @@
+# physics pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config
+# physics` resolves instance .packs.yaml `config:` over these and validates enums.
+version: 1
+name: physics
+description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle) — each emitting a checkable ledger. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
+provenance: first-party
+license: MIT
+
+# Reuses the math pack's `dimensional-analysis` skill (units homogeneity, Buckingham π,
+# uncertainty propagation) rather than duplicating it. Declare the math pack alongside this
+# one in the instance's .packs.yaml; physics skills assume dimensional-analysis is available.
+depends:
+  - advanced-math   # for skills/dimensional-analysis (and, under `pure`, mathematical-rigor)
+
+config:
+  profile:
+    default: applied
+    one_of: pure | applied
+    doc: "Rigor bundle: pure = derivation/first-principles emphasis; applied = computation + sanity-checking + numbers."
+  units:
+    default: SI
+    one_of: SI | gaussian | natural
+    doc: "Unit system for electromagnetism and beyond (SI vs Gaussian-CGS) and whether natural units (ħ=c=1) are used."
+  notation:
+    default: latex
+    one_of: latex | unicode | ascii
+    doc: "How math/physics is rendered in outputs."
+  cas:
+    default: sympy
+    one_of: sympy | sage | none
+    doc: "Computer-algebra system used to verify symbolic results; none = hand-derivation only."
+  sig_figs:
+    default: 3
+    doc: "Default significant figures for numeric answers (integer)."
+
+profiles:
+  pure: profiles/pure.md
+  applied: profiles/applied.md
