@@ -1,0 +1,54 @@
+# software-engineering pack — config schema (method vs. opinion; see meta-os/systems/packs.md).
+# Skills read config-first, fall back to these defaults. `scripts/packs.sh config
+# software-engineering` resolves instance .packs.yaml `config:` over these and validates enums.
+# Contract: meta-os/systems/pack.schema.json — validate before publishing.
+version: 1
+name: software-engineering
+description: "Software-engineering discipline (8 skills): judgment rather than process — design-review (structure judged against the change pattern the system actually has, principles as diagnostics not goals), architecture-tradeoffs (quality attributes as scenarios with response measures; sensitivity points, tradeoff points, one-way doors), test-strategy (risk-first: which failures are bought protection against, at the cheapest level that sees them, and what is knowingly uncovered), resilience-review (a declared degradation contract per dependency, everything bounded, no retry without idempotency evidence, contracts exercised rather than assumed), legacy-modernization (name the blocked change, disposition per component rather than per system, a rewrite gate whose default is no, a freeze-or-mirror policy before the first line), performance-engineering (workload model and percentile before any number, saturated resource by measurement, Little's-law and Amdahl ceilings before profiling, utilization read through queueing, unmoved optimizations reverted), decision-records (ADR discipline: rejected alternatives, accepted costs, reopening triggers), and the opt-in constrained-generation (restrict what may be emitted, behind a four-condition gate whose default answer is no) — each emitting a checkable ledger."
+provenance: first-party
+license: MIT
+
+# Skills activate on mount, as in the sibling discipline packs — with ONE exception:
+# `constrained-generation` is gated behind `dsl_generation` (default off) because building
+# a language carries a real, compounding cost. Gating is decided per skill, not pack-wide;
+# a skill is gated only when adopting it unprompted would be a liability.
+
+# No profiles: this discipline has no alternative methodologies to bundle (the `pure` /
+# `applied` split the math and physics packs ship has no analogue here).
+
+provides: [design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, constrained-generation]
+
+config:
+  # --- resilience-review ---
+  fault_injection_command:
+    doc: "The estate's real fault-injection / chaos command, used to exercise a declared degradation contract (e.g. a chaos-mesh experiment, a toxiproxy script, a kill/partition harness). Absent = the skill must report contracts as unexercised hypotheses rather than as verified."
+
+  # --- performance-engineering ---
+  load_test_command:
+    doc: "The estate's real load-generation command, used to measure a change against the stated workload (e.g. a k6/Gatling/JMeter run against a prod-shaped environment). Absent = the skill must report numbers as unvalidated rather than presenting a local benchmark as a production result."
+
+  # --- decision-records ---
+  adr_home:
+    default: docs/adr/
+    doc: "Where decision records live in the estate's repos. Records are numbered sequentially within this directory and linked from the code they govern."
+  adr_format:
+    default: nygard
+    one_of: nygard | madr | y-statement
+    doc: "Record template: nygard (context/decision/status/consequences), madr (Markdown ADR, with an explicit decision-drivers section), or y-statement (one-paragraph 'in the context of … we decided … to achieve … accepting …')."
+
+  # --- constrained-generation (opt-in; off means the skill declines entirely) ---
+  dsl_generation:
+    default: "off"
+    one_of: off | advisory | on
+    doc: "MASTER SWITCH for constrained-generation. off = the skill declines and does nothing (default); advisory = it may run the gate and recommend, never author a DSL; on = full method. An explicit in-conversation user instruction outranks advisory for that one task; nothing outranks off."
+  dsl_style:
+    default: internal
+    one_of: internal | external
+    doc: "Preferred form once the gate passes: internal (the host type system enforces the grammar) or external (own syntax + a parser you maintain). Consulted only when dsl_generation is not off."
+  host_language:
+    doc: "Language whose compiler/type system is available to enforce an internal DSL (e.g. typescript, java, rust). Absent = treat internal DSLs as unavailable and prefer external."
+  validator_command:
+    doc: "The estate's real deterministic validator, run by the generate-validate-repair loop (e.g. 'npm run typecheck'). Absent = the loop cannot close, and the skill must say so rather than simulate a check."
+  max_repair_iterations:
+    default: 3
+    doc: "Bound on the repair loop (integer). On exhaustion, fail loudly with the last validator output — never fall back to unconstrained generation."

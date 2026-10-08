@@ -1,0 +1,24 @@
+# Copy this block into your instance's .packs.yaml under packs: software-engineering: config:
+packs:
+  software-engineering:
+    config:
+      adr_home: docs/adr/       # where decision records live in your repos
+      adr_format: nygard        # nygard | madr | y-statement
+      dsl_generation: "off"     # off | advisory | on — constrained-generation only
+
+# design-review and decision-records are active on mount and need no switch.
+#
+# constrained-generation declines while dsl_generation is off. Move it to `advisory` when
+# you have a recurring generation problem you want its four-condition gate applied to; it
+# will judge candidates but author no grammar. Move to `on` only once a candidate has
+# passed that gate AND you can name a real validator — without validator_command the
+# repair loop cannot close, and the skill says so rather than pretending to check itself.
+#
+# packs:
+#   software-engineering:
+#     config:
+#       dsl_generation: on
+#       dsl_style: internal              # internal | external
+#       host_language: typescript
+#       validator_command: npm run typecheck
+#       max_repair_iterations: 3
