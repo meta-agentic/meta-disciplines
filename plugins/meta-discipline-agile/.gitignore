@@ -1,0 +1,28 @@
+# This pack is documentation: no build output, no dependencies, no instance data.
+# Anything an editor, OS, or agent run drops here stays out of the repo.
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Agent/session scratch — never commit run artifacts or resolved instance config
+.claude/
+.claude-flow/
+*.db
+*.local.yaml
+*.local.md
+.packs.yaml
+scratch/
+tmp/
+
+# Agent memory store (local, per-machine). Binary SQLite plus its WAL
+# sidecars cannot be shared between clones, and concurrent sessions conflict
+# on every write.
+ruvector.db
+**/ruvector.db
+*.db-wal
+*.db-shm

@@ -1,0 +1,40 @@
+# Copy this block under packs.agile in your instance's .packs.yaml, then edit.
+# scripts/packs.sh config agile  prints the resolved values (profile defaults filled in).
+packs:
+  agile:
+    config:
+      profile: scrum          # scrum (full harness) | kanban (lightweight, pull-based)
+      tracker: jira           # jira | local | none
+      space: sample           # resolves <space> in the skills
+      mirror-repo: you/scrum  # <owner>/<repo> for the backlog mirror (jira only)
+
+# tracker: local, per-item layout instead (one file per work item, no external
+# tracker) — one small file per work item beats a monolith mirror once nothing
+# external needs reconciling against it:
+#
+# packs:
+#   agile:
+#     config:
+#       profile: scrum
+#       tracker: local
+#       backlog-layout: per-item
+#       mirror-repo: you/backlog
+#       sprint-files: backlog/<space>/sprints/<SPRINT-ID>.md
+#       tooling: automations/backlog/backlog.py
+#       ceremony-home: memory/wiki
+#       spaces: [sample]
+
+# Optional engine plugin for agile-swarm (off unless engines-enabled is true).
+# The lead engine owns every lane; workers only do review / low-intension
+# implementation inside the lane's worktree, via a multiplexer such as meta-cli.
+#
+# packs:
+#   agile:
+#     config:
+#       engines-enabled: true
+#       engines-bin: meta
+#       engines-lead: claude
+#       engines-workers:                 # order = fallback order
+#         codex:  { plan: <your plan>, roles: [implement, review] }
+#         grok:   { plan: <your plan>, roles: [implement, review, research] }
+#         gemini: { plan: free,        roles: [review, research] }
