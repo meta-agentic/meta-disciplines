@@ -81,6 +81,9 @@ Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejec
   (`docs/GUARDRAILS.md` §Lane runtime).
 - **One story → one branch → one PR**, and the tracker state is pre-set in the code PR —
   never a standalone PR just to change issue state.
+- **Every item is pointed when it enters the sprint, and every PR is measured against
+  it.** A lane stops and reports at twice its expected size, and states its diff size
+  against the estimate when it opens a PR.
 - **Independent review on every PR before merge** — a reviewer that is not the author,
   plus security review for auth/crypto/external-input changes. The PR states the head the
   review cleared and the PO merges exactly that head (`gh pr merge --match-head-commit
