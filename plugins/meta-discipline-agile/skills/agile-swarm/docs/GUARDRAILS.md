@@ -53,6 +53,10 @@ Ask the PO, or find the tool, before writing. One question up front is cheaper t
 
 Corollary for shared trackers: if the backlog serves several projects or sessions, assume concurrency. Hand-picking an id "that looks free" races with everyone else — use the allocator.
 
+## PR bodies
+- **Every PR body is a lane-unique temporary file.** Each lane makes its own directory with `mktemp -d` and each body with `mktemp` inside it, random part last. A fixed name in a shared directory (`pr-body.md`) is a race: one lane overwrote another's body, and the second lane posted the first lane's private text on a public PR. A naming convention did not stop it; a name nobody else can produce does.
+- **The body is checked right before it is posted.** `scripts/pr-body-check.sh <file> <branch>` refuses a body that does not name the lane's own branch (it is probably another lane's file), and, on a public repository, one carrying a tracker key or a private link. The patterns are instance configuration (`PR_BODY_KEY_RE`, `PR_BODY_ALLOW`, `PR_BODY_PRIVATE_RE`), so the script stays generic. A refusal is fixed in the body, never bypassed. Tests: `scripts/test-pr-body-check.sh`.
+
 ## Review
 - **Every PR gets an INDEPENDENT review before the PO merges.** The lane lead self-reviews before opening, but a separate reviewer agent (not the author) catches what the author missed. Wire it into the monitor: when a new lane PR appears with no review yet, spawn a one-shot `reviewer-<N>` that runs `gh pr diff N`, reviews for correctness + security (auth/crypto/input) + project conventions, and posts `gh pr review N` (--approve / --request-changes / --comment). The reviewer **never merges** — the PO owns the merge; the review is a signal.
 - Don't double-review: skip a PR that already has a review from `reviewer-<N>`.
