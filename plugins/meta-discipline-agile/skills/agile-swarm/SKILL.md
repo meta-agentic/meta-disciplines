@@ -86,6 +86,9 @@ Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejec
   product-affecting calls.
 - **Never `git add -A`** in a lane (explicit paths only), and gitignore the worktree root
   and tool dirs.
+- **PR bodies are lane-unique `mktemp` files, checked before posting.** Never a fixed
+  shared name; `scripts/pr-body-check.sh` refuses a body that does not name its own
+  branch, or that carries a tracker key or a private link into a public repository.
 - **Stay current with `main`** — rebase in-flight lanes when it advances; don't discover
   drift at a red gate.
 - **Out of scope:** per-story ceremony and transition mechanics
