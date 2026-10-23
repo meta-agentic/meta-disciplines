@@ -60,6 +60,7 @@ Corollary for shared trackers: if the backlog serves several projects or session
 ## Review
 - **Every PR gets an INDEPENDENT review before the PO merges.** The lane lead self-reviews before opening, but a separate reviewer agent (not the author) catches what the author missed. Wire it into the monitor: when a new lane PR appears with no review yet, spawn a one-shot `reviewer-<N>` that runs `gh pr diff N`, reviews for correctness + security (auth/crypto/input) + project conventions, and posts `gh pr review N` (--approve / --request-changes / --comment). The reviewer **never merges** — the PO owns the merge; the review is a signal.
 - Don't double-review: skip a PR that already has a review from `reviewer-<N>`.
+- **Merge on the stated head, never on whatever the branch holds.** The lane writes the reviewed head SHA in the PR description, and the PO merges with `gh pr merge <number> --match-head-commit <sha>`, which refuses if the branch moved. Anything pushed after the review goes in a new PR. Two failures made this a rule: a commit pushed after a review was cleared rode into the merge unreviewed and surfaced in a later PR, and a PR was merged while its review was still running. Check after merge: no branch commit is dated later than its merge.
 
 ## Agent discipline
 - Every lead brief carries the **10-minute no-progress rule**: if no verifiable progress for 10 min, STOP and report — never retry silently. The orchestrator does liveness checks on the same cadence.

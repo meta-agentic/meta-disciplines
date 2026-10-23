@@ -48,7 +48,8 @@ Lane sizing uses [story-estimation](../story-estimation/SKILL.md)'s axes: a lane
    missed one. Then **stop and let them work — never poll**; they report back.
 5. **Auto-review, steward, roll.** When a lane PR appears unreviewed, spawn a one-shot
    `reviewer-<N>` (never the author) that reviews the diff for correctness, security and
-   conventions and posts its verdict; it never merges. Relay each PR to the PO, flip
+   conventions and posts its verdict; it never merges. Relay each PR to the PO with the
+   head its review cleared, for `gh pr merge --match-head-commit <sha>`; flip
    tracker states (In-Review on open, Done on merge) through the sanctioned write path,
    tick the batch on merge, and roll to the next batch — recording every lane in the ledger
    below.
@@ -81,8 +82,9 @@ Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejec
 - **One story → one branch → one PR**, and the tracker state is pre-set in the code PR —
   never a standalone PR just to change issue state.
 - **Independent review on every PR before merge** — a reviewer that is not the author,
-  plus security review for auth/crypto/external-input changes. **The PO owns merges and
-  sprint-close**; the orchestrator proposes scope and briefs, and does not make
+  plus security review for auth/crypto/external-input changes. The PR states the head the
+  review cleared and the PO merges exactly that head (`gh pr merge --match-head-commit
+  <sha>`); later commits go in a new PR. **The PO owns merges and sprint-close**; the orchestrator proposes scope and briefs, and does not make
   product-affecting calls.
 - **Never `git add -A`** in a lane (explicit paths only), and gitignore the worktree root
   and tool dirs.
