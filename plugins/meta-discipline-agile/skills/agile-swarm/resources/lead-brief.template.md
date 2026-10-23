@@ -20,6 +20,7 @@ GUARDRAILS:
 - HOST RESOURCES (docs/GUARDRAILS.md §Lane runtime): a timeout or disk-floor kill takes the build's whole process tree, never just the launcher. Docker: `<"none — run Docker-free steps in the guard's no-Docker mode" | "this lane holds the Docker claim">`. Never start, quit or kill the container runtime; if you need it and it is down, STOP and report.
 - Run `/code-review` (and `/security-review` if it touches auth/crypto/external input) on the diff before opening the PR.
 - PR BODIES (docs/GUARDRAILS.md §PR bodies): once per lane, `mktemp -d "${TMPDIR:-/tmp}/<lead-name>-XXXXXX"` is the lane's directory; every PR body is a new `mktemp "<lane-dir>/pr-body-XXXXXX"` inside it (Xs last). Never a fixed name such as `pr-body.md`. Re-read the file, then run `<pack-dir>/skills/agile-swarm/scripts/pr-body-check.sh <file> <branch>` (add `--private-repo` only for a private repo) right before every `gh pr create --body-file` / `gh pr edit --body-file`. A refusal means rewrite the body, never skip the check.
+- REVIEWED HEAD (docs/GUARDRAILS.md §Review): the PR description states `Head: <full sha>`, the commit the review covers, next to its branch name. A fix round updates the stated head before re-review. Once the reviewer has cleared that head, push nothing more to the branch: anything later goes in a new PR. The PO merges with `gh pr merge <number> --match-head-commit <sha>`.
 - Pre-set the tracker/backlog state in the code PR.
 - TRACKER WRITES: `<either: the exact command/tool to use, e.g. "run `<tool> transition <KEY> IN REVIEW`" — or: "do NOT touch the tracker; the orchestrator owns all status writes and will transition on PR open/merge">`. Never hand-edit a tracker item to change its state, and never infer the write method from the file's shape. If the tracker is shared across projects or sessions, concurrent lane writes are a hazard — default to the orchestrator owning them.
 
@@ -35,7 +36,7 @@ ENGINE PLUGIN (include only when `engines-enabled: true` and the PO opted this l
 - Review: a read-only run of a *different* worker, or a separate `reviewer-<N>`. Never the engine that implemented the change, and never you: you commit, so you are an author.
 - Record the worker run id(s) and your own token spend for the ledger. On a worker quota error, fall back to the next worker and note the hand-over.
 
-COMMS: `SendMessage` progress + PR links to "lead" after each PR; coordinate with peers by name only if genuinely needed. **NO-PROGRESS RULE: if you make no verifiable progress for 10 minutes, STOP and report to lead — never retry silently.**
+COMMS: `SendMessage` progress + PR links and their stated heads to "lead" after each PR; coordinate with peers by name only if genuinely needed. **NO-PROGRESS RULE: if you make no verifiable progress for 10 minutes, STOP and report to lead — never retry silently.**
 
 Start with <first story>.
 ---
