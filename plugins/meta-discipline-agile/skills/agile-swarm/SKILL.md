@@ -46,13 +46,7 @@ Lane sizing uses [story-estimation](../story-estimation/SKILL.md)'s axes: a lane
    `git add -A`. **Then run `git worktree list` yourself** — auto-isolation can silently
    fail and land a lead on the primary; pre-create a manual worktree for any lane that
    missed one. Then **stop and let them work — never poll**; they report back.
-5. **Auto-review, steward, roll.** When a lane PR appears unreviewed, spawn a one-shot
-   `reviewer-<N>` (never the author) that reviews the diff for correctness, security and
-   conventions and posts its verdict; it never merges. Relay each PR to the PO with the
-   head its review cleared, for `gh pr merge --match-head-commit <sha>`; flip
-   tracker states (In-Review on open, Done on merge) through the sanctioned write path,
-   tick the batch on merge, and roll to the next batch — recording every lane in the ledger
-   below.
+5. **Auto-review, steward, roll.** When a lane PR appears unreviewed, spawn a one-shot `reviewer-<N>` (never the author) that reviews the diff for correctness, security and conventions and posts its verdict, naming the head SHA it reviewed; it never merges. Relay each PR to the PO with the head its review cleared, for `gh pr merge --match-head-commit <sha>`; flip tracker states (In-Review on open, Done on merge) through the sanctioned write path, tick the batch on merge, and roll to the next batch — recording every lane in the ledger below.
 
 **Optional engine plugin.** With `engines-enabled: true` in the pack config, a lane may hand
 review, or low-intension implementation, to a worker engine through a multiplexer such as
@@ -81,19 +75,11 @@ Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejec
   (`docs/GUARDRAILS.md` §Lane runtime).
 - **One story → one branch → one PR**, and the tracker state is pre-set in the code PR —
   never a standalone PR just to change issue state.
-- **Every item is pointed when it enters the sprint, and every PR is measured against
-  it.** A lane stops and reports at twice its expected size, and states its diff size
-  against the estimate when it opens a PR.
-- **Independent review on every PR before merge** — a reviewer that is not the author,
-  plus security review for auth/crypto/external-input changes. The PR states the head the
-  review cleared and the PO merges exactly that head (`gh pr merge --match-head-commit
-  <sha>`); later commits go in a new PR. **The PO owns merges and sprint-close**; the orchestrator proposes scope and briefs, and does not make
-  product-affecting calls.
+- **Every item is pointed when it enters the sprint, and every PR is measured against it.** A lane stops and reports at twice its expected size, and states its diff size against the estimate when it opens a PR.
+- **Independent review on every PR before merge** — a reviewer that is not the author, plus security review for auth/crypto/external-input changes. The PR states the head the review cleared and the PO merges exactly that head (`gh pr merge --match-head-commit <sha>`); later commits go in a new PR. **The PO owns merges and sprint-close**; the orchestrator proposes scope and briefs, and does not make product-affecting calls.
 - **Never `git add -A`** in a lane (explicit paths only), and gitignore the worktree root
   and tool dirs.
-- **PR bodies are lane-unique `mktemp` files, checked before posting.** Never a fixed
-  shared name; `scripts/pr-body-check.sh` refuses a body that does not name its own
-  branch, or that carries a tracker key or a private link into a public repository.
+- **PR bodies are lane-unique `mktemp` files, checked before posting.** Never a fixed shared name; `scripts/pr-body-check.sh` refuses a body that does not name its own branch, or that carries a tracker key or a private link into a public repository.
 - **Stay current with `main`** — rebase in-flight lanes when it advances; don't discover
   drift at a red gate.
 - **Out of scope:** per-story ceremony and transition mechanics
