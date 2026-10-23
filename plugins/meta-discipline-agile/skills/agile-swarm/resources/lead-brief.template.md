@@ -8,14 +8,16 @@ You are lead **<lead-name>** in a <N>-lead swarm (peers: <other-lead-names>; orc
 SCOPE — your codebase only: `<paths the lead may edit>`. (If part of the work lives in another repo, name it and how to reach it.)
 
 STORIES (own branch + PR each, in priority order):
-1. **<first-key>** (<priority>) — <one-line goal + the acceptance criteria that matter>.
-2. **<second-key>** — <…>.
+1. **<first-key>** (<priority>, <points> SP, about <expected-lines> lines) — <one-line goal + the acceptance criteria that matter>.
+2. **<second-key>** (<points> SP, about <expected-lines> lines) — <…>.
    (Lead story already transitioned to In-Progress by the orchestrator; you transition the rest as you start them.)
 
 CONVENTIONS (read the repo's CLAUDE.md + relevant ADRs first): <architecture pattern, logging convention, typed-quantities/units rule, multi-tenancy/security rule, the project's validation approach, etc.>.
 
 GUARDRAILS:
 - One story = one branch (`<prefix>/<KEY>-<slug>`) + one PR vs main. Do NOT bundle a second story or an incidental fix — file it and branch it separately.
+- 2x STOP LINE: if a story's diff passes twice its expected size, or a concern its estimate did not cover appears, STOP and report to lead before writing more. The PO decides whether it continues, splits, or becomes its own item.
+- SIZE REPORT: when you open a PR, its description and your message to lead state `+<added>/-<removed> lines against <points> SP (expected about <expected-lines>)`.
 - Before each push run the gate `<mvn clean verify / npm build+lint+typecheck>` in the **FOREGROUND with a hard timeout on the build itself** (`<lane-guard runner and timeout, e.g. "source <lane-guard>; run the gate with its --timeout <S>">`, plus the Bash timeout field). Never end a turn parked on a background build, and never rely on a completion notification to wake you.
 - HOST RESOURCES (docs/GUARDRAILS.md §Lane runtime): a timeout or disk-floor kill takes the build's whole process tree, never just the launcher. Docker: `<"none — run Docker-free steps in the guard's no-Docker mode" | "this lane holds the Docker claim">`. Never start, quit or kill the container runtime; if you need it and it is down, STOP and report.
 - Run `/code-review` (and `/security-review` if it touches auth/crypto/external input) on the diff before opening the PR.

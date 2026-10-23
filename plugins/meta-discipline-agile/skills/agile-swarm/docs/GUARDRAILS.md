@@ -65,6 +65,9 @@ Corollary for shared trackers: if the backlog serves several projects or session
 ## Agent discipline
 - Every lead brief carries the **10-minute no-progress rule**: if no verifiable progress for 10 min, STOP and report — never retry silently. The orchestrator does liveness checks on the same cadence.
 - **Don't poll** after spawning — leads message back / complete automatically.
+- Every lead brief carries the **2x stop line**: a story whose diff passes twice its expected size, or that grows a concern its estimate did not cover, stops and is reported before more is written. Unchecked, a 3-point item grew to nearly two thousand lines and another took three PRs where one of about a hundred lines was expected; nobody saw it until review, when splitting was no longer cheap.
+- **Every PR reports its size against its estimate when it opens** (`+added/-removed lines against N SP, expected about L`). The comparison is what lets the 2x line fire, and what keeps the estimate honest at the next planning.
+- **Points at stamp time.** The orchestrator puts an item into a sprint only when it carries its estimate. A delivered member without points makes velocity understate the sprint and leaves the 2x line nothing to compare with. Where the instance's backlog tooling can refuse an unpointed stamp, that refusal is the enforcement; until it does, the orchestrator checks by hand at stamp time and again at sprint close.
 - Leads run on the capable model and consume the real budget — scale lane count to budget; don't fan out beyond what's affordable.
 
 ## Engine plugin (only when `engines-enabled: true`)
