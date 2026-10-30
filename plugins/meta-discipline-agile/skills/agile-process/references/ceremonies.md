@@ -90,18 +90,34 @@ Either way, `gh pr create` must be **non-interactive + bounded** (inline
 ## Open a sprint
 `<tooling> sprint open <space> <SPACE>-S{n} --goal "…" --start YYYY-MM-DD --end
 YYYY-MM-DD --commit KEY1,KEY2,…` — writes `<mirror-repo>/<space>/sprints/<SPACE>-S{n}.md`
-with the committed-plan snapshot in front-matter (`state: active`); live membership
-after that is each item's own `sprint:` field, kept current by `transition`. Pre-plan
+with the plan in front-matter (`committedAtStart` and `committed`, see *The three sprint
+lists*; `state: active`); live membership after that is each item's own `sprint:` field,
+kept current by `transition`. Pre-plan
 a **diverse basket of independent stories** across distinct projects/vertical slices
 (one infra · one backend · one frontend) so N swarms run in N worktrees with no
 cross-blocking — pull `PLANNED`/`REFINED` candidates with `<tooling> query --space
 <space> --status PLANNED`/`REFINED` and check each against DoR before committing it.
 Lead proposes the basket; **PO approves scope**.
 
+### The three sprint lists
+
+The sprint file's front-matter holds three lists of item keys, so that say/do, scope change and progress can be read straight off it:
+
+| List | Holds | Rule |
+|---|---|---|
+| `committedAtStart` | the plan: the items committed on or before the sprint's start date | written when the sprint is opened or planned; a commitment made late but meant for the start (`--at-start`) is recorded here and says so in the sprint body |
+| `committed` | `committedAtStart` plus every item committed after the start | only grows; `committedAtStart ⊆ committed` |
+| `delivered` | the `DONE` items credited to this sprint so far | derived by the tooling from the items, never typed; at close its length is the sprint's delivered-items figure |
+
+`committed` never shrinks: an item that leaves the sprint (re-scoped, `NO GO`, carried out) was committed and not delivered, and that is exactly what a say/do reading has to see. Reading the lists: **say/do** is `delivered` against `committedAtStart`; **scope change** is `committed` minus `committedAtStart`; **progress** mid-sprint is `delivered` so far.
+
+**Where carried work appears.** Unfinished work rolls forward as a *carry*, which names the next sprint without committing to it. In the sprint it is carried out of, the item stays in `committed` (and in `committedAtStart` if it was in the plan) and never enters `delivered`, so it reads as what it is: committed here, delivered later. In the sprint it is carried into, it enters `committed` once that sprint's planning commits it, and also `committedAtStart` when that happens on or before the start date; a commitment after the start goes to `committed` only. It enters `delivered` only in the sprint that finishes it (the finishing sprint is credited, so an item is delivered once however many sprints it named).
+
 ## Close a sprint  *(PO-only by convention)*
 `<tooling> sprint close <space> <SPACE>-S{n}` — flips `state: closed`, stamps
 `closed:`, and computes delivered SP/items from the `DONE` items actually carrying that
-sprint (a `NO GO` item carrying it is never delivered). Append a close-out note to the live sprint-history register at
+sprint (a `NO GO` item carrying it is never delivered); the `delivered` list is that
+same set, so the two cannot disagree. Append a close-out note to the live sprint-history register at
 `<ceremony-home>` (velocity, increment narrative, retro highlights). Sprint
 **closure** is the Product Owner's exclusive authority as a process rule — if your
 instance doesn't yet have a mechanical gate for this (a `PreToolUse` hook matching
