@@ -111,7 +111,11 @@ Four things must hold, or the repoint destroys more than it fixes:
    needed recalibrating.
 2. **The origin sprint delivers nothing for it.** No partial credit into velocity —
    *delivered* keeps meaning done. The item stays visible there in that sprint's
-   `committed:` list, where it reads as what it is: committed here, delivered later.
+   `committed` list (and in `committedAtStart` if it was in the plan), never in its
+   `delivered` list, where it reads as what it is: committed here, delivered later. It
+   is in the next sprint's lists once that sprint commits it, and in `delivered` only
+   for the sprint that finishes it (see the agile-process ceremonies reference, *The
+   three sprint lists*).
 3. **No point is counted twice.** A carried story contributes its work to the estate once,
    however many sprints it touched. Membership is usually per reference, so an item that
    still names both sprints is counted in both — the commonest way a carry silently
