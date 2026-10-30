@@ -3,7 +3,7 @@
 A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the
 **physics discipline** — not a pile of physics facts, but a *method + a standard of rigor*
 that turns an agent into a competent physical reasoner (per `meta-os/systems/pack-strategy.md`,
-the *Quantitative rigor* wedge). Companion to the [`meta-discipline-math`](https://github.com/meta-agentic/meta-discipline-math)
+the *Quantitative rigor* wedge). Companion to the [`meta-discipline-math`](../meta-discipline-math)
 pack, whose `dimensional-analysis` it reuses.
 
 > A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
@@ -75,30 +75,19 @@ packs:
 Profiles (`profiles/*.md`) are named rigor bundles: **pure** (first-principles/derivation)
 vs **applied** (computation + sanity-checking emphasis).
 
-## Install
+## Install in Claude
 
-```bash
-# from your meta-os instance root
-scripts/packs.sh add meta-discipline-math https://github.com/meta-agentic/meta-discipline-math
-scripts/packs.sh add meta-discipline-physics       https://github.com/meta-agentic/meta-discipline-physics
-scripts/packs.sh config meta-discipline-physics    # resolve/validate config
+```text
+/plugin marketplace add meta-agentic/meta-disciplines
+/plugin install meta-discipline-physics --marketplace meta-agentic/meta-disciplines
 ```
+
+The skills are then available as `/meta-discipline-physics:<skill>`, and Claude loads them on its own when a task matches. The same marketplace adds in the Claude app (Customize › Plugins › Add › Add marketplace).
+
+In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` (see the framework's `systems/packs.md`); no submodule is mounted and `scripts/packs.sh config meta-discipline-physics` resolves the instance's values against the installed plugin.
 
 ## Provenance & license
 
 First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
 no instance data. Coverage anchored on the MIT OCW Course 8 taxonomy as a breadth map only;
 no third-party content vendored.
-
-## Registry entry (add to `meta-os/systems/packs.yaml`)
-
-```yaml
-  meta-discipline-physics:
-    repo: https://github.com/meta-agentic/meta-discipline-physics
-    ref: main
-    description: "Physics discipline (16 skills): a method spine (symmetry & conservation, limiting cases, order-of-magnitude, model-building, experimental error), branch disciplines (classical mechanics, electromagnetism, waves & oscillations, quantum mechanics, statistical mechanics & thermodynamics, relativity), and an advanced high-energy tier (quantum field theory, particle physics & the Standard Model, relativistic kinematics & collisions, accelerator physics, cosmology & astroparticle). First-party; reuses meta-discipline-math/dimensional-analysis. Coverage anchored on MIT OCW Course 8, the PDG Review of Particle Physics, and the CERN Yellow Reports."
-    provenance: first-party
-    license: MIT
-    depends: [meta-discipline-math]
-    status: planned   # first-party; lands when the pack repo publishes
-```

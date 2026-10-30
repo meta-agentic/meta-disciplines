@@ -59,31 +59,18 @@ packs:
 Profiles (`profiles/*.md`) are named rigor bundles: **pure** (proof-first) vs **applied**
 (computation + sanity-checking emphasis).
 
-## Install
+## Install in Claude
 
-```bash
-# from your meta-os instance root
-scripts/packs.sh add meta-discipline-math https://github.com/meta-agentic/meta-discipline-math
-scripts/packs.sh config meta-discipline-math      # resolve/validate config
+```text
+/plugin marketplace add meta-agentic/meta-disciplines
+/plugin install meta-discipline-math --marketplace meta-agentic/meta-disciplines
 ```
+
+The skills are then available as `/meta-discipline-math:<skill>`, and Claude loads them on its own when a task matches. The same marketplace adds in the Claude app (Customize › Plugins › Add › Add marketplace).
+
+In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` (see the framework's `systems/packs.md`); no submodule is mounted and `scripts/packs.sh config meta-discipline-math` resolves the instance's values against the installed plugin.
 
 ## Provenance & license
 
 First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
 no instance data.
-
-## Registry entry (add to `meta-os/systems/packs.yaml`)
-
-This pack registers as a first-party entry, exactly like the agile pack did in meta-os
-commit `6c0411c`. Add under `packs:` (the local `meta-os` checkout must be synced to
-`origin/main`, which carries the packs system):
-
-```yaml
-  meta-discipline-math:
-    repo: https://github.com/meta-agentic/meta-discipline-math
-    ref: main
-    description: "Advanced-mathematics discipline (17 skills): the rigor spine (mathematical-rigor, dimensional-analysis, hypercomplex-and-geometric-algebra), per-branch disciplines — calculus-and-analysis, linear-algebra, probability-and-statistics, number-theory, discrete-mathematics, differential-equations, abstract-algebra, complex-analysis, geometry-and-trigonometry — the empirical-statistics wing (experimental-design, statistical-inference, multivariate-analysis), scientific-validation (design-to-inference review emitting a validation ledger + typed claim graph), and graph-drawing (layout-convention choice, drawing pipelines, bounds, mental-map-preserving animation). First-party — the quantitative-rigor wedge from pack-strategy."
-    provenance: first-party
-    license: MIT
-    status: planned   # first-party; lands when the pack repo publishes
-```
