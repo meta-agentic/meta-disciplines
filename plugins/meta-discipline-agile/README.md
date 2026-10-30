@@ -29,15 +29,17 @@ The three-part test every pack must pass (`systems/pack-strategy.md`):
   written outside the sanctioned tool, a lane on a shared checkout, an estimate with no
   axis placement.
 
-## Mount it
+## Install in Claude
 
-From your instance root (see the framework's `systems/packs.md`):
-
-```bash
-scripts/packs.sh add meta-discipline-agile
+```text
+/plugin marketplace add meta-agentic/meta-disciplines
+/plugin install meta-discipline-agile --marketplace meta-agentic/meta-disciplines
 ```
 
-Skills land in the instance's union `skills/` and project-local `.claude/skills/`.
+The skills are then available as `/meta-discipline-agile:<skill>`, and Claude loads them on its own when a task matches. The same marketplace adds in the Claude app (Customize › Plugins › Add › Add marketplace).
+
+In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` (see the framework's `systems/packs.md`); no submodule is mounted and `scripts/packs.sh config meta-discipline-agile` resolves the instance's values against the installed plugin.
+
 This pack ships no hooks and no agents.
 
 ## Provenance

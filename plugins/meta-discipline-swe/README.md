@@ -62,16 +62,18 @@ Without `validator_command`, `constrained-generation`'s repair loop cannot close
 skill says so rather than simulating a check. No profiles: this discipline has no
 alternative methodologies to bundle.
 
-## Install
+## Install in Claude
 
-```bash
-# in a meta-os instance
-scripts/packs.sh add meta-discipline-swe https://github.com/meta-agentic/meta-discipline-swe
-scripts/packs.sh config meta-discipline-swe      # resolve/validate config
+```text
+/plugin marketplace add meta-agentic/meta-disciplines
+/plugin install meta-discipline-swe --marketplace meta-agentic/meta-disciplines
 ```
 
-Skills land in the instance's union `skills/` and project-local `.claude/skills/`. This
-pack ships no hooks and no agents.
+The skills are then available as `/meta-discipline-swe:<skill>`, and Claude loads them on its own when a task matches. The same marketplace adds in the Claude app (Customize › Plugins › Add › Add marketplace).
+
+In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` (see the framework's `systems/packs.md`); no submodule is mounted and `scripts/packs.sh config meta-discipline-swe` resolves the instance's values against the installed plugin.
+
+This pack ships no hooks and no agents.
 
 ## Scope
 
@@ -90,16 +92,3 @@ the areas where judgment — not process — lives; `PROVENANCE.md` carries the 
 knowledge-area-to-skill mapping so the coverage claim can be checked against the source.
 Sources are cited, never vendored; every skill is original prose over standard practice,
 and is deliberately stricter than its sources where the common reading has gone slack.
-
-## Registry entry (`meta-os/systems/packs.yaml`)
-
-```yaml
-  meta-discipline-swe:
-    repo: https://github.com/meta-agentic/meta-discipline-swe
-    ref: main
-    description: "Software-engineering discipline as judgment, not process: design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, and the opt-in constrained-generation — each emitting a checkable ledger. First-party."
-    provenance: first-party
-    license: MIT
-    provides: [design-review, architecture-tradeoffs, test-strategy, resilience-review, legacy-modernization, performance-engineering, decision-records, constrained-generation]
-    status: available
-```

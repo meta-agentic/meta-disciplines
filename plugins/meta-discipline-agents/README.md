@@ -59,28 +59,24 @@ That third test is Popper's rule moved from hypotheses to engineering decisions:
 you cannot fail is not a standard. Every ledger here is specified by how it *fails*, so
 "we considered it" is never a passing verdict.
 
-## Use it
+## Install in Claude
 
-**Standalone**, in any Claude Code project:
+```text
+/plugin marketplace add meta-agentic/meta-disciplines
+/plugin install meta-discipline-agents --marketplace meta-agentic/meta-disciplines
+```
+
+The skills are then available as `/meta-discipline-agents:<skill>`, and Claude loads them on its own when a task matches. The same marketplace adds in the Claude app (Customize › Plugins › Add › Add marketplace).
+
+In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` (see the framework's `systems/packs.md`); no submodule is mounted and `scripts/packs.sh config meta-discipline-agents` resolves the instance's values against the installed plugin.
+
+**Standalone**, without the plugin system, in any Claude Code project: clone [`meta-agentic/meta-disciplines`](https://github.com/meta-agentic/meta-disciplines) and copy the pack's skills.
 
 ```bash
-git clone https://github.com/meta-agentic/meta-discipline-agents
+git clone https://github.com/meta-agentic/meta-disciplines
 mkdir -p .claude/skills
-cp -r meta-discipline-agents/skills/* .claude/skills/
+cp -r meta-disciplines/plugins/meta-discipline-agents/skills/* .claude/skills/
 ```
-
-Nothing else is required. Every skill runs on documented defaults — `max-iterations: 10`,
-`session-budget: 5.00`, `autonomy: semi-autonomous` — listed in a config table at the foot
-of each `SKILL.md`, and overridable wherever your project keeps configuration.
-
-**As a [meta-os](https://github.com/meta-agentic/meta-os) pack**, from your instance root:
-
-```bash
-scripts/packs.sh add meta-discipline-agents
-```
-
-Skills land in the instance's union `skills/` and project-local `.claude/skills/`.
-This pack ships no hooks and no agents.
 
 ## Provenance
 
