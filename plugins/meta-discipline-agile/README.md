@@ -31,6 +31,10 @@ In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` 
 
 This pack ships no hooks and no agents.
 
+## What it sends
+
+The plugin itself sends nothing: it has no connectors, servers or telemetry. Two of its skills, `agile-process` and `agile-swarm`, tell Claude to work through the repository host the way a developer does: push branches with `git`, and open, update and comment on pull requests with GitHub's `gh` command. That sends your code, commit messages and pull request text to your own GitHub repositories, under your own credentials, only when you run those steps. `agile-swarm/scripts/pr-body-check.sh` checks a pull request body on your machine before it is posted and makes no network calls. No other service is contacted.
+
 ## Provenance
 
 First-party: authored in [meta-agentic/meta-os](https://github.com/meta-agentic/meta-os) (see its `PROVENANCE.md` history) and moved here when the framework core was slimmed to generic-only skills. MIT. Per-skill origins, the public-safe statement, and why *this* coverage was chosen are in [`PROVENANCE.md`](PROVENANCE.md). No dependencies on other packs; `pack.yaml` declares all three skills as this pack's `provides:` surface.
