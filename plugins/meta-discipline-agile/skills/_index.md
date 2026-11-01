@@ -4,12 +4,7 @@ tags: [os, skills, pack, meta-discipline-agile]
 ---
 # meta-discipline-agile pack — skills
 
-Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
-artifact. **`agile-process` is the harness** — the ceremony and transition discipline every
-other skill here runs inside; **`agile-swarm`** applies that harness to N stories at once
-without letting parallelism corrupt the build or the tracker; **`story-estimation`** owns
-the one sizing judgment both of the others depend on (DoR asks for an estimate; lane
-planning assumes one). No skill restates another: each cites its sibling by wikilink.
+Each skill is an *executable discipline*: a method + a standard of rigor + a checkable artifact. **`agile-process` is the harness** — the ceremony and transition discipline every other skill here runs inside; **`agile-swarm`** applies that harness to N stories at once without letting parallelism corrupt the build or the tracker; **`story-estimation`** owns the one sizing judgment both of the others depend on (DoR asks for an estimate; lane planning assumes one). No skill restates another: each cites its sibling by wikilink.
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|

@@ -1,12 +1,8 @@
 # meta-discipline-math
 
-A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the
-**advanced-mathematics discipline** — not a pile of math facts, but a *method + a standard
-of rigor* per branch that turns an agent into a competent mathematical practitioner (per
-`meta-os/systems/pack-strategy.md`, the *Quantitative rigor* wedge).
+A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the **advanced-mathematics discipline** — not a pile of math facts, but a *method + a standard of rigor* per branch that turns an agent into a competent mathematical practitioner (per `meta-os/systems/pack-strategy.md`, the *Quantitative rigor* wedge).
 
-> A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
-> **portability** across estates.
+> A pack = a codified discipline: a repeatable **method** + a **standard of rigor** + **portability** across estates.
 
 ## Skills
 
@@ -34,17 +30,13 @@ of rigor* per branch that turns an agent into a competent mathematical practitio
 
 ## The three-part test (why this is a pack)
 
-1. **Recognizable** — a working mathematician/physicist/engineer would call it "how we
-   actually work" (define, prove or cite, sanity-check, choose the right structure).
-2. **Portable** — parameterized by `pack.yaml` config (notation, CAS, sig-figs, profile);
-   welded to no single estate.
-3. **Checkable** — every skill produces an output verifiable against the discipline's own
-   standard (a proof checks; units balance; a rotation composes correctly).
+1. **Recognizable** — a working mathematician/physicist/engineer would call it "how we actually work" (define, prove or cite, sanity-check, choose the right structure).
+2. **Portable** — parameterized by `pack.yaml` config (notation, CAS, sig-figs, profile); welded to no single estate.
+3. **Checkable** — every skill produces an output verifiable against the discipline's own standard (a proof checks; units balance; a rotation composes correctly).
 
 ## Configure
 
-Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
-`config.example.yaml`). Skills read config-first and fall back to documented defaults.
+Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see `config.example.yaml`). Skills read config-first and fall back to documented defaults.
 
 ```yaml
 packs:
@@ -56,8 +48,7 @@ packs:
       sig_figs: 3
 ```
 
-Profiles (`profiles/*.md`) are named rigor bundles: **pure** (proof-first) vs **applied**
-(computation + sanity-checking emphasis).
+Profiles (`profiles/*.md`) are named rigor bundles: **pure** (proof-first) vs **applied** (computation + sanity-checking emphasis).
 
 ## Install in Claude
 
@@ -72,5 +63,4 @@ In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` 
 
 ## Provenance & license
 
-First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
-no instance data.
+First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction: no instance data.

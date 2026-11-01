@@ -1,11 +1,8 @@
 # meta-disciplines
 
-The **meta-discipline** skill packs, and the **`meta-agentic` plugin marketplace** that
-publishes them for Claude.
+The **meta-discipline** skill packs, and the **`meta-agentic` plugin marketplace** that publishes them for Claude.
 
-A discipline is not a pile of facts about a field. Each pack codifies how a competent
-practitioner actually works: a repeatable **method**, a **standard of rigor**, and a
-**checkable artifact** — every skill ends on a ledger a reviewer can audit.
+A discipline is not a pile of facts about a field. Each pack codifies how a competent practitioner actually works: a repeatable **method**, a **standard of rigor**, and a **checkable artifact** — every skill ends on a ledger a reviewer can audit.
 
 | Plugin | Skills | What it codifies |
 |---|---|---|
@@ -24,26 +21,15 @@ practitioner actually works: a repeatable **method**, a **standard of rigor**, a
 /plugin install meta-discipline-math@meta-agentic
 ```
 
-Skills are then available as `/meta-discipline-math:multivariate-analysis`, and Claude
-loads them on its own when a task matches. Install only the packs you use: every
-installed pack adds its skill descriptions to each session (from about 700 tokens for
-`meta-discipline-agile` to about 3,500 for `meta-discipline-physics`).
+Skills are then available as `/meta-discipline-math:multivariate-analysis`, and Claude loads them on its own when a task matches. Install only the packs you use: every installed pack adds its skill descriptions to each session (from about 700 tokens for `meta-discipline-agile` to about 3,500 for `meta-discipline-physics`).
 
-**Claude app (web, desktop, Cowork)** — *Customize › Plugins › Add › Add marketplace*,
-enter `meta-agentic/meta-disciplines`, then add the packs you want. A plugin added there
-is also available in Claude Code signed in to the same account.
+**Claude app (web, desktop, Cowork)** — *Customize › Plugins › Add › Add marketplace*, enter `meta-agentic/meta-disciplines`, then add the packs you want. A plugin added there is also available in Claude Code signed in to the same account.
 
-**Updates.** Auto-update is off by default for marketplaces outside Anthropic's own.
-Turn it on in `/plugin` › *Marketplaces* › `meta-agentic` › *Enable auto-update*, or
-update by hand with `/plugin marketplace update meta-agentic`.
+**Updates.** Auto-update is off by default for marketplaces outside Anthropic's own. Turn it on in `/plugin` › *Marketplaces* › `meta-agentic` › *Enable auto-update*, or update by hand with `/plugin marketplace update meta-agentic`.
 
 ## Use with meta-os
 
-These packs are also the first-party skill packs of [meta-os](https://github.com/meta-agentic/meta-os),
-which mounts them into an instance and resolves their configuration from the instance's
-`.packs.yaml`. Each pack's `pack.yaml` declares that configuration with documented
-defaults. meta-os instances currently mount the packs from their former per-pack
-repositories; mounting from this repository is the next meta-os change.
+These packs are also the first-party skill packs of [meta-os](https://github.com/meta-agentic/meta-os), which mounts them into an instance and resolves their configuration from the instance's `.packs.yaml`. Each pack's `pack.yaml` declares that configuration with documented defaults. meta-os instances currently mount the packs from their former per-pack repositories; mounting from this repository is the next meta-os change.
 
 ## Layout
 
@@ -57,18 +43,13 @@ plugins/meta-discipline-<x>/
 scripts/sync_manifests.py              pack.yaml → plugin.json + catalogue (--check in CI)
 ```
 
-Each pack was imported with its full history from its original repository
-(`meta-agentic/meta-discipline-<x>`); `git log --follow` on any file shows it.
+Each pack was imported with its full history from its original repository (`meta-agentic/meta-discipline-<x>`); `git log --follow` on any file shows it.
 
 ## Contributing and releasing
 
-- Edit a pack under `plugins/meta-discipline-<x>/`. Never edit the generated manifests:
-  run `python3 scripts/sync_manifests.py` and commit what it writes.
-- A pull request must pass CI: the manifests agree with `pack.yaml`,
-  `claude plugin validate --strict` passes on the catalogue and on every plugin, and each
-  pack passes the meta-os pack conformance gate.
-- To release a pack, bump `version` in its `plugin.json` (semver; users receive a new
-  copy only when it changes) and tag the commit `meta-discipline-<x>--v<version>`.
+- Edit a pack under `plugins/meta-discipline-<x>/`. Never edit the generated manifests: run `python3 scripts/sync_manifests.py` and commit what it writes.
+- A pull request must pass CI: the manifests agree with `pack.yaml`, `claude plugin validate --strict` passes on the catalogue and on every plugin, and each pack passes the meta-os pack conformance gate.
+- To release a pack, bump `version` in its `plugin.json` (semver; users receive a new copy only when it changes) and tag the commit `meta-discipline-<x>--v<version>`.
 
 ## Licence
 

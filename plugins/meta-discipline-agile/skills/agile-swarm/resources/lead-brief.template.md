@@ -9,8 +9,7 @@ SCOPE — your codebase only: `<paths the lead may edit>`. (If part of the work 
 
 STORIES (own branch + PR each, in priority order):
 1. **<first-key>** (<priority>, <points> SP, about <expected-lines> lines) — <one-line goal + the acceptance criteria that matter>.
-2. **<second-key>** (<points> SP, about <expected-lines> lines) — <…>.
-   (Lead story already transitioned to In-Progress by the orchestrator; you transition the rest as you start them.)
+2. **<second-key>** (<points> SP, about <expected-lines> lines) — <…>. (Lead story already transitioned to In-Progress by the orchestrator; you transition the rest as you start them.)
 
 CONVENTIONS (read the repo's CLAUDE.md + relevant ADRs first): <architecture pattern, logging convention, typed-quantities/units rule, multi-tenancy/security rule, the project's validation approach, etc.>.
 

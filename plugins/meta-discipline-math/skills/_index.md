@@ -4,12 +4,7 @@ tags: [os, skills, pack, meta-discipline-math]
 ---
 # meta-discipline-math pack — skills
 
-Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
-artifact. The first three are the rigor spine; the next nine are domain disciplines that invoke
-the spine (define/prove/cite, then sanity-check) within a branch of mathematics. After them:
-the empirical-statistics wing (designing, analyzing, and decomposing real studies), the
-validation discipline for data-driven claims, and the graph-drawing discipline for layout —
-each closing on its own ledger.
+Each skill is an *executable discipline*: a method + a standard of rigor + a checkable artifact. The first three are the rigor spine; the next nine are domain disciplines that invoke the spine (define/prove/cite, then sanity-check) within a branch of mathematics. After them: the empirical-statistics wing (designing, analyzing, and decomposing real studies), the validation discipline for data-driven claims, and the graph-drawing discipline for layout — each closing on its own ledger.
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|

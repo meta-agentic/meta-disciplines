@@ -4,13 +4,7 @@ tags: [os, skills, pack, meta-discipline-physics]
 ---
 # meta-discipline-physics pack — skills
 
-Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
-artifact. The first five are the **method spine** — the cross-cutting reasoning a physicist
-applies in every branch; the next six are **branch disciplines** that invoke the spine within
-an area of physics (coverage anchored on the MIT OCW Course 8 curriculum); the last five are
-the **advanced / high-energy tier** (coverage anchored on the PDG *Review of Particle Physics*
-and the CERN Yellow Reports / Accelerator School). The pack reuses the `meta-discipline-math` pack's
-`dimensional-analysis` (units, Buckingham π, uncertainty) rather than duplicating it.
+Each skill is an *executable discipline*: a method + a standard of rigor + a checkable artifact. The first five are the **method spine** — the cross-cutting reasoning a physicist applies in every branch; the next six are **branch disciplines** that invoke the spine within an area of physics (coverage anchored on the MIT OCW Course 8 curriculum); the last five are the **advanced / high-energy tier** (coverage anchored on the PDG *Review of Particle Physics* and the CERN Yellow Reports / Accelerator School). The pack reuses the `meta-discipline-math` pack's `dimensional-analysis` (units, Buckingham π, uncertainty) rather than duplicating it.
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|

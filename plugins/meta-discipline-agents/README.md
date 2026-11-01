@@ -2,17 +2,11 @@
 
 **Seven skills that make an AI coding agent follow an engineering discipline instead of improvising.**
 
-A *skill* is a markdown procedure an agent loads only when the task matches it. These seven
-cover the decisions that go wrong quietly: whether the thing should be an agent at all, how
-its prompt is versioned, what its harness is allowed to execute, what it may touch, how it
-is graded, and what has to be true before it runs without you watching.
+A *skill* is a markdown procedure an agent loads only when the task matches it. These seven cover the decisions that go wrong quietly: whether the thing should be an agent at all, how its prompt is versioned, what its harness is allowed to execute, what it may touch, how it is graded, and what has to be true before it runs without you watching.
 
-Each skill ends in a **named artifact** — a decision record, a harness contract, a loop
-charter — with a defined *failing* reading. That is the point: a reviewer audits a run
-against the discipline's own standard instead of taking the agent's word for it.
+Each skill ends in a **named artifact** — a decision record, a harness contract, a loop charter — with a defined *failing* reading. That is the point: a reviewer audits a run against the discipline's own standard instead of taking the agent's word for it.
 
-Works standalone in any Claude Code project, and mounts as a pack in
-[meta-os](https://github.com/meta-agentic/meta-os). MIT.
+Works standalone in any Claude Code project, and mounts as a pack in [meta-os](https://github.com/meta-agentic/meta-os). MIT.
 
 | Skill | What it drives | Checkable output |
 |-------|----------------|------------------|
@@ -24,40 +18,23 @@ Works standalone in any Claude Code project, and mounts as a pack in
 | `skills/agent-evaluation/` | Grading the trajectory, not just the answer: strong case design, judge discipline, CI gates, permanent red-team cases | **eval report** |
 | `skills/loop-engineering/` | Running to a goal without a human in the path: machine-checkable termination, structured feedback, futility detection, unattended operation, the self-improving harness | **loop charter** |
 
-Every skill is parameterized against instance config (`autonomy`, `sandbox`,
-`max-iterations`, `session-budget`, eval thresholds, `trace-home`, `escalation`) — they carry
-the method, not anyone's stack — and each emits a named ledger with a defined *failing*
-reading, so a reviewer can audit a run against the discipline's own standard instead of
-taking it on trust.
+Every skill is parameterized against instance config (`autonomy`, `sandbox`, `max-iterations`, `session-budget`, eval thresholds, `trace-home`, `escalation`) — they carry the method, not anyone's stack — and each emits a named ledger with a defined *failing* reading, so a reviewer can audit a run against the discipline's own standard instead of taking it on trust.
 
 ## The two ideas the pack is built on
 
-**Most proposed agents should not exist.** The first gate in the first skill is a refusal
-test, and a "no" is a successful outcome. Agents are slower, costlier and non-deterministic,
-and you pay for all three on every run forever.
+**Most proposed agents should not exist.** The first gate in the first skill is a refusal test, and a "no" is a successful outcome. Agents are slower, costlier and non-deterministic, and you pay for all three on every run forever.
 
-**Agent = model + harness.** The model reasons; the harness decides whether the proposal
-executes. Every property worth having — safety, cost control, reproducibility, the right to
-run unattended — is a property of the harness. The recurring move across all seven skills is
-to take a rule out of the prompt, where it is probabilistic, and put it in code, where it is
-not.
+**Agent = model + harness.** The model reasons; the harness decides whether the proposal executes. Every property worth having — safety, cost control, reproducibility, the right to run unattended — is a property of the harness. The recurring move across all seven skills is to take a rule out of the prompt, where it is probabilistic, and put it in code, where it is not.
 
 ## Why this is a discipline, not a prompt pile
 
 The three-part test every pack must pass (defined in meta-os's `systems/pack-strategy.md`):
 
-- **Recognizable** — an engineer who has shipped an agent and then operated it reads the
-  escalation ladder, the harness layers and the loop charter as how the work actually goes.
-- **Portable** — nothing is welded to a framework or a provider. The autonomy level is one
-  config line (`autonomy: supervised | semi-autonomous | autonomous`), and every budget,
-  threshold, sandbox level and path resolves from instance config.
-- **Checkable** — every skill emits a ledger with an explicit failing reading: a loop with
-  no verifier named, a tool granted more scope than its task, an eval threshold lowered
-  without a reviewed diff, a skill merged unread.
+- **Recognizable** — an engineer who has shipped an agent and then operated it reads the escalation ladder, the harness layers and the loop charter as how the work actually goes.
+- **Portable** — nothing is welded to a framework or a provider. The autonomy level is one config line (`autonomy: supervised | semi-autonomous | autonomous`), and every budget, threshold, sandbox level and path resolves from instance config.
+- **Checkable** — every skill emits a ledger with an explicit failing reading: a loop with no verifier named, a tool granted more scope than its task, an eval threshold lowered without a reviewed diff, a skill merged unread.
 
-That third test is Popper's rule moved from hypotheses to engineering decisions: a standard
-you cannot fail is not a standard. Every ledger here is specified by how it *fails*, so
-"we considered it" is never a passing verdict.
+That third test is Popper's rule moved from hypotheses to engineering decisions: a standard you cannot fail is not a standard. Every ledger here is specified by how it *fails*, so "we considered it" is never a passing verdict.
 
 ## Install in Claude
 
@@ -80,7 +57,4 @@ cp -r meta-disciplines/plugins/meta-discipline-agents/skills/* .claude/skills/
 
 ## Provenance
 
-First-party and original. Concepts are grounded in Antonio Gulli's two books —
-*Agentic Design Patterns* (Springer, 2025) for the pattern taxonomy and
-*Building AI Agents: From Design Patterns to Production* for the operational discipline —
-with attribution and no text or code reproduced. See `PROVENANCE.md`.
+First-party and original. Concepts are grounded in Antonio Gulli's two books — *Agentic Design Patterns* (Springer, 2025) for the pattern taxonomy and *Building AI Agents: From Design Patterns to Production* for the operational discipline — with attribution and no text or code reproduced. See `PROVENANCE.md`.

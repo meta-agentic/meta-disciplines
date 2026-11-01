@@ -5,93 +5,41 @@ description: "Use when orchestrating multiple stories in parallel, planning a sp
 
 # Agile Swarm Orchestration
 
-Turning a sprint backlog into **N independent parallel lanes** is a discipline, not a
-throughput trick: the practitioner's real work is proving *before spawning* that the lanes
-cannot collide, and proving *after spawning* that each lead actually got the isolation it
-was promised. Distilled from a real platform run, where both of those checks caught
-failures that would otherwise have corrupted a shared checkout.
+Turning a sprint backlog into **N independent parallel lanes** is a discipline, not a throughput trick: the practitioner's real work is proving *before spawning* that the lanes cannot collide, and proving *after spawning* that each lead actually got the isolation it was promised. Distilled from a real platform run, where both of those checks caught failures that would otherwise have corrupted a shared checkout.
 
-**Pipeline model.** Each lane is an independent *development pipeline* — a story flows
-through fixed stages (branch → implement → clean-verify → review → PR → merge) and N lanes
-run concurrently like the parallel pipelines of a superscalar CPU. Disjoint codebases keep
-lanes **hazard-free** (no shared-file "data hazards"); cross-cutting work that would touch
-many lanes is the hazard you serialize.
+**Pipeline model.** Each lane is an independent *development pipeline* — a story flows through fixed stages (branch → implement → clean-verify → review → PR → merge) and N lanes run concurrently like the parallel pipelines of a superscalar CPU. Disjoint codebases keep lanes **hazard-free** (no shared-file "data hazards"); cross-cutting work that would touch many lanes is the hazard you serialize.
 
-Each lane still runs [agile-process](../agile-process/SKILL.md)'s ceremony and transition
-rules — that skill owns the per-story harness, this one owns the parallelism around it.
-Lane sizing uses [story-estimation](../story-estimation/SKILL.md)'s axes: a lane must be
-**low-intension at its boundary**, or the lanes interlock however disjoint their files are.
+Each lane still runs [agile-process](../agile-process/SKILL.md)'s ceremony and transition rules — that skill owns the per-story harness, this one owns the parallelism around it. Lane sizing uses [story-estimation](../story-estimation/SKILL.md)'s axes: a lane must be **low-intension at its boundary**, or the lanes interlock however disjoint their files are.
 
 ## Method
 
-1. **Pre-flight before transitioning or spawning anything.** Pull a fresh `main` and
-   `git fetch`; branch every lane off the latest. Reconcile tracker ↔ backlog read-only
-   (the source of truth wins; treat only missing-either-side / status / estimate drift as
-   real — label drift is noise). **Establish the tracker's write contract** — which
-   tracker, and what tool writes to it (`config.tooling`, a connector, a vault CLI):
-   reading an item shows its shape, not its rules. Refresh the code graph so leads query
-   current structure, and ready the coordination layer if one is used.
-2. **Plan the lanes** (`docs/LANE-PLANNING.md`). Pull the sprint's non-done items with
-   status, priority and dependencies; keep the **dependency-ready** ones (verify stale or
-   legacy dependency keys before trusting "blocked"); group them into lanes, one per
-   distinct codebase, priority-ordered. **Present the proposal and get PO scope approval**
-   as a single multi-select question — never auto-spawn.
-3. **Persist the batch** (`resources/active-batch.template.md`) to a durable memory file
-   with per-item checkboxes, so the run survives across sessions. Tick items as PRs merge;
-   when all lanes are green, assemble the next batch from the remaining ready items.
-4. **Spawn the leads** (`resources/lead-brief.template.md`) — **all in one message** so
-   they form one team addressable by name, each `run_in_background` with worktree
-   isolation, each lane's lead story transitioned to In-Progress first. Every brief's first
-   step is to verify its own isolation and STOP if it is on a shared checkout, and to never
-   `git add -A`. **Then run `git worktree list` yourself** — auto-isolation can silently
-   fail and land a lead on the primary; pre-create a manual worktree for any lane that
-   missed one. Then **stop and let them work — never poll**; they report back.
+1. **Pre-flight before transitioning or spawning anything.** Pull a fresh `main` and `git fetch`; branch every lane off the latest. Reconcile tracker ↔ backlog read-only (the source of truth wins; treat only missing-either-side / status / estimate drift as real — label drift is noise). **Establish the tracker's write contract** — which tracker, and what tool writes to it (`config.tooling`, a connector, a vault CLI): reading an item shows its shape, not its rules. Refresh the code graph so leads query current structure, and ready the coordination layer if one is used.
+2. **Plan the lanes** (`docs/LANE-PLANNING.md`). Pull the sprint's non-done items with status, priority and dependencies; keep the **dependency-ready** ones (verify stale or legacy dependency keys before trusting "blocked"); group them into lanes, one per distinct codebase, priority-ordered. **Present the proposal and get PO scope approval** as a single multi-select question — never auto-spawn.
+3. **Persist the batch** (`resources/active-batch.template.md`) to a durable memory file with per-item checkboxes, so the run survives across sessions. Tick items as PRs merge; when all lanes are green, assemble the next batch from the remaining ready items.
+4. **Spawn the leads** (`resources/lead-brief.template.md`) — **all in one message** so they form one team addressable by name, each `run_in_background` with worktree isolation, each lane's lead story transitioned to In-Progress first. Every brief's first step is to verify its own isolation and STOP if it is on a shared checkout, and to never `git add -A`. **Then run `git worktree list` yourself** — auto-isolation can silently fail and land a lead on the primary; pre-create a manual worktree for any lane that missed one. Then **stop and let them work — never poll**; they report back.
 5. **Auto-review, steward, roll.** When a lane PR appears unreviewed, spawn a one-shot `reviewer-<N>` (never the author) that reviews the diff for correctness, security and conventions and posts its verdict, naming the head SHA it reviewed; it never merges. Relay each PR to the PO with the head its review cleared, for `gh pr merge --match-head-commit <sha>`; flip tracker states (In-Review on open, Done on merge) through the sanctioned write path, tick the batch on merge, and roll to the next batch — recording every lane in the ledger below.
 
-**Optional engine plugin.** With `engines-enabled: true` in the pack config, a lane may hand
-review, or low-intension implementation, to a worker engine through a multiplexer such as
-meta-cli. The lead still owns the lane, verifies by diff and gate, and makes every commit and
-tracker write. The rules are in `docs/GUARDRAILS.md` §Engine plugin. When the plugin is off,
-none of this applies.
+**Optional engine plugin.** With `engines-enabled: true` in the pack config, a lane may hand review, or low-intension implementation, to a worker engine through a multiplexer such as meta-cli. The lead still owns the lane, verifies by diff and gate, and makes every commit and tracker write. The rules are in `docs/GUARDRAILS.md` §Engine plugin. When the plugin is off, none of this applies.
 
 ## The rigor standard
 
 Full list and rationale in **`docs/GUARDRAILS.md`**. What this discipline *rejects*:
 
-- **Parallelism is safe only when lanes don't touch the same files.** Group by distinct
-  codebase/service, never by dependent chains inside one module. **Two candidate items
-  sharing a module belong in the same lane** (one lead, sequential) — a shared file is a
-  planning rejection, not a merge conflict to resolve later.
-- **Isolation is verified, never assumed.** Auto-isolation fails silently; a lead on the
-  primary checkout is stopped and re-spawned, not allowed to continue carefully.
-- **The gate is `clean verify` (or equivalent), run FOREGROUND and time-bounded.** `clean`
-  because branch switches don't wipe build output and stale cross-branch artifacts cause
-  spurious failures. Never end a turn parked on a background build in a
-  connection-bound session.
-- **The host is shared, so every build is bounded.** A hard timeout and a free-disk floor
-  kill the build's *whole* process tree, forks included, never just the launcher. Nothing
-  waits on a background notifier. A Docker-free step is enforced below the config. Only one
-  lane uses Docker at a time, and no lane starts or stops the container runtime
-  (`docs/GUARDRAILS.md` §Lane runtime).
-- **One story → one branch → one PR**, and the tracker state is pre-set in the code PR —
-  never a standalone PR just to change issue state.
+- **Parallelism is safe only when lanes don't touch the same files.** Group by distinct codebase/service, never by dependent chains inside one module. **Two candidate items sharing a module belong in the same lane** (one lead, sequential) — a shared file is a planning rejection, not a merge conflict to resolve later.
+- **Isolation is verified, never assumed.** Auto-isolation fails silently; a lead on the primary checkout is stopped and re-spawned, not allowed to continue carefully.
+- **The gate is `clean verify` (or equivalent), run FOREGROUND and time-bounded.** `clean` because branch switches don't wipe build output and stale cross-branch artifacts cause spurious failures. Never end a turn parked on a background build in a connection-bound session.
+- **The host is shared, so every build is bounded.** A hard timeout and a free-disk floor kill the build's *whole* process tree, forks included, never just the launcher. Nothing waits on a background notifier. A Docker-free step is enforced below the config. Only one lane uses Docker at a time, and no lane starts or stops the container runtime (`docs/GUARDRAILS.md` §Lane runtime).
+- **One story → one branch → one PR**, and the tracker state is pre-set in the code PR — never a standalone PR just to change issue state.
 - **Every item is pointed when it enters the sprint, and every PR is measured against it.** A lane stops and reports at twice its expected size, and states its diff size against the estimate when it opens a PR.
 - **Independent review on every PR before merge** — a reviewer that is not the author, plus security review for auth/crypto/external-input changes. The PR states the head the review cleared and the PO merges exactly that head (`gh pr merge --match-head-commit <sha>`); later commits go in a new PR. **The PO owns merges and sprint-close**; the orchestrator proposes scope and briefs, and does not make product-affecting calls.
-- **Never `git add -A`** in a lane (explicit paths only), and gitignore the worktree root
-  and tool dirs.
+- **Never `git add -A`** in a lane (explicit paths only), and gitignore the worktree root and tool dirs.
 - **PR bodies are lane-unique `mktemp` files, checked before posting.** Never a fixed shared name; `scripts/pr-body-check.sh` refuses a body that does not name its own branch, or that carries a tracker key or a private link into a public repository.
-- **Stay current with `main`** — rebase in-flight lanes when it advances; don't discover
-  drift at a red gate.
-- **Out of scope:** per-story ceremony and transition mechanics
-  ([agile-process](../agile-process/SKILL.md)) and item sizing
-  ([story-estimation](../story-estimation/SKILL.md)).
+- **Stay current with `main`** — rebase in-flight lanes when it advances; don't discover drift at a red gate.
+- **Out of scope:** per-story ceremony and transition mechanics ([agile-process](../agile-process/SKILL.md)) and item sizing ([story-estimation](../story-estimation/SKILL.md)).
 
 ## Checkable output
 
-A **lane ledger**: one row per lane, recording what it owns, whether its isolation was
-*verified* (not assumed), whether it overlaps any other lane's files, and the gate, review
-and merge state. It is written at spawn time with the last three columns open, and closed
-out as lanes land.
+A **lane ledger**: one row per lane, recording what it owns, whether its isolation was *verified* (not assumed), whether it overlaps any other lane's files, and the gate, review and merge state. It is written at spawn time with the last three columns open, and closed out as lanes land.
 
 ```
 LANE  CODEBASE      ITEM  WORKTREE (verified)   OVERLAP           GATE (fg)       REVIEW        PR    VERDICT
@@ -102,41 +50,23 @@ LANE  CODEBASE      ITEM  WORKTREE (verified)   OVERLAP           GATE (fg)     
 5     shared-libs   A-63  ../wt/lane-5     ✓    touches all lanes  —              —             —     SERIALIZE — cross-cutting; run after the batch
 ```
 
-A batch ships only when every row reads `merged (PO)` and the batch file is ticked. A row
-is a **rejection** when the worktree column is anything but a verified isolated path, when
-OVERLAP is non-empty, when a gate was backgrounded rather than run foreground, or when the
-reviewer is the lane's own lead — and a rejected lane is re-planned or re-spawned, never
-waved through.
+A batch ships only when every row reads `merged (PO)` and the batch file is ticked. A row is a **rejection** when the worktree column is anything but a verified isolated path, when OVERLAP is non-empty, when a gate was backgrounded rather than run foreground, or when the reviewer is the lane's own lead — and a rejected lane is re-planned or re-spawned, never waved through.
 
-With the engine plugin on, the ledger gains `ENGINE` (worker and tier, or `—`), `RUN` (the worker
-run id or ids) and `LEAD TOK` (the lead's own spend for the lane). A row is also a **rejection**
-when a worker committed or moved HEAD, when the only evidence of success is a worker exit code,
-or when the reviewer ran on the implementer's engine or was the lane's lead.
+With the engine plugin on, the ledger gains `ENGINE` (worker and tier, or `—`), `RUN` (the worker run id or ids) and `LEAD TOK` (the lead's own spend for the lane). A row is also a **rejection** when a worker committed or moved HEAD, when the only evidence of success is a worker exit code, or when the reviewer ran on the implementer's engine or was the lane's lead.
 
 ## When NOT to use this
 
-A single story, a 1–2 line fix, or dependent work that all lives in one module — do it
-directly with one lead under [agile-process](../agile-process/SKILL.md). The swarm pays
-off only with **3+ genuinely independent slices**.
+A single story, a 1–2 line fix, or dependent work that all lives in one module — do it directly with one lead under [agile-process](../agile-process/SKILL.md). The swarm pays off only with **3+ genuinely independent slices**.
 
-**Cost note.** N parallel leads each run full gate cycles — token- and time-heavy. Scale
-lane count to the budget; offer to start with the top-priority 2 and add lanes once
-they're moving.
+**Cost note.** N parallel leads each run full gate cycles — token- and time-heavy. Scale lane count to the budget; offer to start with the top-priority 2 and add lanes once they're moving.
 
 ## Anti-patterns
 
-- **Spawning before scope approval**, or spawning leads in separate messages — they stop
-  being one team and can no longer address each other.
-- **Assuming isolation held** because the spawn reported success. Verify with
-  `git worktree list`; a silent failure puts two leads on one checkout.
-- **Backgrounding the gate to keep lanes moving** — the run ends parked on an unfinished
-  build and the lane's verdict is unprovable.
-- **Splitting a shared module into two lanes** "carefully". The hazard is structural; care
-  is not a substitute for disjointness.
-- **The lead reviewing its own PR**, or the orchestrator merging — both collapse the
-  independence the gates exist to create.
-- **Polling the leads.** It burns budget and changes nothing; they report on completion or
-  at the 10-minute no-progress STOP-and-report rule.
+- **Spawning before scope approval**, or spawning leads in separate messages — they stop being one team and can no longer address each other.
+- **Assuming isolation held** because the spawn reported success. Verify with `git worktree list`; a silent failure puts two leads on one checkout.
+- **Backgrounding the gate to keep lanes moving** — the run ends parked on an unfinished build and the lane's verdict is unprovable.
+- **Splitting a shared module into two lanes** "carefully". The hazard is structural; care is not a substitute for disjointness.
+- **The lead reviewing its own PR**, or the orchestrator merging — both collapse the independence the gates exist to create.
+- **Polling the leads.** It burns budget and changes nothing; they report on completion or at the 10-minute no-progress STOP-and-report rule.
 
-See also: `docs/GUARDRAILS.md` · `docs/LANE-PLANNING.md` · `resources/lead-brief.template.md`
-· `resources/active-batch.template.md`.
+See also: `docs/GUARDRAILS.md` · `docs/LANE-PLANNING.md` · `resources/lead-brief.template.md` · `resources/active-batch.template.md`.

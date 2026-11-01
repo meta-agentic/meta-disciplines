@@ -4,16 +4,9 @@ tags: [os, skills, pack, meta-discipline-agents]
 ---
 # meta-discipline-agents pack — skills
 
-Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
-artifact. They compose in the order an agent is actually built.
+Each skill is an *executable discipline*: a method + a standard of rigor + a checkable artifact. They compose in the order an agent is actually built.
 
-**[agent-architecture](agent-architecture/SKILL.md) is the entry point** — it decides
-whether to build an agent at all and what shape it takes. Three skills fill that shape in:
-**agent-prompting** (the instruction layer), **agent-skills** (the procedure library), and
-**agent-harness** (the code that makes rules deterministic instead of hopeful).
-**agent-safety** decides what the thing is permitted to do; **agent-evaluation** decides
-whether it works; **loop-engineering** is what lets it run without you. No skill restates
-another — each cites its siblings by wikilink.
+**[agent-architecture](agent-architecture/SKILL.md) is the entry point** — it decides whether to build an agent at all and what shape it takes. Three skills fill that shape in: **agent-prompting** (the instruction layer), **agent-skills** (the procedure library), and **agent-harness** (the code that makes rules deterministic instead of hopeful). **agent-safety** decides what the thing is permitted to do; **agent-evaluation** decides whether it works; **loop-engineering** is what lets it run without you. No skill restates another — each cites its siblings by wikilink.
 
 | Skill | Discipline | Checkable output |
 |-------|------------|------------------|
@@ -25,13 +18,9 @@ another — each cites its siblings by wikilink.
 | [agent-evaluation](agent-evaluation/SKILL.md) | Trajectory-level grading: strong cases, judge discipline, CI gates, permanent red-team cases | **eval report** |
 | [loop-engineering](loop-engineering/SKILL.md) | The system as the loop: termination conditions, structured feedback, futility detection, unattended operation, the self-improving harness | **loop charter** |
 
-Progressive disclosure: `agent-architecture` carries
-[references/pattern-catalogue.md](agent-architecture/references/pattern-catalogue.md) —
-21 patterns with a selection criterion and a cost for each — loaded only when the four
-primary reasoning patterns don't settle the shape.
+Progressive disclosure: `agent-architecture` carries [references/pattern-catalogue.md](agent-architecture/references/pattern-catalogue.md) — 21 patterns with a selection criterion and a cost for each — loaded only when the four primary reasoning patterns don't settle the shape.
 
-Config knobs in `pack.yaml`; autonomy profiles in `profiles/` (`supervised` ·
-`semi-autonomous` · `autonomous`). See `README.md`.
+Config knobs in `pack.yaml`; autonomy profiles in `profiles/` (`supervised` · `semi-autonomous` · `autonomous`). See `README.md`.
 
 <!--
   Required by the meta-os convention that every folder carries its own _index.md.

@@ -4,12 +4,9 @@ tags: [pack, meta-discipline-agents, profile, autonomy]
 ---
 # Profile — supervised
 
-**Every proposed action is shown to a human before it executes.** The agent reasons, plans
-and proposes; a person approves each tool call that touches anything outside the context
-window.
+**Every proposed action is shown to a human before it executes.** The agent reasons, plans and proposes; a person approves each tool call that touches anything outside the context window.
 
-This is not a training-wheels mode you graduate out of once and for all. It is the correct
-setting *per capability*, and you re-enter it every time one of these is true:
+This is not a training-wheels mode you graduate out of once and for all. It is the correct setting *per capability*, and you re-enter it every time one of these is true:
 
 - a new codebase, estate, or data domain the agent has not worked in
 - a newly registered tool, especially one that writes, deletes, sends, or spends
@@ -27,11 +24,6 @@ setting *per capability*, and you re-enter it every time one of these is true:
 
 ## What you are actually doing here
 
-Watching the first ten decisions to find out where the agent is *uncertain*, not whether it
-is *correct*. Correctness you can test later; uncertainty is what tells you which harness
-layer is missing. Every approval you find yourself granting mechanically is a rule that
-should move into code — see [agent-harness](../skills/agent-harness/SKILL.md). Every approval
-that made you hesitate is an escalation condition worth encoding.
+Watching the first ten decisions to find out where the agent is *uncertain*, not whether it is *correct*. Correctness you can test later; uncertainty is what tells you which harness layer is missing. Every approval you find yourself granting mechanically is a rule that should move into code — see [agent-harness](../skills/agent-harness/SKILL.md). Every approval that made you hesitate is an escalation condition worth encoding.
 
-Leaving this profile is a decision with evidence behind it: the eval suite covers the
-failure modes you saw, and the harness enforces the rules you were enforcing by hand.
+Leaving this profile is a decision with evidence behind it: the eval suite covers the failure modes you saw, and the harness enforces the rules you were enforcing by hand.

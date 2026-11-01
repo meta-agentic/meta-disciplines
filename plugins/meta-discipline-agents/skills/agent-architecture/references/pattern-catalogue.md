@@ -4,13 +4,9 @@ tags: [pack, meta-discipline-agents, patterns]
 ---
 # Pattern catalogue — the 21 selection criteria
 
-Loaded on demand from [agent-architecture](../SKILL.md) when the four
-reasoning patterns in the main table don't settle the shape. Each row is *when to reach for
-it* and *what it costs you* — the compositional vocabulary of agent design, not an
-implementation guide. Frameworks change; these choices don't.
+Loaded on demand from [agent-architecture](../SKILL.md) when the four reasoning patterns in the main table don't settle the shape. Each row is *when to reach for it* and *what it costs you* — the compositional vocabulary of agent design, not an implementation guide. Frameworks change; these choices don't.
 
-Grounded in the pattern taxonomy of *Agentic Design Patterns* (Gulli, Springer 2025);
-original wording, and the cost/failure columns are this pack's.
+Grounded in the pattern taxonomy of *Agentic Design Patterns* (Gulli, Springer 2025); original wording, and the cost/failure columns are this pack's.
 
 ## Structural patterns — how work is decomposed
 
@@ -57,9 +53,5 @@ original wording, and the cost/failure columns are this pack's.
 
 Two failure modes it exists to prevent:
 
-1. **Naming a pattern instead of choosing one.** Reaching for "multi-agent" because the
-   phrase fits the meeting is not a decision. The decision is in the middle column, and it
-   must be true of *this* task.
-2. **Stacking patterns without counting.** Each one added is latency, spend, and another
-   place to debug. The architecture that survives is the smallest set whose selection
-   criteria you can actually defend in the decision record.
+1. **Naming a pattern instead of choosing one.** Reaching for "multi-agent" because the phrase fits the meeting is not a decision. The decision is in the middle column, and it must be true of *this* task.
+2. **Stacking patterns without counting.** Each one added is latency, spend, and another place to debug. The architecture that survives is the smallest set whose selection criteria you can actually defend in the decision record.
