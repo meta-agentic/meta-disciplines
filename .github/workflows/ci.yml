@@ -28,6 +28,9 @@ jobs:
       - name: No wikilinks; every relative link resolves
         run: python scripts/check_links.py
 
+      - name: Plugin script tests
+        run: bash tests/agile/test-pr-body-check.sh
+
       - name: One line per paragraph (no hard-wrapped Markdown)
         run: |
           python -m pip install --disable-pip-version-check --quiet "markdown-it-py==4.2.0"
