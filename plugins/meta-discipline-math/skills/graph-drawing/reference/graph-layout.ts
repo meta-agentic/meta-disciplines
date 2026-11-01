@@ -148,7 +148,7 @@ export interface LayeredOptions {
 
 /**
  * step 4 — layered / Sugiyama-style layout [HEURISTIC].
- * Longest-path layering (cycle-tolerant: the pass cap bounds the loop on a cyclic graph)
+ * Longest-path layering (cycle-tolerant: the sweep cap bounds the loop on a cyclic graph)
  * + barycenter ordering sweeps (no crossing-minimization guarantee — barycenter is the
  * standard heuristic, not an optimum) + centered coordinate assignment. No dummy vertices,
  * so long edges are straight lines rather than routed bends.
@@ -161,7 +161,7 @@ export function layered<N extends GraphNode>(
   const { hGap = 130, vGap = 115, cx = 0, top = 60, sweeps = 6 } = opts;
 
   const layer = new Map<N, number>(nodes.map((nd) => [nd, 0]));
-  for (let pass = 0; pass < nodes.length; pass++) {
+  for (let sweep = 0; sweep < nodes.length; sweep++) {
     let changed = false;
     for (const e of edges) {
       if ((layer.get(e.t) ?? 0) < (layer.get(e.s) ?? 0) + 1) {
