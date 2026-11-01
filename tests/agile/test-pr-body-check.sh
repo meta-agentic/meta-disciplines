@@ -3,11 +3,14 @@
 # Tests for pr-body-check.sh. No network, no gh: bodies are scratch files.
 # Keys and paths are assembled at run time so this file stays estate-neutral itself.
 #
-#   ./skills/agile-swarm/scripts/test-pr-body-check.sh
+#   tests/agile/test-pr-body-check.sh   (from the repository root; CI runs it)
+#
+# It lives outside the plugin so that installs and the plugin directory never carry its
+# deliberately private-looking fixtures (a tracker key, an .internal host, a token prefix).
 
 set -uo pipefail   # not -e: a failing case is reported, not fatal
 
-CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/pr-body-check.sh"
+CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/plugins/meta-discipline-agile/skills/agile-swarm/scripts/pr-body-check.sh"
 D=$(mktemp -d) && trap 'rm -rf "$D"' EXIT
 PASS=0 FAIL=0
 KEY=$(printf '%s-%s' ABC 123)
