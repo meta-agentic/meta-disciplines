@@ -82,7 +82,7 @@ A coverage map of the mathematics in a typical engineering degree and a typical 
 
 | Topic | Eng | Phys | Covered by | Fetch from |
 |-------|:---:|:----:|------------|------------|
-| Gradient, divergence & curl | ● | ● | calculus-and-analysis, physics/electromagnetism | — |
+| Gradient, divergence & rotor (∇×) | ● | ● | calculus-and-analysis, physics/electromagnetism | — |
 | Line & surface integrals | ● | ● | calculus-and-analysis | — |
 | Green's / Stokes' / divergence theorems | ● | ● | calculus-and-analysis, physics/electromagnetism | — |
 | Curvilinear coordinates | ● | ● | calculus-and-analysis, geometry-and-trigonometry | — |
