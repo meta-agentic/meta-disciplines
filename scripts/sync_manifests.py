@@ -10,7 +10,8 @@ Rules it enforces:
   * a plugin's name is its directory name (`meta-discipline-<x>`), and pack.yaml `name:`
     says the same — one name per pack, the repository's;
   * every directory under plugins/ has a catalogue entry, and every entry a directory;
-  * description and licence come from pack.yaml; version lives only in plugin.json,
+  * description and licence come from pack.yaml; the directory listing links (documentation,
+    support, privacy, terms) are fixed here; version lives only in plugin.json,
     never in the catalogue entry (Claude Code would silently prefer plugin.json);
   * `renames` in the catalogue is append-only history and is carried over untouched;
   * the CI conformance matrix names exactly the plugin directories.
@@ -36,6 +37,11 @@ MARKETPLACE_NAME = "meta-agentic"
 HOMEPAGE = "https://meta-agentic.ai"
 REPOSITORY = "https://github.com/meta-agentic/meta-disciplines"
 OWNER = {"name": "meta-agentic", "url": HOMEPAGE}
+# Listing links Anthropic's directory reads from plugin.json (Claude Code ignores them).
+BLOB = REPOSITORY + "/blob/main"
+SUPPORT_URL = REPOSITORY + "/issues"
+PRIVACY_URL = BLOB + "/PRIVACY.md"
+TERMS_URL = BLOB + "/LICENSE"
 CATALOGUE_DESCRIPTION = (
     "Discipline packs for Claude: each one a method, a standard of rigor and a checkable "
     "ledger for a field — agents, agile delivery, mathematics, physics, software engineering."
@@ -72,6 +78,10 @@ def plugin_manifest(pack: Path, errors: list[str]) -> dict:
         "author": OWNER,
         "homepage": HOMEPAGE,
         "repository": REPOSITORY,
+        "documentationUrl": f"{BLOB}/plugins/{name}/README.md",
+        "supportUrl": SUPPORT_URL,
+        "privacyPolicyUrl": PRIVACY_URL,
+        "termsOfServiceUrl": TERMS_URL,
         "license": meta.get("license", "MIT"),
         "keywords": ["meta-agentic", "discipline", discipline],
     }

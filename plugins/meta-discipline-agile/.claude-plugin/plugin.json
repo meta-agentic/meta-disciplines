@@ -1,6 +1,6 @@
 {
   "name": "meta-discipline-agile",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Agile delivery discipline (3 skills): agile-process (the backlog-of-record harness — ceremonies, story transitions, branch/PR gates), agile-swarm (multi-lane parallel sprint execution with hazard-free lanes and PO-owned merges), and story-estimation (two-axis extension/intension sizing) — each emitting a checkable ledger. First-party, extracted from the meta-os framework core.",
   "author": {
     "name": "meta-agentic",
@@ -8,6 +8,10 @@
   },
   "homepage": "https://meta-agentic.ai",
   "repository": "https://github.com/meta-agentic/meta-disciplines",
+  "documentationUrl": "https://github.com/meta-agentic/meta-disciplines/blob/main/plugins/meta-discipline-agile/README.md",
+  "supportUrl": "https://github.com/meta-agentic/meta-disciplines/issues",
+  "privacyPolicyUrl": "https://github.com/meta-agentic/meta-disciplines/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/meta-agentic/meta-disciplines/blob/main/LICENSE",
   "license": "MIT",
   "keywords": [
     "meta-agentic",
