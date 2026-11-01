@@ -1,9 +1,6 @@
 # meta-os agile pack
 
-The **agile delivery discipline** for a [meta-os](https://github.com/meta-agentic/meta-os)
-Agentic OS instance — extracted from the framework core so the core stays generic and this
-process opinion stays optional. A pack is a codified discipline: a method, a standard of
-rigor, and portability across estates (see the framework's `systems/pack-strategy.md`).
+The **agile delivery discipline** for a [meta-os](https://github.com/meta-agentic/meta-os) Agentic OS instance — extracted from the framework core so the core stays generic and this process opinion stays optional. A pack is a codified discipline: a method, a standard of rigor, and portability across estates (see the framework's `systems/pack-strategy.md`).
 
 | Skill | What it drives | Checkable output |
 |-------|----------------|------------------|
@@ -11,23 +8,15 @@ rigor, and portability across estates (see the framework's `systems/pack-strateg
 | `skills/agile-swarm/` | Multi-lane sprint execution: dependency-free vertical-slice lanes, verified worktree isolation, engineering-discipline gates, independent review, PO-owned merges | **lane ledger** |
 | `skills/story-estimation/` | Sizing discipline: the extension/intension (complicated vs complex) quadrant, a prescription per quadrant (do it · split · spike · don't commit), two-axis team estimation for planning/refinement | **estimate ledger** |
 
-All three skills are parameterized (`<space>`, `<owner>/<repo>`, `<tooling>` …) — they
-carry the method, not anyone's estate — and each emits a named ledger that can read
-*reject*, so a reviewer can audit the run against the discipline's own standard rather
-than taking it on trust.
+All three skills are parameterized (`<space>`, `<owner>/<repo>`, `<tooling>` …) — they carry the method, not anyone's estate — and each emits a named ledger that can read *reject*, so a reviewer can audit the run against the discipline's own standard rather than taking it on trust.
 
 ## Why this is a discipline, not a prompt pile
 
 The three-part test every pack must pass (`systems/pack-strategy.md`):
 
-- **Recognizable** — a scrum master, a delivery lead, or an engineer who has run a sprint
-  reads the ceremonies, gates and estimation quadrant as "how we actually work".
-- **Portable** — the methodology itself is one config line (`profile: scrum | kanban`), and
-  every tracker, space, path and tool name resolves from instance config. Adopting the pack
-  never means adopting one shop's setup.
-- **Checkable** — every skill emits a ledger with a failing reading defined: a transition
-  written outside the sanctioned tool, a lane on a shared checkout, an estimate with no
-  axis placement.
+- **Recognizable** — a scrum master, a delivery lead, or an engineer who has run a sprint reads the ceremonies, gates and estimation quadrant as "how we actually work".
+- **Portable** — the methodology itself is one config line (`profile: scrum | kanban`), and every tracker, space, path and tool name resolves from instance config. Adopting the pack never means adopting one shop's setup.
+- **Checkable** — every skill emits a ledger with a failing reading defined: a transition written outside the sanctioned tool, a lane on a shared checkout, an estimate with no axis placement.
 
 ## Install in Claude
 
@@ -44,19 +33,11 @@ This pack ships no hooks and no agents.
 
 ## Provenance
 
-First-party: authored in [meta-agentic/meta-os](https://github.com/meta-agentic/meta-os)
-(see its `PROVENANCE.md` history) and moved here when the framework core was slimmed to
-generic-only skills. MIT. Per-skill origins, the public-safe statement, and why *this*
-coverage was chosen are in [`PROVENANCE.md`](PROVENANCE.md). No dependencies on other
-packs; `pack.yaml` declares all three skills as this pack's `provides:` surface.
+First-party: authored in [meta-agentic/meta-os](https://github.com/meta-agentic/meta-os) (see its `PROVENANCE.md` history) and moved here when the framework core was slimmed to generic-only skills. MIT. Per-skill origins, the public-safe statement, and why *this* coverage was chosen are in [`PROVENANCE.md`](PROVENANCE.md). No dependencies on other packs; `pack.yaml` declares all three skills as this pack's `provides:` surface.
 
 ## Configure it
 
-The method lives in the pack; your choices live in your instance. Copy the block from
-[`config.example.yaml`](config.example.yaml) under `packs.meta-discipline-agile` in your `.packs.yaml`
-and edit. `scripts/packs.sh config meta-discipline-agile` prints the resolved values (profile defaults
-filled in); the skills resolve config-first, so the `<space>` / `<owner>/<scrum-repo>`
-placeholders in the docs come from here.
+The method lives in the pack; your choices live in your instance. Copy the block from [`config.example.yaml`](config.example.yaml) under `packs.meta-discipline-agile` in your `.packs.yaml` and edit. `scripts/packs.sh config meta-discipline-agile` prints the resolved values (profile defaults filled in); the skills resolve config-first, so the `<space>` / `<owner>/<scrum-repo>` placeholders in the docs come from here.
 
 | Key | Meaning | Default |
 |-----|---------|---------|
@@ -75,20 +56,13 @@ placeholders in the docs come from here.
 
 ### Profiles
 
-A **profile** selects the whole methodology — `profiles/<profile>.md` sets the authority
-order, flow, discipline gates, and cadence. Two ship today:
+A **profile** selects the whole methodology — `profiles/<profile>.md` sets the authority order, flow, discipline gates, and cadence. Two ship today:
 
-- **`scrum`** — timeboxed sprints, ceremonies, tracker-backed backlog (the full harness;
-  what the skills document in detail).
-- **`kanban`** — continuous pull-based flow, no sprints or ceremonies, keeps the
-  branch/verify/review gates. For solo work, research instances, or low-overhead estates.
+- **`scrum`** — timeboxed sprints, ceremonies, tracker-backed backlog (the full harness; what the skills document in detail).
+- **`kanban`** — continuous pull-based flow, no sprints or ceremonies, keeps the branch/verify/review gates. For solo work, research instances, or low-overhead estates.
 
-Choosing a methodology is one line (`profile: kanban`); changing it is an edit to
-instance data, never a fork of this repo.
+Choosing a methodology is one line (`profile: kanban`); changing it is an edit to instance data, never a fork of this repo.
 
 ### Overrides
 
-To change a single convention without switching profiles, add a `conventions-override.md`
-in your instance (path documented in `systems/packs.md`); the skills read the active
-profile first, then apply your overrides on top (instance wins, additive). `pack.yaml`
-declares the config schema `packs.sh config` validates against.
+To change a single convention without switching profiles, add a `conventions-override.md` in your instance (path documented in `systems/packs.md`); the skills read the active profile first, then apply your overrides on top (instance wins, additive). `pack.yaml` declares the config schema `packs.sh config` validates against.

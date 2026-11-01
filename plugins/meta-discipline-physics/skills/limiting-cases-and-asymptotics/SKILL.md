@@ -5,47 +5,23 @@ description: "Use whenever a derived physical result must be trusted — a new f
 
 # Limiting Cases & Asymptotics
 
-The single most reliable correctness check in physics: every result must collapse to the
-already-established result in the appropriate limit, and an asymptotic expansion exposes a
-formula's *structure* before any number is computed. This turns "looks right" into a
-verification a reviewer can rerun.
+The single most reliable correctness check in physics: every result must collapse to the already-established result in the appropriate limit, and an asymptotic expansion exposes a formula's *structure* before any number is computed. This turns "looks right" into a verification a reviewer can rerun.
 
 ## Method
 
-1. **Identify the dimensionless parameter.** A limit is only meaningful in a *dimensionless*
-   ratio — $\beta=v/c$, $\hbar\omega/kT$, coupling $g$, $r_s/r$, $1/N$. Find the small (or
-   large) one; expanding in a dimensioned quantity is meaningless (defer to `dimensional-analysis`).
-2. **Take the limit explicitly, Taylor-expand.** Write the result as a series in the small
-   parameter $\epsilon$: $f(\epsilon)=f_0+f_1\epsilon+f_2\epsilon^2+\dots$ The leading term
-   $f_0$ must be the known result; the next term is your leading correction, and its sign and
-   size are themselves checkable.
-3. **Confirm the canonical recoveries.** Non-relativistic $v\ll c$ (or $c\to\infty$) → Newtonian
-   mechanics; classical $\hbar\to0$ or large quantum number $n$ → correspondence principle
-   (Ehrenfest: $\langle\text{operators}\rangle$ obey classical equations); weak-field / linearized
-   gravity → Newtonian gravity; thermodynamic $N\to\infty$; high- and low-$T$; weak/strong coupling.
-4. **Dominant balance.** In an equation with several terms, ask which survive as $\epsilon\to0$.
-   The balance that holds (e.g. inertia vs. drag, kinetic vs. potential) fixes the regime and the
-   leading behavior; discarded terms define the correction. Respect `config.units` — under `natural`,
-   $\hbar=c=1$ and the limits are taken in the surviving ratios.
-5. **Match asymptotics when a naive expansion is singular.** If setting $\epsilon=0$ drops the
-   highest derivative or blows a term up, the expansion is singular: solve an inner (boundary-layer)
-   and outer solution separately and match them in the overlap. A uniformly-naive Taylor series
-   there is wrong.
-6. **Use symmetry limits as free extra checks.** Equal masses, identical particles, coincident
-   charges, or a vanishing asymmetry must leave the result invariant or symmetric. A formula that
-   isn't symmetric where the setup is has a bug.
-7. **Cross-check the number.** Confirm the leading term numerically against the known case to
-   `config.sig_figs`, and sanity-check the correction's magnitude against an order-of-magnitude
-   estimate (see [order-of-magnitude-estimation](../order-of-magnitude-estimation/SKILL.md)).
+1. **Identify the dimensionless parameter.** A limit is only meaningful in a *dimensionless* ratio — $\beta=v/c$, $\hbar\omega/kT$, coupling $g$, $r_s/r$, $1/N$. Find the small (or large) one; expanding in a dimensioned quantity is meaningless (defer to `dimensional-analysis`).
+2. **Take the limit explicitly, Taylor-expand.** Write the result as a series in the small parameter $\epsilon$: $f(\epsilon)=f_0+f_1\epsilon+f_2\epsilon^2+\dots$ The leading term $f_0$ must be the known result; the next term is your leading correction, and its sign and size are themselves checkable.
+3. **Confirm the canonical recoveries.** Non-relativistic $v\ll c$ (or $c\to\infty$) → Newtonian mechanics; classical $\hbar\to0$ or large quantum number $n$ → correspondence principle (Ehrenfest: $\langle\text{operators}\rangle$ obey classical equations); weak-field / linearized gravity → Newtonian gravity; thermodynamic $N\to\infty$; high- and low-$T$; weak/strong coupling.
+4. **Dominant balance.** In an equation with several terms, ask which survive as $\epsilon\to0$. The balance that holds (e.g. inertia vs. drag, kinetic vs. potential) fixes the regime and the leading behavior; discarded terms define the correction. Respect `config.units` — under `natural`, $\hbar=c=1$ and the limits are taken in the surviving ratios.
+5. **Match asymptotics when a naive expansion is singular.** If setting $\epsilon=0$ drops the highest derivative or blows a term up, the expansion is singular: solve an inner (boundary-layer) and outer solution separately and match them in the overlap. A uniformly-naive Taylor series there is wrong.
+6. **Use symmetry limits as free extra checks.** Equal masses, identical particles, coincident charges, or a vanishing asymmetry must leave the result invariant or symmetric. A formula that isn't symmetric where the setup is has a bug.
+7. **Cross-check the number.** Confirm the leading term numerically against the known case to `config.sig_figs`, and sanity-check the correction's magnitude against an order-of-magnitude estimate (see [order-of-magnitude-estimation](../order-of-magnitude-estimation/SKILL.md)).
 
 ## The rigor standard
 
-- **Every derived formula has at least one explicit limit check** — the parameter named, the
-  limit taken, the known result recovered. This holds under both `pure` and `applied`.
-- **Both ends of a two-sided crossover are checked** (e.g. a spectrum at high *and* low
-  $h\nu/kT$), not just the convenient one.
-- **The leading correction is reported, not just the leading term** — its sign and scaling are
-  part of the check.
+- **Every derived formula has at least one explicit limit check** — the parameter named, the limit taken, the known result recovered. This holds under both `pure` and `applied`.
+- **Both ends of a two-sided crossover are checked** (e.g. a spectrum at high *and* low $h\nu/kT$), not just the convenient one.
+- **The leading correction is reported, not just the leading term** — its sign and scaling are part of the check.
 - **A singular limit is flagged as singular** and handled by matching, never by a naive series.
 - **A failed limit voids the result**; it is corrected or withdrawn, not excused.
 
@@ -63,13 +39,7 @@ weak-field metric g₀₀           GM/rc² ≪ 1                  Newtonian −
 two-body force, m₁=m₂           mass asymmetry → 0          symmetric under 1↔2               ✓
 ```
 
-Ship only when every derived formula has a passing row and no row is left unresolved. Under
-`applied` this ledger is mandatory alongside `dimensional-analysis`; under `pure` it backs the
-argument built with `mathematical-rigor`. See also
-[model-building-and-approximation](../model-building-and-approximation/SKILL.md) for choosing
-the regime, [special-and-general-relativity](../special-and-general-relativity/SKILL.md) and
-[quantum-mechanics](../quantum-mechanics/SKILL.md) for the relativistic and classical limits;
-expand series with the configured CAS (`config.cas`: sympy|sage|none).
+Ship only when every derived formula has a passing row and no row is left unresolved. Under `applied` this ledger is mandatory alongside `dimensional-analysis`; under `pure` it backs the argument built with `mathematical-rigor`. See also [model-building-and-approximation](../model-building-and-approximation/SKILL.md) for choosing the regime, [special-and-general-relativity](../special-and-general-relativity/SKILL.md) and [quantum-mechanics](../quantum-mechanics/SKILL.md) for the relativistic and classical limits; expand series with the configured CAS (`config.cas`: sympy|sage|none).
 
 ## Anti-patterns
 

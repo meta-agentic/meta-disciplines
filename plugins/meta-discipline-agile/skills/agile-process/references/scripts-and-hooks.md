@@ -1,15 +1,8 @@
 # Scripts & hooks catalog
 
-Every script and hook that automates the process, with what it enforces and how to
-bypass it. Hooks are wired in `.claude/settings.json` → version-controlled
-`.claude/hooks/*.sh` (manage with `/update-config` or `/hooks`). They make the gates
-**deterministic** instead of relying on an agent to remember them.
+Every script and hook that automates the process, with what it enforces and how to bypass it. Hooks are wired in `.claude/settings.json` → version-controlled `.claude/hooks/*.sh` (manage with `/update-config` or `/hooks`). They make the gates **deterministic** instead of relying on an agent to remember them.
 
-> **`backlog-layout: per-item` instances:** if you migrated off a `monolith` mirror +
-> external-tracker reconcile script, retire that script and its guard hooks rather
-> than porting them — a per-item mirror has nothing left to reconcile against. Keep
-> the retired copies somewhere for traceability (an instance memory path, not deleted
-> outright) and don't re-wire them. What typically replaces each is noted inline below.
+> **`backlog-layout: per-item` instances:** if you migrated off a `monolith` mirror + external-tracker reconcile script, retire that script and its guard hooks rather than porting them — a per-item mirror has nothing left to reconcile against. Keep the retired copies somewhere for traceability (an instance memory path, not deleted outright) and don't re-wire them. What typically replaces each is noted inline below.
 
 ## Scripts
 
@@ -18,10 +11,7 @@ bypass it. Hooks are wired in `.claude/settings.json` → version-controlled
 | `<tooling>` (path declared in your `.packs.yaml`) | The backlog CLI — `query · transition · sprint · id · validate · export` (or your own equivalents) over the per-item mirror. Replaces any external-tracker reconcile script and the monolith-file edit path outright — there's no second side left to sync. Full reference in `backlog-and-reconciliation.md`. | Writes on `transition`/`sprint open|close`; `query`/`validate`/`export`/`id` are read-only or additive-only. |
 | A schema-gate script in `<mirror-repo>` | Required fields (`id`, `kind`, `status`, `title`), `status` valid **and** matching its tier folder, `id` matches the space's id policy + filename convention, no duplicate ids, no allocator-counter collision. Worth running both standalone (called by `<tooling> validate`) and as the mirror repo's own pre-commit hook. | Read-only check; exits non-zero on any schema violation. |
 
-A ghost-sprint pruner and a board-sync script (Miro/Jira-board-style) are common in a
-`monolith` + external-tracker setup; neither has an obvious `per-item` equivalent —
-ghost sprints are a tracker-API artifact that doesn't exist once the tracker is frozen,
-and a board view would need to read the mirror directly if you still want one.
+A ghost-sprint pruner and a board-sync script (Miro/Jira-board-style) are common in a `monolith` + external-tracker setup; neither has an obvious `per-item` equivalent — ghost sprints are a tracker-API artifact that doesn't exist once the tracker is frozen, and a board view would need to read the mirror directly if you still want one.
 
 ## Hooks
 
@@ -35,17 +25,9 @@ and a board view would need to read the mirror directly if you still want one.
 | `provision-jdk.sh` | SessionStart | Auto-provisions the toolchain (e.g. a specific JDK) in the remote/web env so it matches. | — |
 | `session-start.sh` | SessionStart | Prints a toolchain/readiness summary (build command, backlog source-of-truth) into context. | — |
 
-> Two inline (non-file) PreToolUse hooks in `settings.json` also enforce the
-> **graphify-first** rule: before `grep`/`find`/raw file reads when
-> `graphify-out/graph.json` exists, run `graphify query` first.
+> Two inline (non-file) PreToolUse hooks in `settings.json` also enforce the **graphify-first** rule: before `grep`/`find`/raw file reads when `graphify-out/graph.json` exists, run `graphify query` first.
 
-> The Story→Epic progress cascade (when a Story goes `IN PROGRESS`, its parent Epic
-> should too) is an agent responsibility documented in `ceremonies.md` → *Status
-> transitions*, not a hook — the agent runs both `<tooling> transition` calls itself.
+> The Story→Epic progress cascade (when a Story goes `IN PROGRESS`, its parent Epic should too) is an agent responsibility documented in `ceremonies.md` → *Status transitions*, not a hook — the agent runs both `<tooling> transition` calls itself.
 
 ## Known gap
-Sprint closure is PO-only **by convention** in most instances, not by a mechanical
-gate — a `monolith` setup may have had a hook blocking any command that flips a
-sprint to `CLOSED`; a fresh `per-item` instance often has no equivalent yet, so
-`<tooling> sprint close` runs for whoever calls it. If this needs re-enforcing, it's a
-new `PreToolUse·Bash` hook matching your sprint-close command.
+Sprint closure is PO-only **by convention** in most instances, not by a mechanical gate — a `monolith` setup may have had a hook blocking any command that flips a sprint to `CLOSED`; a fresh `per-item` instance often has no equivalent yet, so `<tooling> sprint close` runs for whoever calls it. If this needs re-enforcing, it's a new `PreToolUse·Bash` hook matching your sprint-close command.

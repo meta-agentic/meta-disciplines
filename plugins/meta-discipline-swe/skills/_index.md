@@ -4,16 +4,9 @@ tags: [os, skills, pack, meta-discipline-swe]
 ---
 # meta-discipline-swe pack — skills
 
-Each skill is an *executable discipline*: a method + a standard of rigor + a checkable
-artifact. This pack codifies software engineering as **judgment**, not process — what
-"done right" means and how to check it — and is deliberately narrow: it owns the questions
-the coding-born skill collections leave unanswered rather than restating the ones they
-already cover. Process, ceremonies and delivery cadence belong to the agile pack.
+Each skill is an *executable discipline*: a method + a standard of rigor + a checkable artifact. This pack codifies software engineering as **judgment**, not process — what "done right" means and how to check it — and is deliberately narrow: it owns the questions the coding-born skill collections leave unanswered rather than restating the ones they already cover. Process, ceremonies and delivery cadence belong to the agile pack.
 
-Skills activate on mount, as in the sibling discipline packs, with **one exception**:
-`constrained-generation` stays gated behind a config switch that defaults to `off`,
-because building a language carries a real, compounding cost. Gating is decided per
-skill — a skill is gated only when adopting it unprompted would be a liability.
+Skills activate on mount, as in the sibling discipline packs, with **one exception**: `constrained-generation` stays gated behind a config switch that defaults to `off`, because building a language carries a real, compounding cost. Gating is decided per skill — a skill is gated only when adopting it unprompted would be a liability.
 
 | Skill | Discipline | Switch (default) | Checkable output |
 |-------|------------|------------------|------------------|
@@ -30,12 +23,9 @@ Config knobs in `pack.yaml`; no profiles (see the note there). See `README.md`.
 
 ## Scope boundaries
 
-The pack owns **design-altitude judgment** and **generation reliability**. Where the
-`mattpocock` or `superpowers` packs are mounted, defer rather than restate:
+The pack owns **design-altitude judgment** and **generation reliability**. Where the `mattpocock` or `superpowers` packs are mounted, defer rather than restate:
 
-- `code-review` judges the code written; `design-review` judges the shape proposed. Line
-  and naming defects go to the former.
+- `code-review` judges the code written; `design-review` judges the shape proposed. Line and naming defects go to the former.
 - `tdd` / `diagnosing-bugs` are theirs. This pack cites them.
-- `domain-modeling` is theirs; `design-review` consumes the model and reviews the
-  structure around it.
+- `domain-modeling` is theirs; `design-review` consumes the model and reviews the structure around it.
 - Sprint process, ceremonies, and delivery cadence are the agile pack's.

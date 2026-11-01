@@ -1,25 +1,14 @@
 # meta-discipline-physics
 
-A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the
-**physics discipline** — not a pile of physics facts, but a *method + a standard of rigor*
-that turns an agent into a competent physical reasoner (per `meta-os/systems/pack-strategy.md`,
-the *Quantitative rigor* wedge). Companion to the [`meta-discipline-math`](../meta-discipline-math)
-pack, whose `dimensional-analysis` it reuses.
+A first-party [meta-os](https://github.com/meta-agentic/meta-os) **skill pack** codifying the **physics discipline** — not a pile of physics facts, but a *method + a standard of rigor* that turns an agent into a competent physical reasoner (per `meta-os/systems/pack-strategy.md`, the *Quantitative rigor* wedge). Companion to the [`meta-discipline-math`](../meta-discipline-math) pack, whose `dimensional-analysis` it reuses.
 
-> A pack = a codified discipline: a repeatable **method** + a **standard of rigor** +
-> **portability** across estates.
+> A pack = a codified discipline: a repeatable **method** + a **standard of rigor** + **portability** across estates.
 
-Coverage is anchored on the **MIT OpenCourseWare Course 8 (Physics)** curriculum — used
-purely as a *map of which areas of physics to cover*. No OCW or third-party course text,
-figures, or problem sets are copied or vendored; every skill is original prose over standard
-physics.
+Coverage is anchored on the **MIT OpenCourseWare Course 8 (Physics)** curriculum — used purely as a *map of which areas of physics to cover*. No OCW or third-party course text, figures, or problem sets are copied or vendored; every skill is original prose over standard physics.
 
 ## Skills
 
-Five **method-spine** skills (cross-cutting physical reasoning) + six **branch** skills
-(coverage anchored on MIT OCW Course 8) + five **advanced / high-energy** skills (coverage
-anchored on the PDG *Review of Particle Physics* and the CERN Yellow Reports / Accelerator
-School).
+Five **method-spine** skills (cross-cutting physical reasoning) + six **branch** skills (coverage anchored on MIT OCW Course 8) + five **advanced / high-energy** skills (coverage anchored on the PDG *Review of Particle Physics* and the CERN Yellow Reports / Accelerator School).
 
 | Skill | Discipline it codifies | Checkable output |
 |-------|------------------------|------------------|
@@ -47,18 +36,13 @@ School).
 
 ## The three-part test (why this is a pack)
 
-1. **Recognizable** — a working physicist would call it "how we actually work" (find the
-   symmetry, check the limit, estimate the scale, build the model, verify against data).
-2. **Portable** — parameterized by `pack.yaml` config (units, notation, CAS, sig-figs,
-   profile); welded to no single estate.
-3. **Checkable** — every skill produces an output verifiable against the discipline's own
-   standard (a conserved quantity is conserved; a limit recovers the known case; units balance).
+1. **Recognizable** — a working physicist would call it "how we actually work" (find the symmetry, check the limit, estimate the scale, build the model, verify against data).
+2. **Portable** — parameterized by `pack.yaml` config (units, notation, CAS, sig-figs, profile); welded to no single estate.
+3. **Checkable** — every skill produces an output verifiable against the discipline's own standard (a conserved quantity is conserved; a limit recovers the known case; units balance).
 
 ## Configure
 
-Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see
-`config.example.yaml`). Also add the `meta-discipline-math` pack — physics reuses its
-`dimensional-analysis`. Skills read config-first and fall back to documented defaults.
+Set the pack's knobs in the instance's `.packs.yaml` `config:` block (see `config.example.yaml`). Also add the `meta-discipline-math` pack — physics reuses its `dimensional-analysis`. Skills read config-first and fall back to documented defaults.
 
 ```yaml
 packs:
@@ -72,8 +56,7 @@ packs:
       sig_figs: 3
 ```
 
-Profiles (`profiles/*.md`) are named rigor bundles: **pure** (first-principles/derivation)
-vs **applied** (computation + sanity-checking emphasis).
+Profiles (`profiles/*.md`) are named rigor bundles: **pure** (first-principles/derivation) vs **applied** (computation + sanity-checking emphasis).
 
 ## Install in Claude
 
@@ -88,6 +71,4 @@ In a meta-os instance, declare the pack in `.packs.yaml` with `install: plugin` 
 
 ## Provenance & license
 
-First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction:
-no instance data. Coverage anchored on the MIT OCW Course 8 taxonomy as a breadth map only;
-no third-party content vendored.
+First-party. MIT — see `LICENSE` and `PROVENANCE.md`. Public-safe by construction: no instance data. Coverage anchored on the MIT OCW Course 8 taxonomy as a breadth map only; no third-party content vendored.

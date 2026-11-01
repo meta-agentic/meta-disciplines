@@ -4,23 +4,16 @@ tags: [pack, meta-discipline-agents, profile, autonomy]
 ---
 # Profile — autonomous
 
-**The loop runs to its termination condition without a human in the path.** Reserved for
-narrow, well-understood workflows with a machine-checkable definition of done — nightly
-suite runs, routine dependency updates, scheduled report generation, bounded refactors.
+**The loop runs to its termination condition without a human in the path.** Reserved for narrow, well-understood workflows with a machine-checkable definition of done — nightly suite runs, routine dependency updates, scheduled report generation, bounded refactors.
 
 This profile is *earned*, not chosen. The prerequisites are not advisory:
 
-1. An eval suite that covers the failure modes, gating deploys in CI —
-   [agent-evaluation](../skills/agent-evaluation/SKILL.md).
-2. A termination condition a shell script can decide with no judgment call —
-   [loop-engineering](../skills/loop-engineering/SKILL.md).
-3. Deterministic enforcement in the harness, not the prompt —
-   [agent-harness](../skills/agent-harness/SKILL.md).
+1. An eval suite that covers the failure modes, gating deploys in CI — [agent-evaluation](../skills/agent-evaluation/SKILL.md).
+2. A termination condition a shell script can decide with no judgment call — [loop-engineering](../skills/loop-engineering/SKILL.md).
+3. Deterministic enforcement in the harness, not the prompt — [agent-harness](../skills/agent-harness/SKILL.md).
 4. A sandbox (`microvm`, or `container` at minimum) for anything that executes code.
-5. A configured `escalation` target. A loop with nowhere to page does not escalate; it
-   stalls silently, which is the expensive failure.
-6. Least-privilege tool scoping and an audit log of every invocation —
-   [agent-safety](../skills/agent-safety/SKILL.md).
+5. A configured `escalation` target. A loop with nowhere to page does not escalate; it stalls silently, which is the expensive failure.
+6. Least-privilege tool scoping and an audit log of every invocation — [agent-safety](../skills/agent-safety/SKILL.md).
 
 ## What this profile sets
 
@@ -34,7 +27,4 @@ This profile is *earned*, not chosen. The prerequisites are not advisory:
 
 ## The honest framing
 
-Running unattended is not a statement about the agent's competence. It is a statement about
-the harness's coverage: you are asserting that everything the agent could do wrong is
-either impossible, caught by verification, or bounded by budget. Autonomy is what the
-harness *buys you*, and you do not get to claim it without having paid.
+Running unattended is not a statement about the agent's competence. It is a statement about the harness's coverage: you are asserting that everything the agent could do wrong is either impossible, caught by verification, or bounded by budget. Autonomy is what the harness *buys you*, and you do not get to claim it without having paid.

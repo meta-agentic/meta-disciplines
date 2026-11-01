@@ -5,21 +5,14 @@ description: "Use when writing, restructuring, debugging, or reviewing an agent'
 
 # Agent prompting — the prompt as versioned code
 
-A chat prompt is a conversation. An agent's system prompt is the operating instruction for
-an autonomous process, and it fails the way software fails: silently, in production, in a
-branch nobody tested. The work here is not better prose — it is giving the prompt a
-structure that can be diffed, a persona that has been measured, and a test suite that fails
-the build.
+A chat prompt is a conversation. An agent's system prompt is the operating instruction for an autonomous process, and it fails the way software fails: silently, in production, in a branch nobody tested. The work here is not better prose — it is giving the prompt a structure that can be diffed, a persona that has been measured, and a test suite that fails the build.
 
-It sits between two neighbours. The shape decision settles what the agent *is*; this settles
-what it is *told*; and any rule that has to hold rather than merely persuade gets handed on
-to the harness, where it becomes code.
+It sits between two neighbours. The shape decision settles what the agent *is*; this settles what it is *told*; and any rule that has to hold rather than merely persuade gets handed on to the harness, where it becomes code.
 ## Method
 
 ### 1. Stack the four layers, in order
 
-Keeping them separate is what makes a failure diagnosable — when identity, rules, runtime
-data and output format are one block, you cannot tell which rotted.
+Keeping them separate is what makes a failure diagnosable — when identity, rules, runtime data and output format are one block, you cannot tell which rotted.
 
 | Layer | Answers | Contains | Fails as |
 |---|---|---|---|
@@ -30,27 +23,15 @@ data and output format are one block, you cannot tell which rotted.
 
 ### 2. Assemble, don't concatenate
 
-Layers 1, 2 and 4 are static and versioned; layer 3 is built per request. A single builder
-function composing them in fixed order is the difference between a prompt you can test and a
-string you can only observe.
+Layers 1, 2 and 4 are static and versioned; layer 3 is built per request. A single builder function composing them in fixed order is the difference between a prompt you can test and a string you can only observe.
 
-Past roughly 800 tokens, structure stops being optional: long unstructured prose gets
-treated as tone, while numbered rules and explicit do/don't lists get treated as a contract.
-If instructions have grown past a few thousand tokens, that is not a prompting problem — move
-procedures into [agent-skills](../agent-skills/SKILL.md).
+Past roughly 800 tokens, structure stops being optional: long unstructured prose gets treated as tone, while numbered rules and explicit do/don't lists get treated as a contract. If instructions have grown past a few thousand tokens, that is not a prompting problem — move procedures into [agent-skills](../agent-skills/SKILL.md).
 
 ### 3. Choose the persona by measurement
 
-Role assignment moves real behavior: reasoning depth, willingness to commit, hedging,
-verbosity and hallucination rate all shift with it. Because the difference is measurable,
-the choice belongs in the eval suite, not in a kickoff meeting. Run variants against the
-same cases and score quality, tool-call efficiency and hallucination rate *together* — the
-intuitive favourite frequently loses, because a persona that produces confident, fluent
-output produces more unsupported claims with it.
+Role assignment moves real behavior: reasoning depth, willingness to commit, hedging, verbosity and hallucination rate all shift with it. Because the difference is measurable, the choice belongs in the eval suite, not in a kickoff meeting. Run variants against the same cases and score quality, tool-call efficiency and hallucination rate *together* — the intuitive favourite frequently loses, because a persona that produces confident, fluent output produces more unsupported claims with it.
 
-Where the output shape is complex, or the model repeats one specific mistake, use two or
-three worked examples instead of another paragraph. Prose explains *why* a rule exists;
-examples specify *what the result looks like*.
+Where the output shape is complex, or the model repeats one specific mistake, use two or three worked examples instead of another paragraph. Prose explains *why* a rule exists; examples specify *what the result looks like*.
 
 ### 4. Match the reasoning budget to the task
 
@@ -61,51 +42,31 @@ examples specify *what the result looks like*.
 | Summarizing, drafting, formatting | Low | Extra deliberation mostly adds hedging |
 | Classification, routing, extraction | Off | Latency is the product; there is nothing to deliberate |
 
-**Maximum effort is not maximum quality.** Past the task's actual difficulty, more
-deliberation makes a model second-guess correct conclusions. Verify the budget against the
-eval suite like any other parameter.
+**Maximum effort is not maximum quality.** Past the task's actual difficulty, more deliberation makes a model second-guess correct conclusions. Verify the budget against the eval suite like any other parameter.
 
 ### 5. Version it and gate it
 
-Version the prompt with the code that uses it — a version string and changelog in the file,
-so a running agent can report which prompt it is on. Every change gets a regression run
-before it ships, asserting on behavior rather than prose: which tools must be called, which
-keywords must appear, which must *not*, the maximum tool-call count, and whether an
-out-of-scope request is refused. Gate on `eval-pass-rate` and `eval-hallucination-rate`; the
-harness for that is [agent-evaluation](../agent-evaluation/SKILL.md).
+Version the prompt with the code that uses it — a version string and changelog in the file, so a running agent can report which prompt it is on. Every change gets a regression run before it ships, asserting on behavior rather than prose: which tools must be called, which keywords must appear, which must *not*, the maximum tool-call count, and whether an out-of-scope request is refused. Gate on `eval-pass-rate` and `eval-hallucination-rate`; the harness for that is [agent-evaluation](../agent-evaluation/SKILL.md).
 
-Test the unhappy path. A suite where every case is well-formed and similarly phrased passes
-at 100% and tells you nothing.
+Test the unhappy path. A suite where every case is well-formed and similarly phrased passes at 100% and tells you nothing.
 
 ### 6. Move safety-critical rules out
 
-A rule in the prompt is probabilistic; a rule in code is deterministic. Path validation,
-tool allowlists, spend ceilings and mandatory verification do not belong in layer 2 at all.
-The signal is unmistakable: if you find yourself strengthening wording — adding capitals,
-adding "ALWAYS", adding "you MUST" — the rule is in the wrong layer of the system.
+A rule in the prompt is probabilistic; a rule in code is deterministic. Path validation, tool allowlists, spend ceilings and mandatory verification do not belong in layer 2 at all. The signal is unmistakable: if you find yourself strengthening wording — adding capitals, adding "ALWAYS", adding "you MUST" — the rule is in the wrong layer of the system.
 
 ## The rigor standard
 
-- **Four layers, kept separate.** A prompt that mixes them cannot have a failure attributed
-  to a layer, which means it cannot be debugged, only rewritten.
-- **No unversioned change reaches production.** A prompt without a version and changelog is
-  a behavior surface nobody can attribute an incident to.
-- **Every change runs regression before it ships**, and a regression is read as a blocker,
-  not as noise.
-- **Safety-critical rules live in the harness.** Instruction is persuasion; code is
-  enforcement. Anything that must hold under adversarial pressure holds in code or not at
-  all.
-- **Persona is chosen against a measured alternative.** An unmeasured persona is a taste
-  claim wearing an engineering claim's clothes.
-- **The reasoning budget is per task class**, never a global default, and never assumed
-  monotonic in quality.
-- **Context injection is bounded.** A full transcript pasted into layer 3 is a retrieval
-  step that was skipped.
+- **Four layers, kept separate.** A prompt that mixes them cannot have a failure attributed to a layer, which means it cannot be debugged, only rewritten.
+- **No unversioned change reaches production.** A prompt without a version and changelog is a behavior surface nobody can attribute an incident to.
+- **Every change runs regression before it ships**, and a regression is read as a blocker, not as noise.
+- **Safety-critical rules live in the harness.** Instruction is persuasion; code is enforcement. Anything that must hold under adversarial pressure holds in code or not at all.
+- **Persona is chosen against a measured alternative.** An unmeasured persona is a taste claim wearing an engineering claim's clothes.
+- **The reasoning budget is per task class**, never a global default, and never assumed monotonic in quality.
+- **Context injection is bounded.** A full transcript pasted into layer 3 is a retrieval step that was skipped.
 
 ## Checkable output
 
-A prompt change ships a **prompt version record**, kept beside the prompt and updated in the
-same commit:
+A prompt change ships a **prompt version record**, kept beside the prompt and updated in the same commit:
 
 ```markdown
 # Prompt version record — atlas-triage
@@ -121,30 +82,21 @@ same commit:
   $50" in layer 2, now enforced in the tool)
 ```
 
-The record fails review when the regression line is missing, when a persona change carries
-no measurement, or when the reason names a preference rather than an observed failure.
+The record fails review when the regression line is missing, when a persona change carries no measurement, or when the reason names a preference rather than an observed failure.
 
 ## Anti-patterns
 
-- **Escalating the wording instead of moving the rule.** Each capital letter added to a
-  safety instruction is evidence the instruction cannot carry the weight.
-- **The 5,000-token system prompt.** Every rule was reasonable when added; the aggregate is
-  a document in which step two gets skipped because it sits on line 400.
-- **Editing the prompt to fix one production case**, shipping it without a regression, and
-  resurrecting a bug fixed two months ago.
-- **A suite of happy-path cases.** It measures how well you imagine your users, not how the
-  agent behaves.
-- **Persona chosen for tone.** The fluent, confident voice usually costs accuracy, and the
-  cost is invisible until it is measured.
-- **Maxing the reasoning budget on everything** because more thinking sounds better —
-  paying latency and tokens to make a model hedge on a question it had right.
-- **Pasting the whole conversation into layer 3** and calling it memory. That is
-  [agent-harness](../agent-harness/SKILL.md)'s job, and it involves forgetting.
+- **Escalating the wording instead of moving the rule.** Each capital letter added to a safety instruction is evidence the instruction cannot carry the weight.
+- **The 5,000-token system prompt.** Every rule was reasonable when added; the aggregate is a document in which step two gets skipped because it sits on line 400.
+- **Editing the prompt to fix one production case**, shipping it without a regression, and resurrecting a bug fixed two months ago.
+- **A suite of happy-path cases.** It measures how well you imagine your users, not how the agent behaves.
+- **Persona chosen for tone.** The fluent, confident voice usually costs accuracy, and the cost is invisible until it is measured.
+- **Maxing the reasoning budget on everything** because more thinking sounds better — paying latency and tokens to make a model hedge on a question it had right.
+- **Pasting the whole conversation into layer 3** and calling it memory. That is [agent-harness](../agent-harness/SKILL.md)'s job, and it involves forgetting.
 
 ## Configure
 
-Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these
-fallbacks:
+Reads `packs.meta-discipline-agents.config` (`scripts/packs.sh config meta-discipline-agents`), config-first with these fallbacks:
 
 | Key | Meaning | Default |
 |-----|---------|---------|
@@ -152,16 +104,10 @@ fallbacks:
 | `eval-hallucination-rate` | Maximum tolerated hallucination rate for the same gate | `0.05` |
 | `trace-home` | Where regression output and version records are written | — |
 
-Under `autonomy: autonomous` a prompt change is a self-modification of an unattended system:
-it carries the same review requirement as any other, per `profiles/autonomous.md`.
+Under `autonomy: autonomous` a prompt change is a self-modification of an unattended system: it carries the same review requirement as any other, per `profiles/autonomous.md`.
 
 ## Related
 
-[agent-harness](../agent-harness/SKILL.md) — receives every rule that must be enforced
-rather than instructed. [agent-skills](../agent-skills/SKILL.md) — where instructions go
-once the prompt outgrows them. [agent-evaluation](../agent-evaluation/SKILL.md) — owns the
-suite this skill's regression step runs against.
+[agent-harness](../agent-harness/SKILL.md) — receives every rule that must be enforced rather than instructed. [agent-skills](../agent-skills/SKILL.md) — where instructions go once the prompt outgrows them. [agent-evaluation](../agent-evaluation/SKILL.md) — owns the suite this skill's regression step runs against.
 
-*Grounding:* the four-layer architecture and prompt-regression discipline from *Building AI
-Agents: From Design Patterns to Production* (Gulli); advanced prompting techniques from
-*Agentic Design Patterns* (Springer 2025). Concepts only — see `PROVENANCE.md`.
+*Grounding:* the four-layer architecture and prompt-regression discipline from *Building AI Agents: From Design Patterns to Production* (Gulli); advanced prompting techniques from *Agentic Design Patterns* (Springer 2025). Concepts only — see `PROVENANCE.md`.

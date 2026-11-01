@@ -5,10 +5,7 @@ tags: [pack/meta-discipline-agile, profile]
 ---
 # Profile: scrum (default)
 
-The full Scrum harness — sprints, ceremonies, a backlog of record. This is the
-methodology the pack's skills document in detail; the profile just names it and pins its
-parameters. [agile-process](../skills/agile-process/SKILL.md) and
-[agile-swarm](../skills/agile-swarm/SKILL.md) are the procedures.
+The full Scrum harness — sprints, ceremonies, a backlog of record. This is the methodology the pack's skills document in detail; the profile just names it and pins its parameters. [agile-process](../skills/agile-process/SKILL.md) and [agile-swarm](../skills/agile-swarm/SKILL.md) are the procedures.
 
 ## Parameters (from `packs.meta-discipline-agile.config`)
 
@@ -22,16 +19,9 @@ parameters. [agile-process](../skills/agile-process/SKILL.md) and
 
 ## Conventions this profile asserts
 
-- **Authority order — resolved per space, not globally:** `tracker` → the `mirror-repo`
-  mirror → the pack's skills → CLAUDE.md invariants. On any state conflict the tracker
-  wins. Under `tracker: local` there is no external tracker, so the mirror is itself the
-  top authority; under `backlog-layout: per-item` the mirror repo is the **sole
-  authority** for every space it carries and `<tooling>` is its only writer. Every key in
-  `spaces` resolves this order independently — one space may be tracker-backed while
-  another is mirror-native.
+- **Authority order — resolved per space, not globally:** `tracker` → the `mirror-repo` mirror → the pack's skills → CLAUDE.md invariants. On any state conflict the tracker wins. Under `tracker: local` there is no external tracker, so the mirror is itself the top authority; under `backlog-layout: per-item` the mirror repo is the **sole authority** for every space it carries and `<tooling>` is its only writer. Every key in `spaces` resolves this order independently — one space may be tracker-backed while another is mirror-native.
 - **Flow:** timeboxed sprints; stories move to-do → in-progress → in-review → done.
-- **Discipline gates:** one-story-one-branch, foreground clean-verify, review + security
-  before PR, PO-owned merges and sprint close.
+- **Discipline gates:** one-story-one-branch, foreground clean-verify, review + security before PR, PO-owned merges and sprint close.
 - **Cadence:** planning at sprint open, daily standup/retro, retro + close at sprint end.
 
 Override any of these per instance — see "Overrides" in the README.
