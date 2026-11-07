@@ -11,6 +11,8 @@ STORIES (own branch + PR each, in priority order):
 1. **<first-key>** (<priority>, <points> SP, about <expected-lines> lines) — <one-line goal + the acceptance criteria that matter>.
 2. **<second-key>** (<points> SP, about <expected-lines> lines) — <…>. (Lead story already transitioned to In-Progress by the orchestrator; you transition the rest as you start them.)
 
+CLAIM FIRST: before writing, claim each story through the tracker's tooling under your own lead name, for example `<tooling> claim <key> --session <lead-name>`, if the tooling has a claim command. If the claim is refused, another session holds it: stop and report, and do not work around it.
+
 CONVENTIONS (read the repo's CLAUDE.md + relevant ADRs first): <architecture pattern, logging convention, typed-quantities/units rule, multi-tenancy/security rule, the project's validation approach, etc.>.
 
 GUARDRAILS:
