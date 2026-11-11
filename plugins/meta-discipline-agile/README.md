@@ -55,6 +55,7 @@ The method lives in the pack; your choices live in your instance. Copy the block
 | `estimation-consensus` | `median` (per axis) \| `strict` (unanimous quadrant) | `median` |
 | `estimation-repoint-threshold` | per-axis range that triggers a repoint (span is 2.0) | `1.0` |
 | `lane-guard` | the sourceable script lanes run builds through: hard timeout, disk floor with whole-tree kill, no-Docker mode | — |
+| `cost-command` | the command that prints a lane's `Cost:` line for its item from the session transcripts: tokens, model, share of the weekly meter, or not measured and why | — |
 | `engines-enabled` | opt-in agile-swarm engine plugin: hand review / low-intension implementation to worker engines while the lead keeps the lane | `false` |
 | `engines-bin`, `engines-lead`, `engines-workers` | the multiplexer binary, the one engine that owns lanes, and the ordered worker map (`plan`, `roles`) | `meta`, `claude`, — |
 
