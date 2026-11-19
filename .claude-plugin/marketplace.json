@@ -1,6 +1,6 @@
 {
   "name": "meta-agentic",
-  "description": "Discipline packs for Claude: each one a method, a standard of rigor and a checkable ledger for a field — agents, agile delivery, mathematics, physics, software engineering.",
+  "description": "Discipline packs for Claude: each one a method, a standard of rigor and a checkable ledger for a field — agents, agile delivery, mathematics, physics, software engineering — and meta-os, the agentic operating layer built on them.",
   "owner": {
     "name": "meta-agentic",
     "url": "https://meta-agentic.ai"
@@ -30,6 +30,17 @@
       "name": "meta-discipline-swe",
       "source": "./plugins/meta-discipline-swe",
       "category": "discipline"
+    },
+    {
+      "name": "meta-os",
+      "description": "meta-os, an agentic operating layer for Claude Code and Obsidian. Preview.",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/meta-agentic/meta-os-plugin.git",
+        "path": "plugin",
+        "ref": "meta-os--v0.2.0"
+      },
+      "category": "framework"
     }
   ]
 }
