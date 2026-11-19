@@ -1,5 +1,7 @@
 # meta-disciplines
 
+[![CI](https://github.com/meta-agentic/meta-disciplines/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/meta-agentic/meta-disciplines/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 The **meta-discipline** skill packs, and the **`meta-agentic` plugin marketplace** that publishes them for Claude.
 
 A discipline is not a pile of facts about a field. Each pack codifies how a competent practitioner actually works: a repeatable **method**, a **standard of rigor**, and a **checkable artifact** — every skill ends on a ledger a reviewer can audit.
