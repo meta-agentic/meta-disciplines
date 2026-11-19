@@ -9,7 +9,10 @@ plugin's `version`, which a release bumps in `plugin.json` (and which this scrip
 Rules it enforces:
   * a plugin's name is its directory name (`meta-discipline-<x>`), and pack.yaml `name:`
     says the same — one name per pack, the repository's;
-  * every directory under plugins/ has a catalogue entry, and every entry a directory;
+  * every directory under plugins/ has a catalogue entry, and every local entry a directory;
+  * plugins that live in another repository are listed in `.claude-plugin/external-plugins.json`
+    (edited by hand, the source of truth for those entries) and copied after the packs; each has
+    a name, a source that is not a local path, and a category, and never a version;
   * description and licence come from pack.yaml; the directory listing links (documentation,
     support, privacy, terms) are fixed here; version lives only in plugin.json,
     never in the catalogue entry (Claude Code would silently prefer plugin.json);
@@ -32,6 +35,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 PLUGINS = ROOT / "plugins"
 CATALOGUE = ROOT / ".claude-plugin" / "marketplace.json"
+EXTERNAL = ROOT / ".claude-plugin" / "external-plugins.json"
 
 MARKETPLACE_NAME = "meta-agentic"
 HOMEPAGE = "https://meta-agentic.ai"
@@ -44,7 +48,8 @@ PRIVACY_URL = BLOB + "/PRIVACY.md"
 TERMS_URL = BLOB + "/LICENSE"
 CATALOGUE_DESCRIPTION = (
     "Discipline packs for Claude: each one a method, a standard of rigor and a checkable "
-    "ledger for a field — agents, agile delivery, mathematics, physics, software engineering."
+    "ledger for a field — agents, agile delivery, mathematics, physics, software engineering — "
+    "and meta-os, the agentic operating layer built on them."
 )
 INITIAL_VERSION = "1.0.0"
 PREFIX = "meta-discipline-"
@@ -87,7 +92,29 @@ def plugin_manifest(pack: Path, errors: list[str]) -> dict:
     }
 
 
-def catalogue(packs: list[Path]) -> dict:
+def external_entries(names: set[str], errors: list[str]) -> list[dict]:
+    """Plugins hosted in another repository, copied from the hand-kept list after the packs."""
+    if not EXTERNAL.is_file():
+        return []
+    entries = json.loads(EXTERNAL.read_text())
+    if not isinstance(entries, list):
+        errors.append(f"{EXTERNAL.relative_to(ROOT)}: must be a list of catalogue entries")
+        return []
+    for e in entries:
+        where = f"{EXTERNAL.relative_to(ROOT)}: {e.get('name', '?') if isinstance(e, dict) else e!r}"
+        if not isinstance(e, dict) or not e.get("name") or not e.get("category"):
+            errors.append(f"{where}: needs a name and a category")
+            continue
+        if not isinstance(e.get("source"), dict):
+            errors.append(f"{where}: the source must be another repository, not a local path")
+        if "version" in e:
+            errors.append(f"{where}: no version in a catalogue entry (the plugin's manifest has it)")
+        if e["name"] in names:
+            errors.append(f"{where}: the name is already a plugin directory here")
+    return entries
+
+
+def catalogue(packs: list[Path], external: list[dict]) -> dict:
     previous = json.loads(CATALOGUE.read_text()) if CATALOGUE.is_file() else {}
     doc = {
         "name": MARKETPLACE_NAME,
@@ -100,7 +127,7 @@ def catalogue(packs: list[Path]) -> dict:
                 "category": "discipline",
             }
             for p in packs
-        ],
+        ] + external,
     }
     if previous.get("renames"):
         doc["renames"] = previous["renames"]
@@ -117,7 +144,7 @@ def main() -> int:
     wanted: dict[Path, str] = {}
     for pack in packs:
         wanted[pack / ".claude-plugin" / "plugin.json"] = dump(plugin_manifest(pack, errors))
-    wanted[CATALOGUE] = dump(catalogue(packs))
+    wanted[CATALOGUE] = dump(catalogue(packs, external_entries({p.name for p in packs}, errors)))
 
     ci = ROOT / ".github" / "workflows" / "ci.yml"
     if ci.is_file():
@@ -145,7 +172,7 @@ def main() -> int:
         print(f"✗ {e}", file=sys.stderr)
     if errors:
         return 1
-    print(f"✓ {len(packs)} plugin manifests and the catalogue agree with pack.yaml")
+    print(f"✓ {len(packs)} plugin manifests and the catalogue agree with pack.yaml and the external list")
     return 0
 
 

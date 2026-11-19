@@ -1,0 +1,13 @@
+[
+  {
+    "name": "meta-os",
+    "description": "meta-os, an agentic operating layer for Claude Code and Obsidian. Preview.",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/meta-agentic/meta-os-plugin.git",
+      "path": "plugin",
+      "ref": "meta-os--v0.2.0"
+    },
+    "category": "framework"
+  }
+]

@@ -13,6 +13,7 @@ A discipline is not a pile of facts about a field. Each pack codifies how a comp
 | [`meta-discipline-math`](plugins/meta-discipline-math) | 17 | Mathematics: a rigor spine, nine branch disciplines, empirical statistics, scientific validation, graph drawing |
 | [`meta-discipline-physics`](plugins/meta-discipline-physics) | 16 | Physics: a method spine (symmetry, limits, estimation, modelling, error analysis) and the core branches |
 | [`meta-discipline-swe`](plugins/meta-discipline-swe) | 8 | Software engineering judgment: design review, trade-offs, test strategy, resilience, performance, decisions |
+| [`meta-os`](https://github.com/meta-agentic/meta-os-plugin) (preview, 0.2.0) | 5 | The agentic operating layer: an instance of your own files, `raw → wiki → output` memory, and `/meta-os:init` to set one up. Hosted in its own repository. |
 
 ## Install in Claude
 
@@ -37,6 +38,7 @@ These packs are also the first-party skill packs of [meta-os](https://github.com
 
 ```
 .claude-plugin/marketplace.json        the catalogue — generated
+.claude-plugin/external-plugins.json   plugins hosted in other repositories — edited by hand
 plugins/meta-discipline-<x>/
 ├── .claude-plugin/plugin.json         the plugin manifest — generated
 ├── pack.yaml                          the source of truth: name, description, config
