@@ -6,7 +6,7 @@
       "source": "git-subdir",
       "url": "https://github.com/meta-agentic/meta-os-plugin.git",
       "path": "plugin",
-      "ref": "meta-os--v0.2.0"
+      "ref": "release"
     },
     "category": "framework"
   }
